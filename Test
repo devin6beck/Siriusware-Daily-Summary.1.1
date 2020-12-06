@@ -1,0 +1,782 @@
+##Bring fusebox check and .2 together
+
+#Import pandas
+#Not sure what numpy as np is for. maybe delete
+#delete 2nd pandas?
+#delete first two openpyxl?
+
+import pandas as pd
+import numpy as np
+import pandas
+import openpyxl
+from openpyxl import load_workbook
+
+#inport date. Find a better format. ddmmyy is wanted for date added to saved file at end.
+from datetime import date
+from openpyxl import load_workbook
+
+#Open Daily Excel?
+
+wb = load_workbook(filename="/Users/DCB/Google Drive/Python/zBLANK - CHS.xlsx")
+sheet_ranges = wb['Adult SSS']
+
+#Today's Date
+
+today = date.today()
+
+#Pulling data field from Daily Summary CSV?
+
+df = pd.read_csv(
+    "/Users/DCB/Google Drive/Python/Daily Summary CSV.csv")
+
+# B2. Confirming description field? There has to be a short hand
+
+B2 = str(df.iat[0, 1])
+if "60-RETAIL - 43400-620" in B2:
+    retail = df.iat[0, 3]
+elif "50-RENTAL - 43100-600" in B2:
+    rental = df.iat[0, 3]
+elif "510-LIFT TICKETS - 40000-300" in B2:
+    tickets = df.iat[0, 3]
+elif "30-SS GRP SKI - 42000-533" in B2:
+    ski = df.iat[0, 3]
+elif "40-CHILDCARE - 42300-546" in B2:
+    childcare = df.iat[0, 3]
+elif "41-CC MEALS - 44000-716" in B2:
+    meals = df.iat[0, 3]
+elif "40-CC RENTAL - 43100-545" in B2:
+    ccrentals = df.iat[0, 3]
+elif "40-CC SKI - 42000-543" in B2:
+    ccski = df.iat[0, 3]
+elif "40-CC BOARD - 42005-544" in B2:
+    ccsbd = df.iat[0, 3]
+elif "30-SS GRP BOARD - 42005-535" in B2:
+    sbd = df.iat[0, 3]
+elif "GRT" in B2:
+   grt = df.iat[0, 3]
+elif "ACCOUNT PAYMENTS & CREDITS" in B2:
+   payments = df.iat[0, 3]
+elif "ACCOUNT CHARGES" in B2:
+   charges = df.iat[0, 3]
+elif "AMERICAN EXPRESS" in B2:
+   amx_siri_neg = df.iat[0, 3]
+elif "DISCOVER" in B2:
+   di_siri_neg = df.iat[0, 3]
+elif "MASTERCARD" in B2:
+   mc_siri_neg = df.iat[0, 3]
+elif "VISA" in B2:
+   vi_siri_neg = df.iat[0, 3]
+
+
+# B3
+B3 = str(df.iat[1, 1])
+if "60-RETAIL - 43400-620" in B3:
+    retail = df.iat[1, 3]
+elif "50-RENTAL - 43100-600" in B3:
+    rental = df.iat[1, 3]
+elif "510-LIFT TICKETS - 40000-300" in B3:
+    tickets = df.iat[1, 3]
+elif "30-SS GRP SKI - 42000-533" in B3:
+    ski = df.iat[1, 3]
+elif "40-CHILDCARE - 42300-546" in B3:
+    childcare = df.iat[1, 3]
+elif "41-CC MEALS - 44000-716" in B3:
+    meals = df.iat[1, 3]
+elif "40-CC RENTAL - 43100-545" in B3:
+    ccrentals = df.iat[1, 3]
+elif "40-CC SKI - 42000-543" in B3:
+    ccski = df.iat[1, 3]
+elif "40-CC BOARD - 42005-544" in B3:
+    ccsbd = df.iat[1, 3]
+elif "30-SS GRP BOARD - 42005-535" in B3:
+    sbd = df.iat[1, 3]
+elif "GRT" in B3:
+   grt = df.iat[1, 3]
+elif "ACCOUNT PAYMENTS & CREDITS" in B3:
+   payments = df.iat[1, 3]
+elif "ACCOUNT CHARGES" in B3:
+   charges = df.iat[1, 3]
+elif "AMERICAN EXPRESS" in B3:
+   amx_siri_neg = df.iat[1, 3]
+elif "DISCOVER" in B3:
+   di_siri_neg = df.iat[1, 3]
+elif "MASTERCARD" in B3:
+   mc_siri_neg = df.iat[1, 3]
+elif "VISA" in B3:
+   vi_siri_neg = df.iat[1, 3]
+
+# B4
+B4 = str(df.iat[2, 1])
+if "60-RETAIL - 43400-620" in B4:
+    retail = df.iat[2, 3]
+elif "50-RENTAL - 43100-600" in B4:
+    rental = df.iat[2, 3]
+elif "10-LIFT TICKETS - 40000-300" in B4:
+    tickets = df.iat[2, 3]
+elif "30-SS GRP SKI - 42000-533" in B4:
+    ski = df.iat[2, 3]
+elif "40-CHILDCARE - 42300-546" in B4:
+    childcare = df.iat[2, 3]
+elif "41-CC MEALS - 44000-716" in B4:
+    meals = df.iat[2, 3]
+elif "40-CC RENTAL - 43100-545" in B4:
+    ccrentals = df.iat[2, 3]
+elif "40-CC SKI - 42000-543" in B4:
+    ccski = df.iat[2, 3]
+elif "40-CC BOARD - 42005-544" in B4:
+    ccsbd = df.iat[2, 3]
+elif "30-SS GRP BOARD - 42005-535" in B4:
+    sbd = df.iat[2, 3]
+elif "GRT" in B4:
+   grt = df.iat[2, 3]
+elif "ACCOUNT PAYMENTS & CREDITS" in B4:
+   payments = df.iat[2, 3]
+elif "ACCOUNT CHARGES" in B4:
+   charges = df.iat[2, 3]
+elif "AMERICAN EXPRESS" in B4:
+   amx_siri_neg = df.iat[2, 3]
+elif "DISCOVER" in B4:
+   di_siri_neg = df.iat[2, 3]
+elif "MASTERCARD" in B4:
+   mc_siri_neg = df.iat[2, 3]
+elif "VISA" in B4:
+   vi_siri_neg = df.iat[2, 3]
+
+# B5
+B5 = str(df.iat[3, 1])
+if "60-RETAIL - 43400-620" in B5:
+    retail = df.iat[3, 3]
+elif "50-RENTAL - 43100-600" in B5:
+    rental = df.iat[3, 3]
+elif "10-LIFT TICKETS - 40000-300" in B5:
+    tickets = df.iat[3, 3]
+elif "30-SS GRP SKI - 42000-533" in B5:
+    ski = df.iat[3, 3]
+elif "40-CHILDCARE - 42300-546" in B5:
+    childcare = df.iat[3, 3]
+elif "41-CC MEALS - 44000-716" in B5:
+    meals = df.iat[3, 3]
+elif "40-CC RENTAL - 43100-545" in B5:
+    ccrentals = df.iat[3, 3]
+elif "40-CC SKI - 42000-543" in B5:
+    ccski = df.iat[3, 3]
+elif "40-CC BOARD - 42005-544" in B5:
+    ccsbd = df.iat[3, 3]
+elif "30-SS GRP BOARD - 42005-535" in B5:
+    sbd = df.iat[3, 3]
+
+# B6
+B6 = str(df.iat[4, 1])
+if "60-RETAIL - 43400-620" in B6:
+    retail = df.iat[4, 3]
+elif "50-RENTAL - 43100-600" in B6:
+    rental = df.iat[4, 3]
+elif "10-LIFT TICKETS - 40000-300" in B6:
+    tickets = df.iat[4, 3]
+elif "30-SS GRP SKI - 42000-533" in B6:
+    ski = df.iat[4, 3]
+elif "40-CHILDCARE - 42300-546" in B6:
+    childcare = df.iat[4, 3]
+elif "41-CC MEALS - 44000-716" in B6:
+    meals = df.iat[4, 3]
+elif "40-CC RENTAL - 43100-545" in B6:
+    ccrentals = df.iat[4, 3]
+elif "40-CC SKI - 42000-543" in B6:
+    ccski = df.iat[4, 3]
+elif "40-CC BOARD - 42005-544" in B6:
+    ccsbd = df.iat[4, 3]
+elif "30-SS GRP BOARD - 42005-535" in B6:
+    sbd = df.iat[4, 3]
+
+# B7
+B7 = str(df.iat[5, 1])
+if "60-RETAIL - 43400-620" in B7:
+    retail = df.iat[5, 3]
+elif "50-RENTAL - 43100-600" in B7:
+    rental = df.iat[5, 3]
+elif "10-LIFT TICKETS - 40000-300" in B7:
+    tickets = df.iat[5, 3]
+elif "30-SS GRP SKI - 42000-533" in B7:
+    ski = df.iat[5, 3]
+elif "40-CHILDCARE - 42300-546" in B7:
+    childcare = df.iat[5, 3]
+elif "41-CC MEALS - 44000-716" in B7:
+    meals = df.iat[5, 3]
+elif "40-CC RENTAL - 43100-545" in B7:
+    ccrentals = df.iat[5, 3]
+elif "40-CC SKI - 42000-543" in B7:
+    ccski = df.iat[5, 3]
+elif "40-CC BOARD - 42005-544" in B7:
+    ccsbd = df.iat[5, 3]
+elif "30-SS GRP BOARD - 42005-535" in B7:
+    sbd = df.iat[5, 3]
+# B8
+B8 = str(df.iat[6, 1])
+if "60-RETAIL - 43400-620" in B8:
+    retail = df.iat[6, 3]
+elif "50-RENTAL - 43100-600" in B8:
+    rental = df.iat[6, 3]
+elif "10-LIFT TICKETS - 40000-300" in B8:
+    tickets = df.iat[6, 3]
+elif "30-SS GRP SKI - 42000-533" in B8:
+    ski = df.iat[6, 3]
+elif "40-CHILDCARE - 42300-546" in B8:
+    childcare = df.iat[6, 3]
+elif "41-CC MEALS - 44000-716" in B8:
+    meals = df.iat[6, 3]
+elif "40-CC RENTAL - 43100-545" in B8:
+    ccrentals = df.iat[6, 3]
+elif "40-CC SKI - 42000-543" in B8:
+    ccski = df.iat[6, 3]
+elif "40-CC BOARD - 42005-544" in B8:
+    ccsbd = df.iat[6, 3]
+elif "30-SS GRP BOARD - 42005-535" in B8:
+    sbd = df.iat[6, 3]
+# B9
+B9 = str(df.iat[7, 1])
+if "60-RETAIL - 43400-620" in B9:
+    retail = df.iat[7, 3]
+elif "50-RENTAL - 43100-600" in B9:
+    rental = df.iat[7, 3]
+elif "10-LIFT TICKETS - 40000-300" in B9:
+    tickets = df.iat[7, 3]
+elif "30-SS GRP SKI - 42000-533" in B9:
+    ski = df.iat[7, 3]
+elif "40-CHILDCARE - 42300-546" in B9:
+    childcare = df.iat[7, 3]
+elif "41-CC MEALS - 44000-716" in B9:
+    meals = df.iat[7, 3]
+elif "40-CC RENTAL - 43100-545" in B9:
+    ccrentals = df.iat[7, 3]
+elif "40-CC SKI - 42000-543" in B9:
+    ccski = df.iat[7, 3]
+elif "40-CC BOARD - 42005-544" in B9:
+    ccsbd = df.iat[7, 3]
+elif "30-SS GRP BOARD - 42005-535" in B9:
+    sbd = df.iat[7, 3]
+# B10
+B10 = str(df.iat[8, 1])
+if "60-RETAIL - 43400-620" in B10:
+    retail = df.iat[8, 3]
+elif "50-RENTAL - 43100-600" in B10:
+    rental = df.iat[8, 3]
+elif "10-LIFT TICKETS - 40000-300" in B10:
+    tickets = df.iat[8, 3]
+elif "30-SS GRP SKI - 42000-533" in B10:
+    ski = df.iat[8, 3]
+elif "40-CHILDCARE - 42300-546" in B10:
+    childcare = df.iat[8, 3]
+elif "41-CC MEALS - 44000-716" in B10:
+    meals = df.iat[8, 3]
+elif "40-CC RENTAL - 43100-545" in B10:
+    ccrentals = df.iat[8, 3]
+elif "40-CC SKI - 42000-543" in B10:
+    ccski = df.iat[8, 3]
+elif "40-CC BOARD - 42005-544" in B10:
+    ccsbd = df.iat[8, 3]
+elif "30-SS GRP BOARD - 42005-535" in B10:
+    sbd = df.iat[8, 3]
+# B11
+B11 = str(df.iat[9, 1])
+if "60-RETAIL - 43400-620" in B11:
+    retail = df.iat[9, 3]
+elif "50-RENTAL - 43100-600" in B11:
+    rental = df.iat[9, 3]
+elif "10-LIFT TICKETS - 40000-300" in B11:
+    tickets = df.iat[9, 3]
+elif "30-SS GRP SKI - 42000-533" in B11:
+    ski = df.iat[9, 3]
+elif "40-CHILDCARE - 42300-546" in B11:
+    childcare = df.iat[9, 3]
+elif "41-CC MEALS - 44000-716" in B11:
+    meals = df.iat[9, 3]
+elif "40-CC RENTAL - 43100-545" in B11:
+    ccrentals = df.iat[9, 3]
+elif "40-CC SKI - 42000-543" in B11:
+    ccski = df.iat[9, 3]
+elif "40-CC BOARD - 42005-544" in B11:
+    ccsbd = df.iat[9, 3]
+elif "30-SS GRP BOARD - 42005-535" in B11:
+    sbd = df.iat[9, 3]
+
+# B12. Adding GRT. Need to add this to the other loops
+B12 = str(df.iat[10, 1])
+if "60-RETAIL - 43400-620" in B12:
+    retail = df.iat[10, 3]
+elif "50-RENTAL - 43100-600" in B12:
+    rental = df.iat[10, 3]
+elif "10-LIFT TICKETS - 40000-300" in B12:
+    tickets = df.iat[10, 3]
+elif "30-SS GRP SKI - 42000-533" in B12:
+    ski = df.iat[10, 3]
+elif "40-CHILDCARE - 42300-546" in B12:
+    childcare = df.iat[10, 3]
+elif "41-CC MEALS - 44000-716" in B12:
+    meals = df.iat[10, 3]
+elif "40-CC RENTAL - 43100-545" in B12:
+    ccrentals = df.iat[10, 3]
+elif "40-CC SKI - 42000-543" in B12:
+    ccski = df.iat[10, 3]
+elif "40-CC BOARD - 42005-544" in B12:
+    ccsbd = df.iat[10, 3]
+elif "30-SS GRP BOARD - 42005-535" in B12:
+    sbd = df.iat[10, 3]
+elif "GRT" in B12:
+    grt = df.iat[10, 3]
+
+#12/6/20 1:28am this is the most complete. Might have every possible descrip from example docs
+B13 = str(df.iat[11, 1])
+if "60-RETAIL - 43400-620" in B13:
+    retail = df.iat[11, 3]
+elif "50-RENTAL - 43100-600" in B13:
+    rental = df.iat[11, 3]
+elif "10-LIFT TICKETS - 40000-300" in B13:
+    tickets = df.iat[11, 3]
+elif "30-SS GRP SKI - 42000-533" in B13:
+    ski = df.iat[11, 3]
+elif "40-CHILDCARE - 42300-546" in B13:
+    childcare = df.iat[11, 3]
+elif "41-CC MEALS - 44000-716" in B13:
+    meals = df.iat[11, 3]
+elif "40-CC RENTAL - 43100-545" in B13:
+    ccrentals = df.iat[11, 3]
+elif "40-CC SKI - 42000-543" in B13:
+    ccski = df.iat[11, 3]
+elif "40-CC BOARD - 42005-544" in B13:
+    ccsbd = df.iat[11, 3]
+elif "30-SS GRP BOARD - 42005-535" in B13:
+    sbd = df.iat[11, 3]
+elif "GRT" in B13:
+    grt = df.iat[11, 3]
+elif "ACCOUNT PAYMENTS & CREDITS" in B13:
+    payments = df.iat[11, 3]
+elif "ACCOUNT CHARGES" in B13:
+    charges = df.iat[11, 3]
+elif "AMERICAN EXPRESS" in B13:
+    amx_siri_neg = df.iat[11, 3]
+elif "DISCOVER" in B13:
+    di_siri_neg = df.iat[11, 3]
+elif "MASTERCARD" in B13:
+    mc_siri_neg = df.iat[11, 3]
+elif "VISA" in B13:
+    vi_siri_neg = df.iat[11, 3]
+
+#Added AMX
+B14 = str(df.iat[12, 1])
+if "60-RETAIL - 43400-620" in B14:
+    retail = df.iat[12, 3]
+elif "50-RENTAL - 43100-600" in B14:
+    rental = df.iat[12, 3]
+elif "10-LIFT TICKETS - 40000-300" in B14:
+    tickets = df.iat[12, 3]
+elif "30-SS GRP SKI - 42000-533" in B14:
+    ski = df.iat[12, 3]
+elif "40-CHILDCARE - 42300-546" in B14:
+    childcare = df.iat[12, 3]
+elif "41-CC MEALS - 44000-716" in B14:
+    meals = df.iat[12, 3]
+elif "40-CC RENTAL - 43100-545" in B14:
+    ccrentals = df.iat[12, 3]
+elif "40-CC SKI - 42000-543" in B14:
+    ccski = df.iat[12, 3]
+elif "40-CC BOARD - 42005-544" in B14:
+    ccsbd = df.iat[12, 3]
+elif "30-SS GRP BOARD - 42005-535" in B14:
+    sbd = df.iat[12, 3]
+elif "GRT" in B14:
+    grt = df.iat[12, 3]
+elif "ACCOUNT PAYMENTS & CREDITS" in B14:
+    payments = df.iat[12, 3]
+elif "ACCOUNT CHARGES" in B14:
+    charges = df.iat[12, 3]
+elif "AMERICAN EXPRESS" in B14:
+    amx_siri_neg = df.iat[12, 3]
+
+#Added Discover
+B15 = str(df.iat[13, 1])
+if "60-RETAIL - 43400-620" in B15:
+    retail = df.iat[13, 3]
+elif "50-RENTAL - 43100-600" in B15:
+    rental = df.iat[13, 3]
+elif "10-LIFT TICKETS - 40000-300" in B15:
+    tickets = df.iat[13, 3]
+elif "30-SS GRP SKI - 42000-533" in B15:
+    ski = df.iat[13, 3]
+elif "40-CHILDCARE - 42300-546" in B15:
+    childcare = df.iat[13, 3]
+elif "41-CC MEALS - 44000-716" in B15:
+    meals = df.iat[13, 3]
+elif "40-CC RENTAL - 43100-545" in B15:
+    ccrentals = df.iat[13, 3]
+elif "40-CC SKI - 42000-543" in B15:
+    ccski = df.iat[13, 3]
+elif "40-CC BOARD - 42005-544" in B15:
+    ccsbd = df.iat[13, 3]
+elif "30-SS GRP BOARD - 42005-535" in B15:
+    sbd = df.iat[13, 3]
+elif "GRT" in B15:
+    grt = df.iat[13, 3]
+elif "ACCOUNT PAYMENTS & CREDITS" in B15:
+    payments = df.iat[13, 3]
+elif "ACCOUNT CHARGES" in B15:
+    charges = df.iat[13, 3]
+elif "AMERICAN EXPRESS" in B15:
+    amx_siri_neg = df.iat[13, 3]
+elif "DISCOVER" in B15:
+    di_siri_neg = df.iat[13, 3]
+
+#Added Mastercard
+B16 = str(df.iat[14, 1])
+if "60-RETAIL - 43400-620" in B16:
+    retail = df.iat[14, 3]
+elif "50-RENTAL - 43100-600" in B16:
+    rental = df.iat[14, 3]
+elif "10-LIFT TICKETS - 40000-300" in B16:
+    tickets = df.iat[14, 3]
+elif "30-SS GRP SKI - 42000-533" in B16:
+    ski = df.iat[14, 3]
+elif "40-CHILDCARE - 42300-546" in B16:
+    childcare = df.iat[14, 3]
+elif "41-CC MEALS - 44000-716" in B16:
+    meals = df.iat[14, 3]
+elif "40-CC RENTAL - 43100-545" in B16:
+    ccrentals = df.iat[14, 3]
+elif "40-CC SKI - 42000-543" in B16:
+    ccski = df.iat[14, 3]
+elif "40-CC BOARD - 42005-544" in B16:
+    ccsbd = df.iat[14, 3]
+elif "30-SS GRP BOARD - 42005-535" in B16:
+    sbd = df.iat[14, 3]
+elif "GRT" in B16:
+    grt = df.iat[14, 3]
+elif "ACCOUNT PAYMENTS & CREDITS" in B16:
+    payments = df.iat[14, 3]
+elif "ACCOUNT CHARGES" in B16:
+    charges = df.iat[14, 3]
+elif "AMERICAN EXPRESS" in B16:
+    amx_siri_neg = df.iat[14, 3]
+elif "DISCOVER" in B16:
+    di_siri_neg = df.iat[14, 3]
+elif "MASTERCARD" in B16:
+    mc_siri_neg = df.iat[14, 3]
+
+#Added VISA
+B17 = str(df.iat[15, 1])
+if "60-RETAIL - 43400-620" in B17:
+    retail = df.iat[15, 3]
+elif "50-RENTAL - 43100-600" in B17:
+    rental = df.iat[15, 3]
+elif "10-LIFT TICKETS - 40000-300" in B17:
+    tickets = df.iat[15, 3]
+elif "30-SS GRP SKI - 42000-533" in B17:
+    ski = df.iat[15, 3]
+elif "40-CHILDCARE - 42300-546" in B17:
+    childcare = df.iat[15, 3]
+elif "41-CC MEALS - 44000-716" in B17:
+    meals = df.iat[15, 3]
+elif "40-CC RENTAL - 43100-545" in B17:
+    ccrentals = df.iat[15, 3]
+elif "40-CC SKI - 42000-543" in B17:
+    ccski = df.iat[15, 3]
+elif "40-CC BOARD - 42005-544" in B17:
+    ccsbd = df.iat[15, 3]
+elif "30-SS GRP BOARD - 42005-535" in B17:
+    sbd = df.iat[15, 3]
+elif "GRT" in B17:
+    grt = df.iat[15, 3]
+elif "ACCOUNT PAYMENTS & CREDITS" in B17:
+    payments = df.iat[15, 3]
+elif "ACCOUNT CHARGES" in B17:
+    charges = df.iat[15, 3]
+elif "AMERICAN EXPRESS" in B17:
+    amx_siri_neg = df.iat[15, 3]
+elif "DISCOVER" in B17:
+    di_siri_neg = df.iat[15, 3]
+elif "MASTERCARD" in B17:
+    mc_siri_neg = df.iat[15, 3]
+elif "VISA" in B17:
+    vi_siri_neg = df.iat[15, 3]
+# B18. Adding Account Payment & Account Charges. Need to add this to the other loops
+B18 = str(df.iat[16, 1])
+if "60-RETAIL - 43400-620" in B18:
+    retail = df.iat[16, 3]
+elif "50-RENTAL - 43100-600" in B18:
+    rental = df.iat[16, 3]
+elif "10-LIFT TICKETS - 40000-300" in B18:
+    tickets = df.iat[16, 3]
+elif "30-SS GRP SKI - 42000-533" in B18:
+    ski = df.iat[16, 3]
+elif "40-CHILDCARE - 42300-546" in B18:
+    childcare = df.iat[16, 3]
+elif "41-CC MEALS - 44000-716" in B18:
+    meals = df.iat[16, 3]
+elif "40-CC RENTAL - 43100-545" in B18:
+    ccrentals = df.iat[16, 3]
+elif "40-CC SKI - 42000-543" in B18:
+    ccski = df.iat[16, 3]
+elif "40-CC BOARD - 42005-544" in B18:
+    ccsbd = df.iat[16, 3]
+elif "30-SS GRP BOARD - 42005-535" in B18:
+    sbd = df.iat[16, 3]
+elif "GRT" in B18:
+    grt = df.iat[16, 3]
+elif "ACCOUNT PAYMENTS & CREDITS" in B18:
+    payments = df.iat[16, 3]
+elif "ACCOUNT CHARGES" in B18:
+    charges = df.iat[16, 3]
+
+# B19. Adding Account Payment & Account Charges. Need to add this to the other loops
+# Need to add B13 - B18 & B19 - (total possible PC_Decrip)
+B19 = str(df.iat[17, 1])
+if "60-RETAIL - 43400-620" in B19:
+    retail = df.iat[17, 3]
+elif "50-RENTAL - 43100-600" in B19:
+    rental = df.iat[17, 3]
+elif "10-LIFT TICKETS - 40000-300" in B19:
+    tickets = df.iat[17, 3]
+elif "30-SS GRP SKI - 42000-533" in B19:
+    ski = df.iat[17, 3]
+elif "40-CHILDCARE - 42300-546" in B19:
+    childcare = df.iat[17, 3]
+elif "41-CC MEALS - 44000-716" in B19:
+    meals = df.iat[17, 3]
+elif "40-CC RENTAL - 43100-545" in B19:
+    ccrentals = df.iat[17, 3]
+elif "40-CC SKI - 42000-543" in B19:
+    ccski = df.iat[17, 3]
+elif "40-CC BOARD - 42005-544" in B19:
+    ccsbd = df.iat[17, 3]
+elif "30-SS GRP BOARD - 42005-535" in B19:
+    sbd = df.iat[17, 3]
+elif "GRT" in B19:
+    grt = df.iat[17, 3]
+elif "ACCOUNT PAYMENTS & CREDITS" in B19:
+    payments = df.iat[17, 3]
+elif "ACCOUNT CHARGES" in B19:
+    charges = df.iat[17, 3]
+
+# Error. Is this needed? Make it better?
+else:
+    print ("Something weird happend. Tell Devin")
+    pass
+
+#Not sure. I think it's just making the excel available to add to
+sheet = wb.active
+
+#adding today's date to
+sheet["I3"] = today
+sheet["C3"] = input("Enter your name: ")
+while True:
+    try:
+        sheet["D32"] = float(input("How much is the CASH deposit?: "))
+    except ValueError:
+        print("Cash deposit can only include numbers")
+        continue
+    else:
+        break
+
+while True:
+    try:
+        sheet["D21"] = retail
+    except:
+        break
+    else:
+        break
+while True:
+    try:
+        sheet["D20"] = rental
+    except:
+        break
+    else:
+        break
+while True:
+    try:
+        sheet["D6"] = tickets
+    except:
+        break
+    else:
+        break
+while True:
+    try:
+        sheet["D12"] = ski
+    except:
+        break
+    else:
+        break
+while True:
+    try:
+        sheet["D17"] = childcare
+    except:
+        break
+    else:
+        break
+while True:
+    try:
+        sheet["D18"] = meals
+    except:
+        break
+    else:
+        break
+while True:
+    try:
+        sheet["D15"] = ccrentals
+    except:
+        break
+    else:
+        break
+while True:
+    try:
+        sheet["D16"] = ccski
+    except:
+        break
+    else:
+        break
+while True:
+    try:
+        sheet["D14"] = ccsbd
+    except:
+        break
+    else:
+        break
+while True:
+    try:
+        sheet["D11"] = sbd
+    except:
+        break
+    else:
+        break
+while True:
+    try:
+        sheet["D27"] = grt
+    except:
+        break
+    else:
+        break
+while True:
+    try:
+        sheet["D24"] = payments
+    except:
+        break
+    else:
+        break
+while True:
+    try:
+        sheet["D23"] = charges
+    except:
+        break
+    else:
+        break
+
+#Open Fuesbox CSV
+df = pd.read_csv(
+    "/Users/DCB/Google Drive/Python/Fusebox CSV.csv")
+
+# L2 Fuesbox
+L2 = str(df.iat[0, 11])
+if "AX" in L2:
+    amx = df.iat[0, 14]
+elif "MC" in L2:
+    mastercard = df.iat[0, 14]
+elif "VI" in L2:
+    visa = df.iat[0, 14]
+elif "DI" in L2:
+    discover = df.iat[0, 14]
+
+# L3 Fuesbox
+L3 = str(df.iat[1, 11])
+if "AX" in L3:
+    amx = df.iat[1, 14]
+elif "MC" in L3:
+    mastercard = df.iat[1, 14]
+elif "VI" in L3:
+    visa = df.iat[1, 14]
+elif "DI" in L3:
+    discover = df.iat[1, 14]
+
+# L4 Fuesbox
+L4 = str(df.iat[2, 11])
+if "AX" in L4:
+    amx = df.iat[2, 14]
+elif "MC" in L4:
+    mastercard = df.iat[2, 14]
+elif "VI" in L4:
+    visa = df.iat[2, 14]
+elif "DI" in L4:
+    discover = df.iat[2, 14]
+
+# L5 Fuesbox
+L5 = str(df.iat[3, 11])
+if "AX" in L5:
+    amx = df.iat[3, 14]
+elif "MC" in L5:
+    mastercard = df.iat[3, 14]
+elif "VI" in L5:
+    visa = df.iat[3, 14]
+elif "DI" in L5:
+    discover = df.iat[3, 14]
+
+#Changeing the negative numbers siruis gives into positve
+amx_siri_pos = -amx_siri_neg
+di_siri_pos = -di_siri_neg
+mc_siri_pos = -mc_siri_neg
+vi_siri_pos = -vi_siri_neg
+
+if amx == amx_siri_pos:
+    pass
+else:
+    print ("!!! AMX Fusebox does NOT match Sirius !!!")
+    print("AMX is off by: " + str(amx - amx_siri_pos))
+
+if discover == di_siri_pos:
+    pass
+else:
+    print ("!!! DI Fusebox does NOT match Sirius !!!")
+    print("Discover is off by: " + str(discover - di_siri_pos))
+
+if mastercard == mc_siri_pos:
+    pass
+else:
+    print("!!! MC Fusebox does NOT match Sirius !!!")
+    print("Mastercard is off by: " + str(mastercard - mc_siri_pos))
+
+if visa == vi_siri_pos:
+    pass
+else:
+    print("!!! VI Fusebox does NOT match Sirius !!!")
+    print("Visa is off by: " + str(visa - vi_siri_pos))
+
+##needed? don't think so
+#else:
+    #print ("Something weird happend. Tell Devin")
+    #pass
+
+##Assigning names to the cell in the Fusebox CSV? Taking out for now. Don't think i need this
+#amx = df.iat[0, 14]
+#mastercard = df.iat[1, 14]
+#visa = df.iat[2, 14]
+#discover = df.iat[3, 14]
+
+
+
+#Adding value of cell in fusebox to excel if there is one?
+
+while True:
+    try:
+        sheet["D39"] = amx
+    except:
+        break
+    else:
+        break
+
+while True:
+    try:
+        sheet["D38"] = mastercard + visa + discover
+    except:
+        break
+    else:
+        break
+
+#Still need to add something for if vias, mc, or di is missing.
+
+wb.save(filename="/Users/DCB/Google Drive/Python/" + str(today) + "TestCVS CHS Blank.xlsx")
+print("File Saved")
