@@ -1,0 +1,1204 @@
+# Import pandas
+# Not sure what numpy as np is for. maybe delete
+# delete 2nd pandas?
+# delete first two openpyxl?
+
+import pandas as pd
+import numpy as np
+import pandas
+import openpyxl
+from openpyxl import load_workbook
+
+# inport date. Find a better format. ddmmyy is wanted for date added to saved file at end.
+from datetime import date
+from openpyxl import load_workbook
+
+# Open Daily Excel?
+
+# Today's Date
+
+today = date.today()
+#Open Fuesbox CSV
+df = pd.read_csv(
+    "/Users/DCB/Google Drive/Python/Fusebox CSV.csv")
+
+# L2 Fuesbox
+L2 = str(df.iat[0, 11])
+if "AX" in L2:
+    amx = df.iat[0, 14]
+elif "MC" in L2:
+    mastercard = df.iat[0, 14]
+elif "VI" in L2:
+    visa = df.iat[0, 14]
+elif "DI" in L2:
+    discover = df.iat[0, 14]
+
+# L3 Fuesbox
+L3 = str(df.iat[1, 11])
+if "AX" in L3:
+    amx = df.iat[1, 14]
+elif "MC" in L3:
+    mastercard = df.iat[1, 14]
+elif "VI" in L3:
+    visa = df.iat[1, 14]
+elif "DI" in L3:
+    discover = df.iat[1, 14]
+
+# L4 Fuesbox
+L4 = str(df.iat[2, 11])
+if "AX" in L4:
+    amx = df.iat[2, 14]
+elif "MC" in L4:
+    mastercard = df.iat[2, 14]
+elif "VI" in L4:
+    visa = df.iat[2, 14]
+elif "DI" in L4:
+    discover = df.iat[2, 14]
+
+# L5 Fuesbox
+L5 = str(df.iat[3, 11])
+if "AX" in L5:
+    amx = df.iat[3, 14]
+elif "MC" in L5:
+    mastercard = df.iat[3, 14]
+elif "VI" in L5:
+    visa = df.iat[3, 14]
+elif "DI" in L5:
+    discover = df.iat[3, 14]
+
+wb = load_workbook(filename="/Users/DCB/Google Drive/Python/zBLANK - CHS.xlsx")
+sheet_ranges = wb['Adult SSS']
+
+# Not sure. I think it's just making the excel available to add to
+sheet = wb.active
+
+# inport date. Find a better format. ddmmyy is wanted for date added to saved file at end.
+from datetime import date
+from openpyxl import load_workbook
+
+df = pd.read_csv(
+    "/Users/DCB/Google Drive/Python/Daily Summary CSV.csv")
+
+# print(mydata01)
+# print(lines)
+# print(df["PC_DESCRIP,C,35"])
+
+count_row = df.shape[0]
+print("Rows = " +str(count_row))
+print("\n")
+
+# index_max = count_row
+
+# while count_row
+
+descrip = df["PC_DESCRIP,C,35"]
+#print(descrip[1])
+i = count_row
+
+while i >= 1:
+    i = i - 1
+    if i == -1:
+        break
+    if i == 0:
+        if descrip[0] == "60-RETAIL - 43400-620":
+            retail = df.iat[0, 3]
+            sheet["D21"] = retail
+            print("retail added")
+            continue
+        else:
+            if descrip[0] == "50-RENTAL - 43100-600":
+                rental = df.iat[0, 3]
+                sheet["D20"] = rental
+                print("rental added")
+                continue
+            else:
+                if descrip[0] == "10-LIFT TICKETS - 40000-300":
+                    tickets = df.iat[0, 3]
+                    sheet["D6"] = tickets
+                    print("tickets added")
+                    continue
+                else:
+                    if descrip[0] == "30-SS GRP SKI - 42000-533":
+                        ski = df.iat[0, 3]
+                        sheet["D12"] = ski
+                        print("group ski added")
+                        continue
+                    else:
+                        if descrip[0] == "40-CHILDCARE - 42300-546":
+                            childcare = df.iat[0, 3]
+                            sheet["D17"] = childcare
+                            print("Childcare added")
+                            continue
+                        else:
+                            if descrip[0] == "41-CC MEALS - 44000-716":
+                                meals = df.iat[0, 3]
+                                sheet["D18"] = meals
+                                print("CC Meals added")
+                                continue
+                            else:
+                                if descrip[0] == "40-CC RENTAL - 43100-545":
+                                    ccrental = df.iat[0, 3]
+                                    sheet["D15"] = ccrental
+                                    print("CC Rentals added")
+                                    continue
+                                else:
+                                    if descrip[0] == "40-CC SKI - 42000-543":
+                                        ccski = df.iat[0, 3]
+                                        sheet["D16"] = ccski
+                                        print("CC Ski added")
+                                        continue
+                                    else:
+                                        if descrip[0] == "40-CC BOARD - 42005-544":
+                                            ccsbd = df.iat[0, 3]
+                                            sheet["D14"] = ccsbd
+                                            print("CC Snowboard added")
+                                            continue
+                                        else:
+                                            if descrip[0] == "30-SS GRP BOARD - 42005-535":
+                                                sbd = df.iat[0, 3]
+                                                sheet["D11"] = sbd
+                                                print("CC Snowboard added")
+                                                continue
+                                            else:
+                                                if descrip[0] == "GRT":
+                                                    grt = df.iat[0, 3]
+                                                    sheet["D27"] = grt
+                                                    print("GRT added")
+                                                    continue
+                                                else:
+                                                    if descrip[0] == "ACCOUNT PAYMENTS & CREDITS":
+                                                        payments = df.iat[0, 3]
+                                                        sheet["D24"] = payments
+                                                        print("Account Payments & Credits added")
+                                                        continue
+                                                    else:
+                                                        if descrip[0] == "ACCOUNT CHARGES":
+                                                            charges = df.iat[0, 3]
+                                                            sheet["D23"] = charges
+                                                            print("Account Charges added")
+                                                            continue
+                                                        else:
+                                                            if descrip[0] == "AMERICAN EXPRESS":
+                                                                amx_siri_neg = df.iat[0, 3]
+                                                                amx_siri_pos = -amx_siri_neg
+                                                                print("American Express Siruis")
+                                                                if amx == amx_siri_pos:
+                                                                    continue
+                                                                else:
+                                                                    print("!!! AMX Fusebox does NOT match Sirius !!!")
+                                                                    print("AMX is off by: " + str(amx - amx_siri_pos))
+                                                                    continue
+                                                            else:
+                                                                if descrip[0] == "DISCOVER":
+                                                                    di_siri_neg = df.iat[0, 3]
+                                                                    di_siri_pos = -di_siri_neg
+                                                                    print("Discover Siruis")
+                                                                    if discover == di_siri_pos:
+                                                                        continue
+                                                                    else:
+                                                                        print(
+                                                                            "!!! DI Fusebox does NOT match Sirius !!!")
+                                                                        print("Discover is off by: " + str(
+                                                                            discover - di_siri_pos))
+                                                                        continue
+                                                                else:
+                                                                    if descrip[0] == "MASTERCARD":
+                                                                        mc_siri_neg = df.iat[0, 3]
+                                                                        mc_siri_pos = -mc_siri_neg
+                                                                        print("Mastercard Siruis")
+                                                                        if mastercard == mc_siri_pos:
+                                                                            continue
+                                                                        else:
+                                                                            print(
+                                                                                "!!! MC Fusebox does NOT match Sirius !!!")
+                                                                            print("Mastercard is off by: " + str(
+                                                                                mastercard - mc_siri_pos))
+                                                                            continue
+                                                                    else:
+                                                                        if descrip[0] == "VISA":
+                                                                            vi_siri_neg = df.iat[0, 3]
+                                                                            vi_siri_pos = -vi_siri_neg
+                                                                            print("Visa Siruis")
+                                                                            if visa == vi_siri_pos:
+                                                                                continue
+                                                                            else:
+                                                                                print(
+                                                                                    "!!! VI Fusebox does NOT match Sirius !!!")
+                                                                                print("Visa is off by: " + str(
+                                                                                    visa - vi_siri_pos))
+                                                                                continue
+                                                                        else:
+                                                                            print("Error.0")
+                                                                            pass
+
+    if i == 1:
+        if descrip[1] == "60-RETAIL - 43400-620":
+            retail = df.iat[1, 3]
+            sheet["D21"] = retail
+            print("retail added")
+            continue
+        else:
+            if descrip[1] == "50-RENTAL - 43100-600":
+                rental = df.iat[1, 3]
+                sheet["D20"] = rental
+                print("rental added")
+                continue
+            else:
+                if descrip[1] == "10-LIFT TICKETS - 40000-300":
+                    tickets = df.iat[1, 3]
+                    sheet["D6"] = tickets
+                    print("tickets added")
+                    continue
+                else:
+                    if descrip[1] == "30-SS GRP SKI - 42000-533":
+                        ski = df.iat[1, 3]
+                        sheet["D12"] = ski
+                        print("group ski added")
+                        continue
+                    else:
+                        if descrip[1] == "40-CHILDCARE - 42300-546":
+                            childcare = df.iat[1, 3]
+                            sheet["D17"] = childcare
+                            print("Childcare added")
+                            continue
+                        else:
+                            if descrip[1] == "41-CC MEALS - 44000-716":
+                                meals = df.iat[1, 3]
+                                sheet["D18"] = meals
+                                print("CC Meals added")
+                                continue
+                            else:
+                                if descrip[1] == "40-CC RENTAL - 43100-545":
+                                    ccrental = df.iat[1, 3]
+                                    sheet["D15"] = ccrental
+                                    print("CC Rentals added")
+                                    continue
+                                else:
+                                    if descrip[1] == "40-CC SKI - 42000-543":
+                                        ccski = df.iat[1, 3]
+                                        sheet["D16"] = ccski
+                                        print("CC Ski added")
+                                        continue
+                                    else:
+                                        if descrip[1] == "40-CC BOARD - 42005-544":
+                                            ccsbd = df.iat[1, 3]
+                                            sheet["D14"] = ccsbd
+                                            print("CC Snowboard added")
+                                            continue
+                                        else:
+                                            if descrip[1] == "30-SS GRP BOARD - 42005-535":
+                                                sbd = df.iat[1, 3]
+                                                sheet["D11"] = sbd
+                                                print("CC Snowboard added")
+                                                continue
+                                            else:
+                                                if descrip[1] == "GRT":
+                                                    grt = df.iat[1, 3]
+                                                    sheet["D27"] = grt
+                                                    print("GRT added")
+                                                    continue
+                                                else:
+                                                    if descrip[1] == "ACCOUNT PAYMENTS & CREDITS":
+                                                        payments = df.iat[1, 3]
+                                                        sheet["D24"] = payments
+                                                        print("Account Payments & Credits added")
+                                                        continue
+                                                    else:
+                                                        if descrip[1] == "ACCOUNT CHARGES":
+                                                            charges = df.iat[1, 3]
+                                                            sheet["D23"] = charges
+                                                            print("Account Charges added")
+                                                            continue
+                                                        else:
+                                                            if descrip[1] == "AMERICAN EXPRESS":
+                                                                amx_siri_neg = df.iat[1, 3]
+                                                                amx_siri_pos = -amx_siri_neg
+                                                                print("American Express Siruis")
+                                                                if amx == amx_siri_pos:
+                                                                    continue
+                                                                else:
+                                                                    print("!!! AMX Fusebox does NOT match Sirius !!!")
+                                                                    print("AMX is off by: " + str(amx - amx_siri_pos))
+                                                                    continue
+                                                            else:
+                                                                if descrip[1] == "DISCOVER":
+                                                                    di_siri_neg = df.iat[1, 3]
+                                                                    di_siri_pos = -di_siri_neg
+                                                                    print("Discover Siruis")
+                                                                    if discover == di_siri_pos:
+                                                                        continue
+                                                                    else:
+                                                                        print(
+                                                                            "!!! DI Fusebox does NOT match Sirius !!!")
+                                                                        print("Discover is off by: " + str(
+                                                                            discover - di_siri_pos))
+                                                                        continue
+                                                                else:
+                                                                    if descrip[1] == "MASTERCARD":
+                                                                        mc_siri_neg = df.iat[1, 3]
+                                                                        mc_siri_pos = -mc_siri_neg
+                                                                        print("Mastercard Siruis")
+                                                                        if mastercard == mc_siri_pos:
+                                                                            continue
+                                                                        else:
+                                                                            print(
+                                                                                "!!! MC Fusebox does NOT match Sirius !!!")
+                                                                            print("Mastercard is off by: " + str(
+                                                                                mastercard - mc_siri_pos))
+                                                                            continue
+                                                                    else:
+                                                                        if descrip[1] == "VISA":
+                                                                            vi_siri_neg = df.iat[1, 3]
+                                                                            vi_siri_pos = -vi_siri_neg
+                                                                            print("Visa Siruis")
+                                                                            if visa == vi_siri_pos:
+                                                                                continue
+                                                                            else:
+                                                                                print(
+                                                                                    "!!! VI Fusebox does NOT match Sirius !!!")
+                                                                                print("Visa is off by: " + str(
+                                                                                    visa - vi_siri_pos))
+                                                                                continue
+                                                                        else:
+                                                                            print("Error.1")
+                                                                            pass
+    if i == 2:
+        if descrip[2] == "60-RETAIL - 43400-620":
+            retail = df.iat[2, 3]
+            sheet["D21"] = retail
+            print("retail added")
+            continue
+        else:
+            if descrip[2] == "50-RENTAL - 43100-600":
+                rental = df.iat[2, 3]
+                sheet["D20"] = rental
+                print("rental added")
+                continue
+            else:
+                if descrip[2] == "10-LIFT TICKETS - 40000-300":
+                    tickets = df.iat[2, 3]
+                    sheet["D6"] = tickets
+                    print("tickets added")
+                    continue
+                else:
+                    if descrip[2] == "30-SS GRP SKI - 42000-533":
+                        ski = df.iat[2, 3]
+                        sheet["D12"] = ski
+                        print("group ski added")
+                        continue
+                    else:
+                        if descrip[2] == "40-CHILDCARE - 42300-546":
+                            childcare = df.iat[2, 3]
+                            sheet["D17"] = childcare
+                            print("Childcare added")
+                            continue
+                        else:
+                            if descrip[2] == "41-CC MEALS - 44000-716":
+                                meals = df.iat[2, 3]
+                                sheet["D18"] = meals
+                                print("CC Meals added")
+                                continue
+                            else:
+                                if descrip[2] == "40-CC RENTAL - 43100-545":
+                                    ccrental = df.iat[2, 3]
+                                    sheet["D15"] = ccrental
+                                    print("CC Rentals added")
+                                    continue
+                                else:
+                                    if descrip[2] == "40-CC SKI - 42000-543":
+                                        ccski = df.iat[2, 3]
+                                        sheet["D16"] = ccski
+                                        print("CC Ski added")
+                                        continue
+                                    else:
+                                        if descrip[2] == "40-CC BOARD - 42005-544":
+                                            ccsbd = df.iat[2, 3]
+                                            sheet["D14"] = ccsbd
+                                            print("CC Snowboard added")
+                                            continue
+                                        else:
+                                            if descrip[2] == "30-SS GRP BOARD - 42005-535":
+                                                sbd = df.iat[2, 3]
+                                                sheet["D11"] = sbd
+                                                print("CC Snowboard added")
+                                                continue
+                                            else:
+                                                if descrip[2] == "GRT":
+                                                    grt = df.iat[2, 3]
+                                                    sheet["D27"] = grt
+                                                    print("GRT added")
+                                                    continue
+                                                else:
+                                                    if descrip[2] == "ACCOUNT PAYMENTS & CREDITS":
+                                                        payments = df.iat[2, 3]
+                                                        sheet["D24"] = payments
+                                                        print("Account Payments & Credits added")
+                                                        continue
+                                                    else:
+                                                        if descrip[2] == "ACCOUNT CHARGES":
+                                                            charges = df.iat[2, 3]
+                                                            sheet["D23"] = charges
+                                                            print("Account Charges added")
+                                                            continue
+                                                        else:
+                                                            if descrip[2] == "AMERICAN EXPRESS":
+                                                                amx_siri_neg = df.iat[2, 3]
+                                                                amx_siri_pos = -amx_siri_neg
+                                                                print("American Express Siruis")
+                                                                if amx == amx_siri_pos:
+                                                                    continue
+                                                                else:
+                                                                    print("!!! AMX Fusebox does NOT match Sirius !!!")
+                                                                    print("AMX is off by: " + str(amx - amx_siri_pos))
+                                                                    continue
+                                                            else:
+                                                                if descrip[2] == "DISCOVER":
+                                                                    di_siri_neg = df.iat[2, 3]
+                                                                    di_siri_pos = -di_siri_neg
+                                                                    print("Discover Siruis")
+                                                                    if discover == di_siri_pos:
+                                                                        continue
+                                                                    else:
+                                                                        print(
+                                                                            "!!! DI Fusebox does NOT match Sirius !!!")
+                                                                        print("Discover is off by: " + str(
+                                                                            discover - di_siri_pos))
+                                                                        continue
+                                                                else:
+                                                                    if descrip[2] == "MASTERCARD":
+                                                                        mc_siri_neg = df.iat[2, 3]
+                                                                        mc_siri_pos = -mc_siri_neg
+                                                                        print("Mastercard Siruis")
+                                                                        if mastercard == mc_siri_pos:
+                                                                            continue
+                                                                        else:
+                                                                            print(
+                                                                                "!!! MC Fusebox does NOT match Sirius !!!")
+                                                                            print("Mastercard is off by: " + str(
+                                                                                mastercard - mc_siri_pos))
+                                                                            continue
+                                                                    else:
+                                                                        if descrip[2] == "VISA":
+                                                                            vi_siri_neg = df.iat[2, 3]
+                                                                            vi_siri_pos = -vi_siri_neg
+                                                                            print("Visa Siruis")
+                                                                            if visa == vi_siri_pos:
+                                                                                continue
+                                                                            else:
+                                                                                print(
+                                                                                    "!!! VI Fusebox does NOT match Sirius !!!")
+                                                                                print("Visa is off by: " + str(
+                                                                                    visa - vi_siri_pos))
+                                                                                continue
+                                                                        else:
+                                                                            print("Error.2")
+                                                                            pass
+    if i == 3:
+        if descrip[3] == "60-RETAIL - 43400-620":
+            retail = df.iat[3, 3]
+            sheet["D21"] = retail
+            print("retail added")
+            continue
+        else:
+            if descrip[3] == "50-RENTAL - 43100-600":
+                rental = df.iat[3, 3]
+                sheet["D20"] = rental
+                print("rental added")
+                continue
+            else:
+                if descrip[3] == "10-LIFT TICKETS - 40000-300":
+                    tickets = df.iat[3, 3]
+                    sheet["D6"] = tickets
+                    print("tickets added")
+                    continue
+                else:
+                    if descrip[3] == "30-SS GRP SKI - 42000-533":
+                        ski = df.iat[3, 3]
+                        sheet["D12"] = ski
+                        print("group ski added")
+                        continue
+                    else:
+                        if descrip[3] == "40-CHILDCARE - 42300-546":
+                            childcare = df.iat[3, 3]
+                            sheet["D17"] = childcare
+                            print("Childcare added")
+                            continue
+                        else:
+                            if descrip[3] == "41-CC MEALS - 44000-716":
+                                meals = df.iat[3, 3]
+                                sheet["D18"] = meals
+                                print("CC Meals added")
+                                continue
+                            else:
+                                if descrip[3] == "40-CC RENTAL - 43100-545":
+                                    ccrental = df.iat[3, 3]
+                                    sheet["D15"] = ccrental
+                                    print("CC Rentals added")
+                                    continue
+                                else:
+                                    if descrip[3] == "40-CC SKI - 42000-543":
+                                        ccski = df.iat[3, 3]
+                                        sheet["D16"] = ccski
+                                        print("CC Ski added")
+                                        continue
+                                    else:
+                                        if descrip[3] == "40-CC BOARD - 42005-544":
+                                            ccsbd = df.iat[3, 3]
+                                            sheet["D14"] = ccsbd
+                                            print("CC Snowboard added")
+                                            continue
+                                        else:
+                                            if descrip[3] == "30-SS GRP BOARD - 42005-535":
+                                                sbd = df.iat[3, 3]
+                                                sheet["D11"] = sbd
+                                                print("CC Snowboard added")
+                                                continue
+                                            else:
+                                                if descrip[3] == "GRT":
+                                                    grt = df.iat[3, 3]
+                                                    sheet["D27"] = grt
+                                                    print("GRT added")
+                                                    continue
+                                                else:
+                                                    if descrip[3] == "ACCOUNT PAYMENTS & CREDITS":
+                                                        payments = df.iat[3, 3]
+                                                        sheet["D24"] = payments
+                                                        print("Account Payments & Credits added")
+                                                        continue
+                                                    else:
+                                                        if descrip[3] == "ACCOUNT CHARGES":
+                                                            charges = df.iat[3, 3]
+                                                            sheet["D23"] = charges
+                                                            print("Account Charges added")
+                                                            continue
+                                                        else:
+                                                            if descrip[3] == "AMERICAN EXPRESS":
+                                                                amx_siri_neg = df.iat[3, 3]
+                                                                amx_siri_pos = -amx_siri_neg
+                                                                print("American Express Siruis")
+                                                                if amx == amx_siri_pos:
+                                                                    continue
+                                                                else:
+                                                                    print("!!! AMX Fusebox does NOT match Sirius !!!")
+                                                                    print("AMX is off by: " + str(amx - amx_siri_pos))
+                                                                    continue
+                                                            else:
+                                                                if descrip[3] == "DISCOVER":
+                                                                    di_siri_neg = df.iat[3, 3]
+                                                                    di_siri_pos = -di_siri_neg
+                                                                    print("Discover Siruis")
+                                                                    if discover == di_siri_pos:
+                                                                        continue
+                                                                    else:
+                                                                        print(
+                                                                            "!!! DI Fusebox does NOT match Sirius !!!")
+                                                                        print("Discover is off by: " + str(
+                                                                            discover - di_siri_pos))
+                                                                        continue
+                                                                else:
+                                                                    if descrip[3] == "MASTERCARD":
+                                                                        mc_siri_neg = df.iat[3, 3]
+                                                                        mc_siri_pos = -mc_siri_neg
+                                                                        print("Mastercard Siruis")
+                                                                        if mastercard == mc_siri_pos:
+                                                                            continue
+                                                                        else:
+                                                                            print(
+                                                                                "!!! MC Fusebox does NOT match Sirius !!!")
+                                                                            print("Mastercard is off by: " + str(
+                                                                                mastercard - mc_siri_pos))
+                                                                            continue
+                                                                    else:
+                                                                        if descrip[3] == "VISA":
+                                                                            vi_siri_neg = df.iat[3, 3]
+                                                                            vi_siri_pos = -vi_siri_neg
+                                                                            print("Visa Siruis")
+                                                                            if visa == vi_siri_pos:
+                                                                                continue
+                                                                            else:
+                                                                                print(
+                                                                                    "!!! VI Fusebox does NOT match Sirius !!!")
+                                                                                print("Visa is off by: " + str(
+                                                                                    visa - vi_siri_pos))
+                                                                                continue
+                                                                        else:
+                                                                            print("Error.3")
+                                                                            pass
+    if i == 4:
+        if descrip[4] == "60-RETAIL - 43400-620":
+            retail = df.iat[4, 3]
+            sheet["D21"] = retail
+            print("retail added")
+            continue
+        else:
+            if descrip[4] == "50-RENTAL - 43100-600":
+                rental = df.iat[4, 3]
+                sheet["D20"] = rental
+                print("rental added")
+                continue
+            else:
+                if descrip[4] == "10-LIFT TICKETS - 40000-300":
+                    tickets = df.iat[4, 3]
+                    sheet["D6"] = tickets
+                    print("tickets added")
+                    continue
+                else:
+                    if descrip[4] == "30-SS GRP SKI - 42000-533":
+                        ski = df.iat[4, 3]
+                        sheet["D12"] = ski
+                        print("group ski added")
+                        continue
+                    else:
+                        if descrip[4] == "40-CHILDCARE - 42300-546":
+                            childcare = df.iat[4, 3]
+                            sheet["D17"] = childcare
+                            print("Childcare added")
+                            continue
+                        else:
+                            if descrip[4] == "41-CC MEALS - 44000-716":
+                                meals = df.iat[4, 3]
+                                sheet["D18"] = meals
+                                print("CC Meals added")
+                                continue
+                            else:
+                                if descrip[4] == "40-CC RENTAL - 43100-545":
+                                    ccrental = df.iat[4, 3]
+                                    sheet["D15"] = ccrental
+                                    print("CC Rentals added")
+                                    continue
+                                else:
+                                    if descrip[4] == "40-CC SKI - 42000-543":
+                                        ccski = df.iat[4, 3]
+                                        sheet["D16"] = ccski
+                                        print("CC Ski added")
+                                        continue
+                                    else:
+                                        if descrip[4] == "40-CC BOARD - 42005-544":
+                                            ccsbd = df.iat[4, 3]
+                                            sheet["D14"] = ccsbd
+                                            print("CC Snowboard added")
+                                            continue
+                                        else:
+                                            if descrip[4] == "30-SS GRP BOARD - 42005-535":
+                                                sbd = df.iat[4, 3]
+                                                sheet["D11"] = sbd
+                                                print("CC Snowboard added")
+                                                continue
+                                            else:
+                                                if descrip[4] == "GRT":
+                                                    grt = df.iat[4, 3]
+                                                    sheet["D27"] = grt
+                                                    print("GRT added")
+                                                    continue
+                                                else:
+                                                    if descrip[4] == "ACCOUNT PAYMENTS & CREDITS":
+                                                        payments = df.iat[4, 3]
+                                                        sheet["D24"] = payments
+                                                        print("Account Payments & Credits added")
+                                                        continue
+                                                    else:
+                                                        if descrip[4] == "ACCOUNT CHARGES":
+                                                            charges = df.iat[4, 3]
+                                                            sheet["D23"] = charges
+                                                            print("Account Charges added")
+                                                            continue
+                                                        else:
+                                                            if descrip[4] == "AMERICAN EXPRESS":
+                                                                amx_siri_neg = df.iat[4, 3]
+                                                                amx_siri_pos = -amx_siri_neg
+                                                                print("American Express Siruis")
+                                                                if amx == amx_siri_pos:
+                                                                    continue
+                                                                else:
+                                                                    print("!!! AMX Fusebox does NOT match Sirius !!!")
+                                                                    print("AMX is off by: " + str(amx - amx_siri_pos))
+                                                                    continue
+                                                            else:
+                                                                if descrip[4] == "DISCOVER":
+                                                                    di_siri_neg = df.iat[4, 3]
+                                                                    di_siri_pos = -di_siri_neg
+                                                                    print("Discover Siruis")
+                                                                    if discover == di_siri_pos:
+                                                                        continue
+                                                                    else:
+                                                                        print(
+                                                                            "!!! DI Fusebox does NOT match Sirius !!!")
+                                                                        print("Discover is off by: " + str(
+                                                                            discover - di_siri_pos))
+                                                                        continue
+                                                                else:
+                                                                    if descrip[4] == "MASTERCARD":
+                                                                        mc_siri_neg = df.iat[4, 3]
+                                                                        mc_siri_pos = -mc_siri_neg
+                                                                        print("Mastercard Siruis")
+                                                                        if mastercard == mc_siri_pos:
+                                                                            continue
+                                                                        else:
+                                                                            print(
+                                                                                "!!! MC Fusebox does NOT match Sirius !!!")
+                                                                            print("Mastercard is off by: " + str(
+                                                                                mastercard - mc_siri_pos))
+                                                                            continue
+                                                                    else:
+                                                                        if descrip[4] == "VISA":
+                                                                            vi_siri_neg = df.iat[4, 3]
+                                                                            vi_siri_pos = -vi_siri_neg
+                                                                            print("Visa Siruis")
+                                                                            if visa == vi_siri_pos:
+                                                                                continue
+                                                                            else:
+                                                                                print(
+                                                                                    "!!! VI Fusebox does NOT match Sirius !!!")
+                                                                                print("Visa is off by: " + str(
+                                                                                    visa - vi_siri_pos))
+                                                                                continue
+                                                                        else:
+                                                                            print("Error.4")
+                                                                            pass
+    if i == 5:
+        if descrip[5] == "60-RETAIL - 43400-620":
+            retail = df.iat[5, 3]
+            sheet["D21"] = retail
+            print("retail added")
+            continue
+        else:
+            if descrip[5] == "50-RENTAL - 43100-600":
+                rental = df.iat[5, 3]
+                sheet["D20"] = rental
+                print("rental added")
+                continue
+            else:
+                if descrip[5] == "10-LIFT TICKETS - 40000-300":
+                    tickets = df.iat[5, 3]
+                    sheet["D6"] = tickets
+                    print("tickets added")
+                    continue
+                else:
+                    if descrip[5] == "30-SS GRP SKI - 42000-533":
+                        ski = df.iat[5, 3]
+                        sheet["D12"] = ski
+                        print("group ski added")
+                        continue
+                    else:
+                        if descrip[5] == "40-CHILDCARE - 42300-546":
+                            childcare = df.iat[5, 3]
+                            sheet["D17"] = childcare
+                            print("Childcare added")
+                            continue
+                        else:
+                            if descrip[5] == "41-CC MEALS - 44000-716":
+                                meals = df.iat[5, 3]
+                                sheet["D18"] = meals
+                                print("CC Meals added")
+                                continue
+                            else:
+                                if descrip[5] == "40-CC RENTAL - 43100-545":
+                                    ccrental = df.iat[5, 3]
+                                    sheet["D15"] = ccrental
+                                    print("CC Rentals added")
+                                    continue
+                                else:
+                                    if descrip[5] == "40-CC SKI - 42000-543":
+                                        ccski = df.iat[5, 3]
+                                        sheet["D16"] = ccski
+                                        print("CC Ski added")
+                                        continue
+                                    else:
+                                        if descrip[5] == "40-CC BOARD - 42005-544":
+                                            ccsbd = df.iat[5, 3]
+                                            sheet["D14"] = ccsbd
+                                            print("CC Snowboard added")
+                                            continue
+                                        else:
+                                            if descrip[5] == "30-SS GRP BOARD - 42005-535":
+                                                sbd = df.iat[5, 3]
+                                                sheet["D11"] = sbd
+                                                print("CC Snowboard added")
+                                                continue
+                                            else:
+                                                if descrip[5] == "GRT":
+                                                    grt = df.iat[5, 3]
+                                                    sheet["D27"] = grt
+                                                    print("GRT added")
+                                                    continue
+                                                else:
+                                                    if descrip[5] == "ACCOUNT PAYMENTS & CREDITS":
+                                                        payments = df.iat[5, 3]
+                                                        sheet["D24"] = payments
+                                                        print("Account Payments & Credits added")
+                                                        continue
+                                                    else:
+                                                        if descrip[5] == "ACCOUNT CHARGES":
+                                                            charges = df.iat[5, 3]
+                                                            sheet["D23"] = charges
+                                                            print("Account Charges added")
+                                                            continue
+                                                        else:
+                                                            if descrip[5] == "AMERICAN EXPRESS":
+                                                                amx_siri_neg = df.iat[5, 3]
+                                                                amx_siri_pos = -amx_siri_neg
+                                                                print("American Express Siruis")
+                                                                if amx == amx_siri_pos:
+                                                                    continue
+                                                                else:
+                                                                    print("!!! AMX Fusebox does NOT match Sirius !!!")
+                                                                    print("AMX is off by: " + str(amx - amx_siri_pos))
+                                                                    continue
+                                                            else:
+                                                                if descrip[5] == "DISCOVER":
+                                                                    di_siri_neg = df.iat[5, 3]
+                                                                    di_siri_pos = -di_siri_neg
+                                                                    print("Discover Siruis")
+                                                                    if discover == di_siri_pos:
+                                                                        continue
+                                                                    else:
+                                                                        print(
+                                                                            "!!! DI Fusebox does NOT match Sirius !!!")
+                                                                        print("Discover is off by: " + str(
+                                                                            discover - di_siri_pos))
+                                                                        continue
+                                                                else:
+                                                                    if descrip[5] == "MASTERCARD":
+                                                                        mc_siri_neg = df.iat[5, 3]
+                                                                        mc_siri_pos = -mc_siri_neg
+                                                                        print("Mastercard Siruis")
+                                                                        if mastercard == mc_siri_pos:
+                                                                            continue
+                                                                        else:
+                                                                            print(
+                                                                                "!!! MC Fusebox does NOT match Sirius !!!")
+                                                                            print("Mastercard is off by: " + str(
+                                                                                mastercard - mc_siri_pos))
+                                                                            continue
+                                                                    else:
+                                                                        if descrip[5] == "VISA":
+                                                                            vi_siri_neg = df.iat[5, 3]
+                                                                            vi_siri_pos = -vi_siri_neg
+                                                                            print("Visa Siruis")
+                                                                            if visa == vi_siri_pos:
+                                                                                continue
+                                                                            else:
+                                                                                print(
+                                                                                    "!!! VI Fusebox does NOT match Sirius !!!")
+                                                                                print("Visa is off by: " + str(
+                                                                                    visa - vi_siri_pos))
+                                                                                continue
+                                                                        else:
+                                                                            print("Error.5")
+                                                                            pass
+    if i == 6:
+        if descrip[6] == "60-RETAIL - 43400-620":
+            retail = df.iat[6, 3]
+            sheet["D21"] = retail
+            print("retail added")
+            continue
+        else:
+            if descrip[6] == "50-RENTAL - 43100-600":
+                rental = df.iat[6, 3]
+                sheet["D20"] = rental
+                print("rental added")
+                continue
+            else:
+                if descrip[6] == "10-LIFT TICKETS - 40000-300":
+                    tickets = df.iat[6, 3]
+                    sheet["D6"] = tickets
+                    print("tickets added")
+                    continue
+                else:
+                    if descrip[6] == "30-SS GRP SKI - 42000-533":
+                        ski = df.iat[6, 3]
+                        sheet["D12"] = ski
+                        print("group ski added")
+                        continue
+                    else:
+                        if descrip[6] == "40-CHILDCARE - 42300-546":
+                            childcare = df.iat[6, 3]
+                            sheet["D17"] = childcare
+                            print("Childcare added")
+                            continue
+                        else:
+                            if descrip[6] == "41-CC MEALS - 44000-716":
+                                meals = df.iat[6, 3]
+                                sheet["D18"] = meals
+                                print("CC Meals added")
+                                continue
+                            else:
+                                if descrip[6] == "40-CC RENTAL - 43100-545":
+                                    ccrental = df.iat[6, 3]
+                                    sheet["D15"] = ccrental
+                                    print("CC Rentals added")
+                                    continue
+                                else:
+                                    if descrip[6] == "40-CC SKI - 42000-543":
+                                        ccski = df.iat[6, 3]
+                                        sheet["D16"] = ccski
+                                        print("CC Ski added")
+                                        continue
+                                    else:
+                                        if descrip[6] == "40-CC BOARD - 42005-544":
+                                            ccsbd = df.iat[6, 3]
+                                            sheet["D14"] = ccsbd
+                                            print("CC Snowboard added")
+                                            continue
+                                        else:
+                                            if descrip[6] == "30-SS GRP BOARD - 42005-535":
+                                                sbd = df.iat[6, 3]
+                                                sheet["D11"] = sbd
+                                                print("CC Snowboard added")
+                                                continue
+                                            else:
+                                                if descrip[6] == "GRT":
+                                                    grt = df.iat[6, 3]
+                                                    sheet["D27"] = grt
+                                                    print("GRT added")
+                                                    continue
+                                                else:
+                                                    if descrip[6] == "ACCOUNT PAYMENTS & CREDITS":
+                                                        payments = df.iat[6, 3]
+                                                        sheet["D24"] = payments
+                                                        print("Account Payments & Credits added")
+                                                        continue
+                                                    else:
+                                                        if descrip[6] == "ACCOUNT CHARGES":
+                                                            charges = df.iat[6, 3]
+                                                            sheet["D23"] = charges
+                                                            print("Account Charges added")
+                                                            continue
+                                                        else:
+                                                            if descrip[6] == "AMERICAN EXPRESS":
+                                                                amx_siri_neg = df.iat[6, 3]
+                                                                amx_siri_pos = -amx_siri_neg
+                                                                print("American Express Siruis")
+                                                                if amx == amx_siri_pos:
+                                                                    continue
+                                                                else:
+                                                                    print("!!! AMX Fusebox does NOT match Sirius !!!")
+                                                                    print("AMX is off by: " + str(amx - amx_siri_pos))
+                                                                    continue
+                                                            else:
+                                                                if descrip[6] == "DISCOVER":
+                                                                    di_siri_neg = df.iat[6, 3]
+                                                                    di_siri_pos = -di_siri_neg
+                                                                    print("Discover Siruis")
+                                                                    if discover == di_siri_pos:
+                                                                        continue
+                                                                    else:
+                                                                        print(
+                                                                            "!!! DI Fusebox does NOT match Sirius !!!")
+                                                                        print("Discover is off by: " + str(
+                                                                            discover - di_siri_pos))
+                                                                        continue
+                                                                else:
+                                                                    if descrip[6] == "MASTERCARD":
+                                                                        mc_siri_neg = df.iat[6, 3]
+                                                                        mc_siri_pos = -mc_siri_neg
+                                                                        print("Mastercard Siruis")
+                                                                        if mastercard == mc_siri_pos:
+                                                                            continue
+                                                                        else:
+                                                                            print(
+                                                                                "!!! MC Fusebox does NOT match Sirius !!!")
+                                                                            print("Mastercard is off by: " + str(
+                                                                                mastercard - mc_siri_pos))
+                                                                            continue
+                                                                    else:
+                                                                        if descrip[6] == "VISA":
+                                                                            vi_siri_neg = df.iat[6, 3]
+                                                                            vi_siri_pos = -vi_siri_neg
+                                                                            print("Visa Siruis")
+                                                                            if visa == vi_siri_pos:
+                                                                                continue
+                                                                            else:
+                                                                                print(
+                                                                                    "!!! VI Fusebox does NOT match Sirius !!!")
+                                                                                print("Visa is off by: " + str(
+                                                                                    visa - vi_siri_pos))
+                                                                                continue
+                                                                        else:
+                                                                            print("Error.6")
+                                                                            pass
+    if i == 7:
+        if descrip[7] == "60-RETAIL - 43400-620":
+            retail = df.iat[7, 3]
+            sheet["D21"] = retail
+            print("retail added")
+            continue
+        else:
+            if descrip[7] == "50-RENTAL - 43100-600":
+                rental = df.iat[7, 3]
+                sheet["D20"] = rental
+                print("rental added")
+                continue
+            else:
+                if descrip[7] == "10-LIFT TICKETS - 40000-300":
+                    tickets = df.iat[7, 3]
+                    sheet["D6"] = tickets
+                    print("tickets added")
+                    continue
+                else:
+                    if descrip[7] == "30-SS GRP SKI - 42000-533":
+                        ski = df.iat[7, 3]
+                        sheet["D12"] = ski
+                        print("group ski added")
+                        continue
+                    else:
+                        if descrip[7] == "40-CHILDCARE - 42300-546":
+                            childcare = df.iat[7, 3]
+                            sheet["D17"] = childcare
+                            print("Childcare added")
+                            continue
+                        else:
+                            if descrip[7] == "41-CC MEALS - 44000-716":
+                                meals = df.iat[7, 3]
+                                sheet["D18"] = meals
+                                print("CC Meals added")
+                                continue
+                            else:
+                                if descrip[7] == "40-CC RENTAL - 43100-545":
+                                    ccrental = df.iat[7, 3]
+                                    sheet["D15"] = ccrental
+                                    print("CC Rentals added")
+                                    continue
+                                else:
+                                    if descrip[7] == "40-CC SKI - 42000-543":
+                                        ccski = df.iat[7, 3]
+                                        sheet["D16"] = ccski
+                                        print("CC Ski added")
+                                        continue
+                                    else:
+                                        if descrip[7] == "40-CC BOARD - 42005-544":
+                                            ccsbd = df.iat[7, 3]
+                                            sheet["D14"] = ccsbd
+                                            print("CC Snowboard added")
+                                            continue
+                                        else:
+                                            if descrip[7] == "30-SS GRP BOARD - 42005-535":
+                                                sbd = df.iat[7, 3]
+                                                sheet["D11"] = sbd
+                                                print("CC Snowboard added")
+                                                continue
+                                            else:
+                                                if descrip[7] == "GRT":
+                                                    grt = df.iat[7, 3]
+                                                    sheet["D27"] = grt
+                                                    print("GRT added")
+                                                    continue
+                                                else:
+                                                    if descrip[7] == "ACCOUNT PAYMENTS & CREDITS":
+                                                        payments = df.iat[7, 3]
+                                                        sheet["D24"] = payments
+                                                        print("Account Payments & Credits added")
+                                                        continue
+                                                    else:
+                                                        if descrip[7] == "ACCOUNT CHARGES":
+                                                            charges = df.iat[7, 3]
+                                                            sheet["D23"] = charges
+                                                            print("Account Charges added")
+                                                            continue
+                                                        else:
+                                                            if descrip[7] == "AMERICAN EXPRESS":
+                                                                amx_siri_neg = df.iat[7, 3]
+                                                                amx_siri_pos = -amx_siri_neg
+                                                                print("American Express Siruis")
+                                                                if amx == amx_siri_pos:
+                                                                    continue
+                                                                else:
+                                                                    print("!!! AMX Fusebox does NOT match Sirius !!!")
+                                                                    print("AMX is off by: " + str(amx - amx_siri_pos))
+                                                                    continue
+                                                            else:
+                                                                if descrip[7] == "DISCOVER":
+                                                                    di_siri_neg = df.iat[7, 3]
+                                                                    di_siri_pos = -di_siri_neg
+                                                                    print("Discover Siruis")
+                                                                    if discover == di_siri_pos:
+                                                                        continue
+                                                                    else:
+                                                                        print(
+                                                                            "!!! DI Fusebox does NOT match Sirius !!!")
+                                                                        print("Discover is off by: " + str(
+                                                                            discover - di_siri_pos))
+                                                                        continue
+                                                                else:
+                                                                    if descrip[7] == "MASTERCARD":
+                                                                        mc_siri_neg = df.iat[7, 3]
+                                                                        mc_siri_pos = -mc_siri_neg
+                                                                        print("Mastercard Siruis")
+                                                                        if mastercard == mc_siri_pos:
+                                                                            continue
+                                                                        else:
+                                                                            print(
+                                                                                "!!! MC Fusebox does NOT match Sirius !!!")
+                                                                            print("Mastercard is off by: " + str(
+                                                                                mastercard - mc_siri_pos))
+                                                                            continue
+                                                                    else:
+                                                                        if descrip[7] == "VISA":
+                                                                            vi_siri_neg = df.iat[7, 3]
+                                                                            vi_siri_pos = -vi_siri_neg
+                                                                            print("Visa Siruis")
+                                                                            if visa == vi_siri_pos:
+                                                                                continue
+                                                                            else:
+                                                                                print(
+                                                                                    "!!! VI Fusebox does NOT match Sirius !!!")
+                                                                                print("Visa is off by: " + str(
+                                                                                    visa - vi_siri_pos))
+                                                                                continue
+                                                                        else:
+                                                                            print("Error.7")
+                                                                            pass
+
+
+
+
+
+
+print("\n")
+
+
+
+
+
+
+
+
+
+
+##needed? don't think so
+#else:
+    #print ("Something weird happend. Tell Devin")
+    #pass
+
+##Assigning names to the cell in the Fusebox CSV? Taking out for now. Don't think i need this
+#amx = df.iat[0, 14]
+#mastercard = df.iat[1, 14]
+#visa = df.iat[2, 14]
+#discover = df.iat[3, 14]
+
+
+
+#Adding value of cell in fusebox to excel if there is one?
+#Can you take out while True, try, except, break, & else here?
+while True:
+    try:
+        sheet["D39"] = amx
+    except:
+        break
+    else:
+        break
+
+while True:
+    try:
+        sheet["D38"] = mastercard + visa + discover
+    except:
+        break
+    else:
+        break
+
+print("Finished")
+print("\n")
+#Still need to add something for if vias, mc, or di is missing.
+
+wb.save(filename="/Users/DCB/Google Drive/Python/" + str(today) + "TestCVS CHS Blank.xlsx")
+print("File Saved")
