@@ -1,0 +1,4558 @@
+# Not sure what numpy as np is for. maybe delete
+
+import pandas as pd
+import numpy as np
+import openpyxl
+
+# inport date. Find a better format. ddmmyy is wanted for date added to saved file at end.
+from datetime import date
+from openpyxl import load_workbook
+
+# Givig today's date a name
+today = date.today()
+
+# Open Fuesbox CSV?
+fusebox_csv = input("Enter Fusebox Pathway: ")
+df = pd.read_csv(fusebox_csv)
+
+# Counting fusebox rows so Python knows how many times to run if statement for fusebox
+fusebox_row = df.shape[0]
+print("Fusebox Rows = " + str(fusebox_row))
+print("\n")
+
+# Open CHS Daily Excel? Where should this be?
+wb = load_workbook(filename="/Users/DCB/Google Drive/Python/zBLANK - CHS.xlsx")
+# ???
+sheet_ranges = wb['Adult SSS']
+
+# Not sure. I think it's just making the excel available to add to
+sheet = wb.active
+
+# Giving the payment type a name so python know what colum to look in?
+payment_type = df["PAYMENT_TYPE"]
+
+f = fusebox_row
+
+while f >= 1:
+    f = f - 1
+    if f == -1:
+        break
+    if f == 0:
+        if payment_type[0] == "AX":
+            amx = df.iat[0, 14]
+            sheet["D39"] = amx
+            continue
+        elif payment_type[0] == "MC":
+            mastercard = df.iat[0, 14]
+            continue
+        elif payment_type[0] == "VI":
+            visa = df.iat[0, 14]
+            continue
+        elif payment_type[0] == "DI":
+            discover = df.iat[0, 14]
+            continue
+        else:
+            print("Error CC.0")
+            pass
+    if f == 1:
+        if payment_type[1] == "AX":
+            amx = df.iat[1, 14]
+            sheet["D39"] = amx
+            continue
+        elif payment_type[1] == "MC":
+            mastercard = df.iat[1, 14]
+            continue
+        elif payment_type[1] == "VI":
+            visa = df.iat[1, 14]
+            continue
+        elif payment_type[1] == "DI":
+            discover = df.iat[1, 14]
+            continue
+        else:
+            print("Error CC.1")
+            pass
+    if f == 2:
+        if payment_type[2] == "AX":
+            amx = df.iat[2, 14]
+            sheet["D39"] = amx
+            continue
+        elif payment_type[2] == "MC":
+            mastercard = df.iat[2, 14]
+            continue
+        elif payment_type[2] == "VI":
+            visa = df.iat[2, 14]
+            continue
+        elif payment_type[2] == "DI":
+            discover = df.iat[2, 14]
+            continue
+        else:
+            print("Error CC.2")
+            pass
+    if f == 3:
+        if payment_type[3] == "AX":
+            amx = df.iat[3, 14]
+            sheet["D39"] = amx
+            continue
+        elif payment_type[3] == "MC":
+            mastercard = df.iat[3, 14]
+            continue
+        elif payment_type[3] == "VI":
+            visa = df.iat[3, 14]
+            continue
+        elif payment_type[3] == "DI":
+            discover = df.iat[3, 14]
+            continue
+        else:
+            print("Error CC.3")
+            pass
+try:
+    sheet["D38"] = mastercard + visa + discover
+except:
+    try:
+        sheet["D38"] = mastercard + discover
+    except:
+        try:
+            sheet["D38"] = mastercard + visa
+        except:
+            try:
+                sheet["D38"] = visa + discover
+            except:
+                try:
+                    sheet["D38"] = mastercard
+                except:
+                    try:
+                        sheet["D38"] = visa
+                    except:
+                        try:
+                            sheet["D38"] = discover
+                        except:
+                            print("No Credit Cards")
+
+# Tell Python where the Daily Summare is
+summary_csv = input("Enter Daily Summary Pathway: ")
+df = pd.read_csv(summary_csv)
+
+# Counting rows so python knows how many times to run the if statement.
+count_row = df.shape[0]
+print("Daily Summary Rows = " + str(count_row))
+print("\n")
+
+# Tell python what column to read?
+descrip = df[df.columns[1]]
+
+i = count_row
+
+while i >= 1:
+    i = i - 1
+    if i == -1:
+        break
+#Row 1
+    if i == 0:
+        if descrip[0] == "60-RETAIL - 43400-620":
+            retail = df.iat[0, 3]
+            sheet["D21"] = retail
+            print(descrip[0] + " added.0")
+
+        elif descrip[0] == "50-RENTAL - 43100-600":
+            rental = df.iat[0, 3]
+            sheet["D20"] = rental
+            print(descrip[0] + " added.0")
+
+        elif descrip[0] == "10-LIFT TICKETS - 40000-300":
+            tickets = df.iat[0, 3]
+            sheet["D6"] = tickets
+            print(descrip[0] + " added.0")
+
+        elif descrip[0] == "30-SS GRP SKI - 42000-533":
+            ski = df.iat[0, 3]
+            sheet["D12"] = ski
+            print(descrip[0] + " added.0")
+
+        elif descrip[0] == "40-CHILDCARE - 42300-546":
+            childcare = df.iat[0, 3]
+            sheet["D17"] = childcare
+            print(descrip[0] + " added.0")
+
+        elif descrip[0] == "41-CC MEALS - 44000-716":
+            meals = df.iat[0, 3]
+            sheet["D18"] = meals
+            print(descrip[0] + " added.0")
+
+        elif descrip[0] == "40-CC RENTAL - 43100-545":
+            ccrental = df.iat[0, 3]
+            sheet["D15"] = ccrental
+            print(descrip[0] + " added.0")
+
+        elif descrip[0] == "40-CC SKI - 42000-543":
+            ccski = df.iat[0, 3]
+            sheet["D16"] = ccski
+            print(descrip[0] + " added.0")
+
+        elif descrip[0] == "40-CC BOARD - 42005-544":
+            ccsbd = df.iat[0, 3]
+            sheet["D14"] = ccsbd
+            print(descrip[0] + " added.0")
+
+        elif descrip[0] == "30-SS GRP BOARD - 42005-535":
+            sbd = df.iat[0, 3]
+            sheet["D11"] = sbd
+            print(descrip[0] + " added.0")
+
+        elif descrip[0] == "GRT":
+            grt = df.iat[0, 3]
+            sheet["D27"] = grt
+            print(descrip[0] + " added.0")
+
+        elif descrip[0] == "ACCOUNT PAYMENTS & CREDITS":
+            payments = df.iat[0, 3]
+            sheet["D24"] = payments
+            print(descrip[0] + " added.0")
+
+        elif descrip[0] == "ACCOUNT CHARGES":
+            charges = df.iat[0, 3]
+            sheet["D23"] = charges
+            print(descrip[0] + " added.0")
+
+        elif descrip[0] == "AMERICAN EXPRESS":
+            amx_siri = df.iat[0, 3]
+            print(descrip[0] + " added.0")
+            if amx != -amx_siri:
+                print("!!! AMX Fusebox does NOT match Siriusware !!!")
+                print("AMX is off by: $" + str(amx - -amx_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[0] == "DISCOVER":
+            di_siri = df.iat[0, 3]
+            print(descrip[0] + " added.0")
+            if discover != -di_siri:
+                print("!!! DI Fusebox does NOT match Siriusware !!!")
+                print("Discover is off by: $" + str(discover - -di_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[0] == "MASTERCARD":
+            mc_siri = df.iat[0, 3]
+            print(descrip[0] + " added.0")
+            if mastercard != -mc_siri:
+                print("!!! MC Fusebox does NOT match Siriusware !!!")
+                print("Mastercard is off by: $" + str(mastercard - -mc_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[0] == "VISA":
+            vi_siri = df.iat[0, 3]
+            print(descrip[0] + " added.0")
+            if visa != -vi_siri:
+                print("!!! VI Fusebox does NOT match Siriusware !!!")
+                print("Visa is off by: $" + str(
+                    visa - -vi_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[0] == "96-REVREC DEFER - 27175-000":
+            revrec_defer_siri = df.iat[0, 3]
+            sheet["D22"] = revrec_defer_siri
+            print(descrip[0] + " added.0")
+
+        elif descrip[0] == "CHECK REQUEST":
+            check_request_siri = df.iat[0, 3]
+            while True:
+                try:
+                    check_request_input = float(input("Siriusware say Check Request = " +
+                                                      str(check_request_siri) +
+                                                      " How much $ for Check Request?"))
+                    if check_request_siri != check_request_input:
+                        print("Siriusware Check Request - inputed Check Request = $"
+                              + str(-check_request_siri - check_request_input))
+                        print("$" + str(-check_request_siri) + " added for Check Request.0")
+                        sheet["D41"] = check_request_input
+                    else:
+                        print("$" + str(-check_request_siri) + " added for Check Request.0")
+                        sheet["D41"] = check_request_input
+                    break
+                except ValueError:
+                    print("Check Request deposit can only include numbers")
+                    continue
+
+        elif descrip[0] == "SNOWSPORT SQUARE":
+            square_siri = df.iat[0, 3]
+            sheet["D43"] = input("How much $ for Square Gross?: ")
+            sheet["D44"] = input("How much $ for Square Fee?: ")
+            print(descrip[0] + " added.0")
+
+        elif descrip[0] == "CHECK":
+            check_siri = df.iat[0, 3]
+            while True:
+                try:
+                    check_input = float(input("Siriusware says CHECK = $" +
+                                              str(-check_siri) +
+                                              " How much $ in checks?: "))
+                    if -check_siri != check_input:
+                        print("Siriusware CHECK - inputed CHECK = $" +
+                              str(-check_siri - check_input))
+                        print("$" + str(-check_siri) + " added for Check.0")
+                        sheet["D33"] = check_input
+                    else:
+                        print("$" + str(-check_siri) + " added for Check.0")
+                        sheet["D33"] = check_input
+                    break
+                except ValueError:
+                    print("CHECK deposit can only include numbers")
+                    continue
+
+        elif descrip[0] == "40-NT CC BOARD - 42006-544":
+            nt_ccsbd_siri = df.iat[0, 3]
+            sheet["J11"] = nt_ccsbd_siri
+            print(descrip[0] + " added.0")
+
+        elif descrip[0] == "40-NT CC RENTAL - 43101-545":
+            nt_ccrental_siri = df.iat[0, 3]
+            sheet["J13"] = nt_ccrental_siri
+            print(descrip[0] + " added.0")
+
+        elif descrip[0] == "41-NT CC MEALS - 44001-716":
+            nt_ccmeals_siri = df.iat[0, 3]
+            sheet["J14"] = nt_ccmeals_siri
+            print(descrip[0] + " added.0")
+
+        elif descrip[0] == "10-NT LIFT - 40001-300":
+            nt_lift_siri = df.iat[0, 3]
+            sheet["J7"] = nt_lift_siri
+            print(descrip[0] + " added.0")
+
+        elif descrip[0] == "40-NT CC SKI - 42001-543":
+            nt_ccski_siri = df.iat[0, 3]
+            sheet["J9"] = nt_ccski_siri
+            print(descrip[0] + " added.0")
+
+        elif descrip[0] == "CASH":
+            siri_cash = df.iat[0, 3]
+            while True:
+                try:
+                    input_cash = float(
+                        input(" Siriusware says CASH = $" +
+                              str(-siri_cash) +
+                              " How much is the CASH deposit?: "))
+                    if -siri_cash != input_cash:
+                        print("Siriusware CASH - actual CASH deposit = $" +
+                                str(-siri_cash - input_cash))
+                        print("$" + str(input_cash) + " added for CASH.0")
+                        sheet["D32"] = input_cash
+                    else:
+                        print("$" + str(input_cash) + " added for CASH.0")
+                        sheet["D32"] = input_cash
+                    break
+                except ValueError:
+                    print("Cash deposit can only include numbers")
+                    continue
+        else:
+            print("Error.0")
+            pass
+#Row 2
+    if i == 1:
+        if descrip[1] == "60-RETAIL - 43400-620":
+            retail = df.iat[1, 3]
+            sheet["D21"] = retail
+            print(descrip[1] + " added.1")
+
+        elif descrip[1] == "50-RENTAL - 43100-600":
+            rental = df.iat[1, 3]
+            sheet["D20"] = rental
+            print(descrip[1] + " added.1")
+
+        elif descrip[1] == "10-LIFT TICKETS - 40000-300":
+            tickets = df.iat[1, 3]
+            sheet["D6"] = tickets
+            print(descrip[1] + " added.1")
+
+        elif descrip[1] == "30-SS GRP SKI - 42000-533":
+            ski = df.iat[1, 3]
+            sheet["D12"] = ski
+            print(descrip[1] + " added.1")
+
+        elif descrip[1] == "40-CHILDCARE - 42300-546":
+            childcare = df.iat[1, 3]
+            sheet["D17"] = childcare
+            print(descrip[1] + " added.1")
+
+        elif descrip[1] == "41-CC MEALS - 44000-716":
+            meals = df.iat[1, 3]
+            sheet["D18"] = meals
+            print(descrip[1] + " added.1")
+
+        elif descrip[1] == "40-CC RENTAL - 43100-545":
+            ccrental = df.iat[1, 3]
+            sheet["D15"] = ccrental
+            print(descrip[1] + " added.1")
+
+        elif descrip[1] == "40-CC SKI - 42000-543":
+            ccski = df.iat[1, 3]
+            sheet["D16"] = ccski
+            print(descrip[1] + " added.1")
+
+        elif descrip[1] == "40-CC BOARD - 42005-544":
+            ccsbd = df.iat[1, 3]
+            sheet["D14"] = ccsbd
+            print(descrip[1] + " added.1")
+
+        elif descrip[1] == "30-SS GRP BOARD - 42005-535":
+            sbd = df.iat[1, 3]
+            sheet["D11"] = sbd
+            print(descrip[1] + " added.1")
+
+        elif descrip[1] == "GRT":
+            grt = df.iat[1, 3]
+            sheet["D27"] = grt
+            print(descrip[1] + " added.1")
+
+        elif descrip[1] == "ACCOUNT PAYMENTS & CREDITS":
+            payments = df.iat[1, 3]
+            sheet["D24"] = payments
+            print(descrip[1] + " added.1")
+
+        elif descrip[1] == "ACCOUNT CHARGES":
+            charges = df.iat[1, 3]
+            sheet["D23"] = charges
+            print(descrip[1] + " added.1")
+
+        elif descrip[1] == "AMERICAN EXPRESS":
+            amx_siri = df.iat[1, 3]
+            print(descrip[1] + " added.1")
+            if amx != -amx_siri:
+                print("!!! AMX Fusebox does NOT match Siriusware !!!")
+                print("AMX is off by: $" + str(amx - -amx_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[1] == "DISCOVER":
+            di_siri = df.iat[1, 3]
+            print(descrip[1] + " added.1")
+            if discover != -di_siri:
+                print("!!! DI Fusebox does NOT match Siriusware !!!")
+                print("Discover is off by: $" + str(discover - -di_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[1] == "MASTERCARD":
+            mc_siri = df.iat[1, 3]
+            print(descrip[1] + " added.1")
+            if mastercard != -mc_siri:
+                print("!!! MC Fusebox does NOT match Siriusware !!!")
+                print("Mastercard is off by: $" + str(mastercard - -mc_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[1] == "VISA":
+            vi_siri = df.iat[1, 3]
+            print(descrip[1] + " added.1")
+            if visa != -vi_siri:
+                print("!!! VI Fusebox does NOT match Siriusware !!!")
+                print("Visa is off by: $" + str(
+                    visa - -vi_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[1] == "96-REVREC DEFER - 27175-000":
+            revrec_defer_siri = df.iat[1, 3]
+            sheet["D22"] = revrec_defer_siri
+            print(descrip[1] + " added.1")
+
+        elif descrip[1] == "CHECK REQUEST":
+            check_request_siri = df.iat[1, 3]
+            while True:
+                try:
+                    check_request_input = float(input("Siriusware say Check Request = " +
+                                                      str(check_request_siri) +
+                                                      " How much $ for Check Request?"))
+                    if check_request_siri != check_request_input:
+                        print("Siriusware Check Request - inputed Check Request = $"
+                              + str(-check_request_siri - check_request_input))
+                        print("$" + str(-check_request_siri) + " added for Check Request.1")
+                        sheet["D41"] = check_request_input
+                    else:
+                        print("$" + str(-check_request_siri) + " added for Check Request.1")
+                        sheet["D41"] = check_request_input
+                    break
+                except ValueError:
+                    print("Check Request deposit can only include numbers")
+                    continue
+
+        elif descrip[1] == "SNOWSPORT SQUARE":
+            square_siri = df.iat[1, 3]
+            sheet["D43"] = input("How much $ for Square Gross?: ")
+            sheet["D44"] = input("How much $ for Square Fee?: ")
+            print(descrip[1] + " added.1")
+
+        elif descrip[1] == "CHECK":
+            check_siri = df.iat[1, 3]
+            while True:
+                try:
+                    check_input = float(input("Siriusware says CHECK = $" +
+                                              str(-check_siri) +
+                                              " How much $ in checks?: "))
+                    if -check_siri != check_input:
+                        print("Siriusware CHECK - inputed CHECK = $" +
+                              str(-check_siri - check_input))
+                        print("$" + str(-check_siri) + " added for Check.1")
+                        sheet["D33"] = check_input
+                    else:
+                        print("$" + str(-check_siri) + " added for Check.1")
+                        sheet["D33"] = check_input
+                    break
+                except ValueError:
+                    print("CHECK deposit can only include numbers")
+                    continue
+
+        elif descrip[1] == "40-NT CC BOARD - 42006-544":
+            nt_ccsbd_siri = df.iat[1, 3]
+            sheet["J11"] = nt_ccsbd_siri
+            print(descrip[1] + " added.1")
+
+        elif descrip[1] == "40-NT CC RENTAL - 43101-545":
+            nt_ccrental_siri = df.iat[1, 3]
+            sheet["J13"] = nt_ccrental_siri
+            print(descrip[1] + " added.1")
+
+        elif descrip[1] == "41-NT CC MEALS - 44001-716":
+            nt_ccmeals_siri = df.iat[1, 3]
+            sheet["J14"] = nt_ccmeals_siri
+            print(descrip[1] + " added.1")
+
+        elif descrip[1] == "10-NT LIFT - 40001-300":
+            nt_lift_siri = df.iat[1, 3]
+            sheet["J7"] = nt_lift_siri
+            print(descrip[1] + " added.1")
+
+        elif descrip[1] == "40-NT CC SKI - 42001-543":
+            nt_ccski_siri = df.iat[1, 3]
+            sheet["J9"] = nt_ccski_siri
+            print(descrip[1] + " added.1")
+
+        elif descrip[1] == "CASH":
+            siri_cash = df.iat[1, 3]
+            while True:
+                try:
+                    input_cash = float(
+                        input(" Siriusware says CASH = $" +
+                              str(-siri_cash) +
+                              " How much is the CASH deposit?: "))
+                    if -siri_cash != input_cash:
+                        print("Siriusware CASH - actual CASH deposit = $" +
+                                str(-siri_cash - input_cash))
+                        print("$" + str(input_cash) + " added for CASH.1")
+                        sheet["D32"] = input_cash
+                    else:
+                        print("$" + str(input_cash) + " added for CASH.1")
+                        sheet["D32"] = input_cash
+                    break
+                except ValueError:
+                    print("Cash deposit can only include numbers")
+                    continue
+
+        else:
+            print("Error.1")
+            pass
+# Row 3
+    if i == 2:
+        if descrip[2] == "60-RETAIL - 43400-620":
+            retail = df.iat[2, 3]
+            sheet["D21"] = retail
+            print(descrip[2] + " added.2")
+
+        elif descrip[2] == "50-RENTAL - 43100-600":
+            rental = df.iat[2, 3]
+            sheet["D20"] = rental
+            print(descrip[2] + " added.2")
+
+        elif descrip[2] == "10-LIFT TICKETS - 40000-300":
+            tickets = df.iat[2, 3]
+            sheet["D6"] = tickets
+            print(descrip[2] + " added.2")
+
+        elif descrip[2] == "30-SS GRP SKI - 42000-533":
+            ski = df.iat[2, 3]
+            sheet["D12"] = ski
+            print(descrip[2] + " added.2")
+
+        elif descrip[2] == "40-CHILDCARE - 42300-546":
+            childcare = df.iat[2, 3]
+            sheet["D17"] = childcare
+            print(descrip[2] + " added.2")
+
+        elif descrip[2] == "41-CC MEALS - 44000-716":
+            meals = df.iat[2, 3]
+            sheet["D18"] = meals
+            print(descrip[2] + " added.2")
+
+        elif descrip[2] == "40-CC RENTAL - 43100-545":
+            ccrental = df.iat[2, 3]
+            sheet["D15"] = ccrental
+            print(descrip[2] + " added.2")
+
+        elif descrip[2] == "40-CC SKI - 42000-543":
+            ccski = df.iat[2, 3]
+            sheet["D16"] = ccski
+            print(descrip[2] + " added.2")
+
+        elif descrip[2] == "40-CC BOARD - 42005-544":
+            ccsbd = df.iat[2, 3]
+            sheet["D14"] = ccsbd
+            print(descrip[2] + " added.2")
+
+        elif descrip[2] == "30-SS GRP BOARD - 42005-535":
+            sbd = df.iat[2, 3]
+            sheet["D11"] = sbd
+            print(descrip[2] + " added.2")
+
+        elif descrip[2] == "GRT":
+            grt = df.iat[2, 3]
+            sheet["D27"] = grt
+            print(descrip[2] + " added.2")
+
+        elif descrip[2] == "ACCOUNT PAYMENTS & CREDITS":
+            payments = df.iat[2, 3]
+            sheet["D24"] = payments
+            print(descrip[2] + " added.2")
+
+        elif descrip[2] == "ACCOUNT CHARGES":
+            charges = df.iat[2, 3]
+            sheet["D23"] = charges
+            print(descrip[2] + " added.2")
+
+        elif descrip[2] == "AMERICAN EXPRESS":
+            amx_siri = df.iat[2, 3]
+            print(descrip[2] + " added.2")
+            if amx != -amx_siri:
+                print("!!! AMX Fusebox does NOT match Siriusware !!!")
+                print("AMX is off by: $" + str(amx - -amx_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[2] == "DISCOVER":
+            di_siri = df.iat[2, 3]
+            print(descrip[2] + " added.2")
+            if discover != -di_siri:
+                print("!!! DI Fusebox does NOT match Siriusware !!!")
+                print("Discover is off by: $" + str(discover - -di_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[2] == "MASTERCARD":
+            mc_siri = df.iat[2, 3]
+            print(descrip[2] + " added.2")
+            if mastercard != -mc_siri:
+                print("!!! MC Fusebox does NOT match Siriusware !!!")
+                print("Mastercard is off by: $" + str(mastercard - -mc_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[2] == "VISA":
+            vi_siri = df.iat[2, 3]
+            print(descrip[2] + " added.2")
+            if visa != -vi_siri:
+                print("!!! VI Fusebox does NOT match Siriusware !!!")
+                print("Visa is off by: $" + str(
+                    visa - -vi_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[2] == "96-REVREC DEFER - 27175-000":
+            revrec_defer_siri = df.iat[2, 3]
+            sheet["D22"] = revrec_defer_siri
+            print(descrip[2] + " added.2")
+
+        elif descrip[2] == "CHECK REQUEST":
+            check_request_siri = df.iat[2, 3]
+            while True:
+                try:
+                    check_request_input = float(input("Siriusware say Check Request = " +
+                                                      str(check_request_siri) +
+                                                      " How much $ for Check Request?"))
+                    if check_request_siri != check_request_input:
+                        print("Siriusware Check Request - inputed Check Request = $"
+                              + str(-check_request_siri - check_request_input))
+                        print("$" + str(-check_request_siri) + " added for Check Request.2")
+                        sheet["D41"] = check_request_input
+                    else:
+                        print("$" + str(-check_request_siri) + " added for Check Request.2")
+                        sheet["D41"] = check_request_input
+                    break
+                except ValueError:
+                    print("Check Request deposit can only include numbers")
+                    continue
+
+        elif descrip[2] == "SNOWSPORT SQUARE":
+            square_siri = df.iat[2, 3]
+            sheet["D43"] = input("How much $ for Square Gross?: ")
+            sheet["D44"] = input("How much $ for Square Fee?: ")
+            print(descrip[2] + " added.2")
+
+        elif descrip[2] == "CHECK":
+            check_siri = df.iat[2, 3]
+            while True:
+                try:
+                    check_input = float(input("Siriusware says CHECK = $" +
+                                              str(-check_siri) +
+                                              " How much $ in checks?: "))
+                    if -check_siri != check_input:
+                        print("Siriusware CHECK - inputed CHECK = $" +
+                              str(-check_siri - check_input))
+                        print("$" + str(-check_siri) + " added for Check.2")
+                        sheet["D33"] = check_input
+                    else:
+                        print("$" + str(-check_siri) + " added for Check.2")
+                        sheet["D33"] = check_input
+                    break
+                except ValueError:
+                    print("CHECK deposit can only include numbers")
+                    continue
+
+        elif descrip[2] == "40-NT CC BOARD - 42006-544":
+            nt_ccsbd_siri = df.iat[2, 3]
+            sheet["J11"] = nt_ccsbd_siri
+            print(descrip[2] + " added.2")
+
+        elif descrip[2] == "40-NT CC RENTAL - 43101-545":
+            nt_ccrental_siri = df.iat[2, 3]
+            sheet["J13"] = nt_ccrental_siri
+            print(descrip[2] + " added.2")
+
+        elif descrip[2] == "41-NT CC MEALS - 44001-716":
+            nt_ccmeals_siri = df.iat[2, 3]
+            sheet["J14"] = nt_ccmeals_siri
+            print(descrip[2] + " added.2")
+
+        elif descrip[2] == "10-NT LIFT - 40001-300":
+            nt_lift_siri = df.iat[2, 3]
+            sheet["J7"] = nt_lift_siri
+            print(descrip[2] + " added.2")
+
+        elif descrip[2] == "40-NT CC SKI - 42001-543":
+            nt_ccski_siri = df.iat[2, 3]
+            sheet["J9"] = nt_ccski_siri
+            print(descrip[2] + " added.2")
+
+        elif descrip[2] == "CASH":
+            siri_cash = df.iat[2, 3]
+            while True:
+                try:
+                    input_cash = float(
+                        input(" Siriusware says CASH = $" +
+                              str(-siri_cash) +
+                              " How much is the CASH deposit?: "))
+                    if -siri_cash != input_cash:
+                        print("Siriusware CASH - actual CASH deposit = $" +
+                                str(-siri_cash - input_cash))
+                        print("$" + str(input_cash) + " added for CASH.2")
+                        sheet["D32"] = input_cash
+                    else:
+                        print("$" + str(input_cash) + " added for CASH.2")
+                        sheet["D32"] = input_cash
+                    break
+                except ValueError:
+                    print("Cash deposit can only include numbers")
+                    continue
+
+        else:
+            print("Error.2")
+            pass
+#Row 4
+    if i == 3:
+        if descrip[3] == "60-RETAIL - 43400-620":
+            retail = df.iat[3, 3]
+            sheet["D21"] = retail
+            print(descrip[3] + " added.3")
+
+        elif descrip[3] == "50-RENTAL - 43100-600":
+            rental = df.iat[3, 3]
+            sheet["D20"] = rental
+            print(descrip[3] + " added.3")
+
+        elif descrip[3] == "10-LIFT TICKETS - 40000-300":
+            tickets = df.iat[3, 3]
+            sheet["D6"] = tickets
+            print(descrip[3] + " added.3")
+
+        elif descrip[3] == "30-SS GRP SKI - 42000-533":
+            ski = df.iat[3, 3]
+            sheet["D12"] = ski
+            print(descrip[3] + " added.3")
+
+        elif descrip[3] == "40-CHILDCARE - 42300-546":
+            childcare = df.iat[3, 3]
+            sheet["D17"] = childcare
+            print(descrip[3] + " added.3")
+
+        elif descrip[3] == "41-CC MEALS - 44000-716":
+            meals = df.iat[3, 3]
+            sheet["D18"] = meals
+            print(descrip[3] + " added.3")
+
+        elif descrip[3] == "40-CC RENTAL - 43100-545":
+            ccrental = df.iat[3, 3]
+            sheet["D15"] = ccrental
+            print(descrip[3] + " added.3")
+
+        elif descrip[3] == "40-CC SKI - 42000-543":
+            ccski = df.iat[3, 3]
+            sheet["D16"] = ccski
+            print(descrip[3] + " added.3")
+
+        elif descrip[3] == "40-CC BOARD - 42005-544":
+            ccsbd = df.iat[3, 3]
+            sheet["D14"] = ccsbd
+            print(descrip[3] + " added.3")
+
+        elif descrip[3] == "30-SS GRP BOARD - 42005-535":
+            sbd = df.iat[3, 3]
+            sheet["D11"] = sbd
+            print(descrip[3] + " added.3")
+
+        elif descrip[3] == "GRT":
+            grt = df.iat[3, 3]
+            sheet["D27"] = grt
+            print(descrip[3] + " added.3")
+
+        elif descrip[3] == "ACCOUNT PAYMENTS & CREDITS":
+            payments = df.iat[3, 3]
+            sheet["D24"] = payments
+            print(descrip[3] + " added.3")
+
+        elif descrip[3] == "ACCOUNT CHARGES":
+            charges = df.iat[3, 3]
+            sheet["D23"] = charges
+            print(descrip[3] + " added.3")
+
+        elif descrip[3] == "AMERICAN EXPRESS":
+            amx_siri = df.iat[3, 3]
+            print(descrip[3] + " added.3")
+            if amx != -amx_siri:
+                print("!!! AMX Fusebox does NOT match Siriusware !!!")
+                print("AMX is off by: $" + str(amx - -amx_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[3] == "DISCOVER":
+            di_siri = df.iat[3, 3]
+            print(descrip[3] + " added.3")
+            if discover != -di_siri:
+                print("!!! DI Fusebox does NOT match Siriusware !!!")
+                print("Discover is off by: $" + str(discover - -di_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[3] == "MASTERCARD":
+            mc_siri = df.iat[3, 3]
+            print(descrip[3] + " added.3")
+            if mastercard != -mc_siri:
+                print("!!! MC Fusebox does NOT match Siriusware !!!")
+                print("Mastercard is off by: $" + str(mastercard - -mc_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[3] == "VISA":
+            vi_siri = df.iat[3, 3]
+            print(descrip[3] + " added.3")
+            if visa != -vi_siri:
+                print("!!! VI Fusebox does NOT match Siriusware !!!")
+                print("Visa is off by: $" + str(
+                    visa - -vi_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[3] == "96-REVREC DEFER - 27175-000":
+            revrec_defer_siri = df.iat[3, 3]
+            sheet["D22"] = revrec_defer_siri
+            print(descrip[3] + " added.3")
+
+        elif descrip[3] == "CHECK REQUEST":
+            check_request_siri = df.iat[3, 3]
+            while True:
+                try:
+                    check_request_input = float(input("Siriusware say Check Request = " +
+                                                      str(check_request_siri) +
+                                                      " How much $ for Check Request?"))
+                    if check_request_siri != check_request_input:
+                        print("Siriusware Check Request - inputed Check Request = $"
+                              + str(-check_request_siri - check_request_input))
+                        print("$" + str(-check_request_siri) + " added for Check Request.3")
+                        sheet["D41"] = check_request_input
+                    else:
+                        print("$" + str(-check_request_siri) + " added for Check Request.3")
+                        sheet["D41"] = check_request_input
+                    break
+                except ValueError:
+                    print("Check Request deposit can only include numbers")
+                    continue
+
+        elif descrip[3] == "SNOWSPORT SQUARE":
+            square_siri = df.iat[3, 3]
+            sheet["D43"] = input("How much $ for Square Gross?: ")
+            sheet["D44"] = input("How much $ for Square Fee?: ")
+            print(descrip[3] + " added.3")
+
+        elif descrip[3] == "CHECK":
+            check_siri = df.iat[3, 3]
+            while True:
+                try:
+                    check_input = float(input("Siriusware says CHECK = $" +
+                                              str(-check_siri) +
+                                              " How much $ in checks?: "))
+                    if -check_siri != check_input:
+                        print("Siriusware CHECK - inputed CHECK = $" +
+                              str(-check_siri - check_input))
+                        print("$" + str(-check_siri) + " added for Check.3")
+                        sheet["D33"] = check_input
+                    else:
+                        print("$" + str(-check_siri) + " added for Check.3")
+                        sheet["D33"] = check_input
+                    break
+                except ValueError:
+                    print("CHECK deposit can only include numbers")
+                    continue
+
+        elif descrip[3] == "40-NT CC BOARD - 42006-544":
+            nt_ccsbd_siri = df.iat[3, 3]
+            sheet["J11"] = nt_ccsbd_siri
+            print(descrip[3] + " added.3")
+
+        elif descrip[3] == "40-NT CC RENTAL - 43101-545":
+            nt_ccrental_siri = df.iat[3, 3]
+            sheet["J13"] = nt_ccrental_siri
+            print(descrip[3] + " added.3")
+
+        elif descrip[3] == "41-NT CC MEALS - 44001-716":
+            nt_ccmeals_siri = df.iat[3, 3]
+            sheet["J14"] = nt_ccmeals_siri
+            print(descrip[3] + " added.3")
+
+        elif descrip[3] == "10-NT LIFT - 40001-300":
+            nt_lift_siri = df.iat[3, 3]
+            sheet["J7"] = nt_lift_siri
+            print(descrip[3] + " added.3")
+
+        elif descrip[3] == "40-NT CC SKI - 42001-543":
+            nt_ccski_siri = df.iat[3, 3]
+            sheet["J9"] = nt_ccski_siri
+            print(descrip[3] + " added.3")
+
+        elif descrip[3] == "CASH":
+            siri_cash = df.iat[3, 3]
+            while True:
+                try:
+                    input_cash = float(
+                        input(" Siriusware says CASH = $" +
+                              str(-siri_cash) +
+                              " How much is the CASH deposit?: "))
+                    if -siri_cash != input_cash:
+                        print("Siriusware CASH - actual CASH deposit = $" +
+                                str(-siri_cash - input_cash))
+                        print("$" + str(input_cash) + " added for CASH.3")
+                        sheet["D32"] = input_cash
+                    else:
+                        print("$" + str(input_cash) + " added for CASH.3")
+                        sheet["D32"] = input_cash
+                    break
+                except ValueError:
+                    print("Cash deposit can only include numbers")
+                    continue
+
+        else:
+            print("Error.3")
+            pass
+# Row 5
+    if i == 4:
+        if descrip[4] == "60-RETAIL - 43400-620":
+            retail = df.iat[4, 3]
+            sheet["D21"] = retail
+            print(descrip[4] + " added.4")
+
+        elif descrip[4] == "50-RENTAL - 43100-600":
+            rental = df.iat[4, 3]
+            sheet["D20"] = rental
+            print(descrip[4] + " added.4")
+
+        elif descrip[4] == "10-LIFT TICKETS - 40000-300":
+            tickets = df.iat[4, 3]
+            sheet["D6"] = tickets
+            print(descrip[4] + " added.4")
+
+        elif descrip[4] == "30-SS GRP SKI - 42000-533":
+            ski = df.iat[4, 3]
+            sheet["D12"] = ski
+            print(descrip[4] + " added.4")
+
+        elif descrip[4] == "40-CHILDCARE - 42300-546":
+            childcare = df.iat[4, 3]
+            sheet["D17"] = childcare
+            print(descrip[4] + " added.4")
+
+        elif descrip[4] == "41-CC MEALS - 44000-716":
+            meals = df.iat[4, 3]
+            sheet["D18"] = meals
+            print(descrip[4] + " added.4")
+
+        elif descrip[4] == "40-CC RENTAL - 43100-545":
+            ccrental = df.iat[4, 3]
+            sheet["D15"] = ccrental
+            print(descrip[4] + " added.4")
+
+        elif descrip[4] == "40-CC SKI - 42000-543":
+            ccski = df.iat[4, 3]
+            sheet["D16"] = ccski
+            print(descrip[4] + " added.4")
+
+        elif descrip[4] == "40-CC BOARD - 42005-544":
+            ccsbd = df.iat[4, 3]
+            sheet["D14"] = ccsbd
+            print(descrip[4] + " added.4")
+
+        elif descrip[4] == "30-SS GRP BOARD - 42005-535":
+            sbd = df.iat[4, 3]
+            sheet["D11"] = sbd
+            print(descrip[4] + " added.4")
+
+        elif descrip[4] == "GRT":
+            grt = df.iat[4, 3]
+            sheet["D27"] = grt
+            print(descrip[4] + " added.4")
+
+        elif descrip[4] == "ACCOUNT PAYMENTS & CREDITS":
+            payments = df.iat[4, 3]
+            sheet["D24"] = payments
+            print(descrip[4] + " added.4")
+
+        elif descrip[4] == "ACCOUNT CHARGES":
+            charges = df.iat[4, 3]
+            sheet["D23"] = charges
+            print(descrip[4] + " added.4")
+
+        elif descrip[4] == "AMERICAN EXPRESS":
+            amx_siri = df.iat[4, 3]
+            print(descrip[4] + " added.4")
+            if amx != -amx_siri:
+                print("!!! AMX Fusebox does NOT match Siriusware !!!")
+                print("AMX is off by: $" + str(amx - -amx_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[4] == "DISCOVER":
+            di_siri = df.iat[4, 3]
+            print(descrip[4] + " added.4")
+            if discover != -di_siri:
+                print("!!! DI Fusebox does NOT match Siriusware !!!")
+                print("Discover is off by: $" + str(discover - -di_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[4] == "MASTERCARD":
+            mc_siri = df.iat[4, 3]
+            print(descrip[4] + " added.4")
+            if mastercard != -mc_siri:
+                print("!!! MC Fusebox does NOT match Siriusware !!!")
+                print("Mastercard is off by: $" + str(mastercard - -mc_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[4] == "VISA":
+            vi_siri = df.iat[4, 3]
+            print(descrip[4] + " added.4")
+            if visa != -vi_siri:
+                print("!!! VI Fusebox does NOT match Siriusware !!!")
+                print("Visa is off by: $" + str(
+                    visa - -vi_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[4] == "96-REVREC DEFER - 27175-000":
+            revrec_defer_siri = df.iat[4, 3]
+            sheet["D22"] = revrec_defer_siri
+            print(descrip[4] + " added.4")
+
+        elif descrip[4] == "CHECK REQUEST":
+            check_request_siri = df.iat[4, 3]
+            while True:
+                try:
+                    check_request_input = float(input("Siriusware say Check Request = " +
+                                                      str(check_request_siri) +
+                                                      " How much $ for Check Request?"))
+                    if check_request_siri != check_request_input:
+                        print("Siriusware Check Request - inputed Check Request = $"
+                              + str(-check_request_siri - check_request_input))
+                        print("$" + str(-check_request_siri) + " added for Check Request.4")
+                        sheet["D41"] = check_request_input
+                    else:
+                        print("$" + str(-check_request_siri) + " added for Check Request.4")
+                        sheet["D41"] = check_request_input
+                    break
+                except ValueError:
+                    print("Check Request deposit can only include numbers")
+                    continue
+
+        elif descrip[4] == "SNOWSPORT SQUARE":
+            square_siri = df.iat[4, 3]
+            sheet["D43"] = input("How much $ for Square Gross?: ")
+            sheet["D44"] = input("How much $ for Square Fee?: ")
+            print(descrip[4] + " added.4")
+
+        elif descrip[4] == "CHECK":
+            check_siri = df.iat[4, 3]
+            while True:
+                try:
+                    check_input = float(input("Siriusware says CHECK = $" +
+                                              str(-check_siri) +
+                                              " How much $ in checks?: "))
+                    if -check_siri != check_input:
+                        print("Siriusware CHECK - inputed CHECK = $" +
+                              str(-check_siri - check_input))
+                        print("$" + str(-check_siri) + " added for Check.4")
+                        sheet["D33"] = check_input
+                    else:
+                        print("$" + str(-check_siri) + " added for Check.4")
+                        sheet["D33"] = check_input
+                    break
+                except ValueError:
+                    print("CHECK deposit can only include numbers")
+                    continue
+
+        elif descrip[4] == "40-NT CC BOARD - 42006-544":
+            nt_ccsbd_siri = df.iat[4, 3]
+            sheet["J11"] = nt_ccsbd_siri
+            print(descrip[4] + " added.4")
+
+        elif descrip[4] == "40-NT CC RENTAL - 43101-545":
+            nt_ccrental_siri = df.iat[4, 3]
+            sheet["J13"] = nt_ccrental_siri
+            print(descrip[4] + " added.4")
+
+        elif descrip[4] == "41-NT CC MEALS - 44001-716":
+            nt_ccmeals_siri = df.iat[4, 3]
+            sheet["J14"] = nt_ccmeals_siri
+            print(descrip[4] + " added.4")
+
+        elif descrip[4] == "10-NT LIFT - 40001-300":
+            nt_lift_siri = df.iat[4, 3]
+            sheet["J7"] = nt_lift_siri
+            print(descrip[4] + " added.4")
+
+        elif descrip[4] == "40-NT CC SKI - 42001-543":
+            nt_ccski_siri = df.iat[4, 3]
+            sheet["J9"] = nt_ccski_siri
+            print(descrip[4] + " added.4")
+
+        elif descrip[4] == "CASH":
+            siri_cash = df.iat[4, 3]
+            while True:
+                try:
+                    input_cash = float(
+                        input(" Siriusware says CASH = $" +
+                              str(-siri_cash) +
+                              " How much is the CASH deposit?: "))
+                    if -siri_cash != input_cash:
+                        print("Siriusware CASH - actual CASH deposit = $" +
+                                str(-siri_cash - input_cash))
+                        print("$" + str(input_cash) + " added for CASH.4")
+                        sheet["D32"] = input_cash
+                    else:
+                        print("$" + str(input_cash) + " added for CASH.4")
+                        sheet["D32"] = input_cash
+                    break
+                except ValueError:
+                    print("Cash deposit can only include numbers")
+                    continue
+
+        else:
+            print("Error.4")
+            pass
+# Row 6
+    if i == 5:
+        if descrip[5] == "60-RETAIL - 43400-620":
+            retail = df.iat[5, 3]
+            sheet["D21"] = retail
+            print(descrip[5] + " added.5")
+
+        elif descrip[5] == "50-RENTAL - 43100-600":
+            rental = df.iat[5, 3]
+            sheet["D20"] = rental
+            print(descrip[5] + " added.5")
+
+        elif descrip[5] == "10-LIFT TICKETS - 40000-300":
+            tickets = df.iat[5, 3]
+            sheet["D6"] = tickets
+            print(descrip[5] + " added.5")
+
+        elif descrip[5] == "30-SS GRP SKI - 42000-533":
+            ski = df.iat[5, 3]
+            sheet["D12"] = ski
+            print(descrip[5] + " added.5")
+
+        elif descrip[5] == "40-CHILDCARE - 42300-546":
+            childcare = df.iat[5, 3]
+            sheet["D17"] = childcare
+            print(descrip[5] + " added.5")
+
+        elif descrip[5] == "41-CC MEALS - 44000-716":
+            meals = df.iat[5, 3]
+            sheet["D18"] = meals
+            print(descrip[5] + " added.5")
+
+        elif descrip[5] == "40-CC RENTAL - 43100-545":
+            ccrental = df.iat[5, 3]
+            sheet["D15"] = ccrental
+            print(descrip[5] + " added.5")
+
+        elif descrip[5] == "40-CC SKI - 42000-543":
+            ccski = df.iat[5, 3]
+            sheet["D16"] = ccski
+            print(descrip[5] + " added.5")
+
+        elif descrip[5] == "40-CC BOARD - 42005-544":
+            ccsbd = df.iat[5, 3]
+            sheet["D14"] = ccsbd
+            print(descrip[5] + " added.5")
+
+        elif descrip[5] == "30-SS GRP BOARD - 42005-535":
+            sbd = df.iat[5, 3]
+            sheet["D11"] = sbd
+            print(descrip[5] + " added.5")
+
+        elif descrip[5] == "GRT":
+            grt = df.iat[5, 3]
+            sheet["D27"] = grt
+            print(descrip[5] + " added.5")
+
+        elif descrip[5] == "ACCOUNT PAYMENTS & CREDITS":
+            payments = df.iat[5, 3]
+            sheet["D24"] = payments
+            print(descrip[5] + " added.5")
+
+        elif descrip[5] == "ACCOUNT CHARGES":
+            charges = df.iat[5, 3]
+            sheet["D23"] = charges
+            print(descrip[5] + " added.5")
+
+        elif descrip[5] == "AMERICAN EXPRESS":
+            amx_siri = df.iat[5, 3]
+            print(descrip[5] + " added.5")
+            if amx != -amx_siri:
+                print("!!! AMX Fusebox does NOT match Siriusware !!!")
+                print("AMX is off by: $" + str(amx - -amx_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[5] == "DISCOVER":
+            di_siri = df.iat[5, 3]
+            print(descrip[5] + " added.5")
+            if discover != -di_siri:
+                print("!!! DI Fusebox does NOT match Siriusware !!!")
+                print("Discover is off by: $" + str(discover - -di_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[5] == "MASTERCARD":
+            mc_siri = df.iat[5, 3]
+            print(descrip[5] + " added.5")
+            if mastercard != -mc_siri:
+                print("!!! MC Fusebox does NOT match Siriusware !!!")
+                print("Mastercard is off by: $" + str(mastercard - -mc_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[5] == "VISA":
+            vi_siri = df.iat[5, 3]
+            print(descrip[5] + " added.5")
+            if visa != -vi_siri:
+                print("!!! VI Fusebox does NOT match Siriusware !!!")
+                print("Visa is off by: $" + str(
+                    visa - -vi_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[5] == "96-REVREC DEFER - 27175-000":
+            revrec_defer_siri = df.iat[5, 3]
+            sheet["D22"] = revrec_defer_siri
+            print(descrip[5] + " added.5")
+
+        elif descrip[5] == "CHECK REQUEST":
+            check_request_siri = df.iat[5, 3]
+            while True:
+                try:
+                    check_request_input = float(input("Siriusware say Check Request = " +
+                                                      str(check_request_siri) +
+                                                      " How much $ for Check Request?"))
+                    if check_request_siri != check_request_input:
+                        print("Siriusware Check Request - inputed Check Request = $"
+                              + str(-check_request_siri - check_request_input))
+                        print("$" + str(-check_request_siri) + " added for Check Request.5")
+                        sheet["D41"] = check_request_input
+                    else:
+                        print("$" + str(-check_request_siri) + " added for Check Request.5")
+                        sheet["D41"] = check_request_input
+                    break
+                except ValueError:
+                    print("Check Request deposit can only include numbers")
+                    continue
+
+        elif descrip[5] == "SNOWSPORT SQUARE":
+            square_siri = df.iat[5, 3]
+            sheet["D43"] = input("How much $ for Square Gross?: ")
+            sheet["D44"] = input("How much $ for Square Fee?: ")
+            print(descrip[5] + " added.5")
+
+        elif descrip[5] == "CHECK":
+            check_siri = df.iat[5, 3]
+            while True:
+                try:
+                    check_input = float(input("Siriusware says CHECK = $" +
+                                              str(-check_siri) +
+                                              " How much $ in checks?: "))
+                    if -check_siri != check_input:
+                        print("Siriusware CHECK - inputed CHECK = $" +
+                              str(-check_siri - check_input))
+                        print("$" + str(-check_siri) + " added for Check.5")
+                        sheet["D33"] = check_input
+                    else:
+                        print("$" + str(-check_siri) + " added for Check.5")
+                        sheet["D33"] = check_input
+                    break
+                except ValueError:
+                    print("CHECK deposit can only include numbers")
+                    continue
+
+        elif descrip[5] == "40-NT CC BOARD - 42006-544":
+            nt_ccsbd_siri = df.iat[5, 3]
+            sheet["J11"] = nt_ccsbd_siri
+            print(descrip[5] + " added.5")
+
+        elif descrip[5] == "40-NT CC RENTAL - 43101-545":
+            nt_ccrental_siri = df.iat[5, 3]
+            sheet["J13"] = nt_ccrental_siri
+            print(descrip[5] + " added.5")
+
+        elif descrip[5] == "41-NT CC MEALS - 44001-716":
+            nt_ccmeals_siri = df.iat[5, 3]
+            sheet["J14"] = nt_ccmeals_siri
+            print(descrip[5] + " added.5")
+
+        elif descrip[5] == "10-NT LIFT - 40001-300":
+            nt_lift_siri = df.iat[5, 3]
+            sheet["J7"] = nt_lift_siri
+            print(descrip[5] + " added.5")
+
+        elif descrip[5] == "40-NT CC SKI - 42001-543":
+            nt_ccski_siri = df.iat[5, 3]
+            sheet["J9"] = nt_ccski_siri
+            print(descrip[5] + " added.5")
+
+        elif descrip[5] == "CASH":
+            siri_cash = df.iat[5, 3]
+            while True:
+                try:
+                    input_cash = float(
+                        input(" Siriusware says CASH = $" +
+                              str(-siri_cash) +
+                              " How much is the CASH deposit?: "))
+                    if -siri_cash != input_cash:
+                        print("Siriusware CASH - actual CASH deposit = $" +
+                                str(-siri_cash - input_cash))
+                        print("$" + str(input_cash) + " added for CASH.5")
+                        sheet["D32"] = input_cash
+                    else:
+                        print("$" + str(input_cash) + " added for CASH.5")
+                        sheet["D32"] = input_cash
+                    break
+                except ValueError:
+                    print("Cash deposit can only include numbers")
+                    continue
+
+        else:
+            print("Error.5")
+            pass
+# Row 7
+    if i == 6:
+        if descrip[6] == "60-RETAIL - 43400-620":
+            retail = df.iat[6, 3]
+            sheet["D21"] = retail
+            print(descrip[6] + " added.6")
+
+        elif descrip[6] == "50-RENTAL - 43100-600":
+            rental = df.iat[6, 3]
+            sheet["D20"] = rental
+            print(descrip[6] + " added.6")
+
+        elif descrip[6] == "10-LIFT TICKETS - 40000-300":
+            tickets = df.iat[6, 3]
+            sheet["D6"] = tickets
+            print(descrip[6] + " added.6")
+
+        elif descrip[6] == "30-SS GRP SKI - 42000-533":
+            ski = df.iat[6, 3]
+            sheet["D12"] = ski
+            print(descrip[6] + " added.6")
+
+        elif descrip[6] == "40-CHILDCARE - 42300-546":
+            childcare = df.iat[6, 3]
+            sheet["D17"] = childcare
+            print(descrip[6] + " added.6")
+
+        elif descrip[6] == "41-CC MEALS - 44000-716":
+            meals = df.iat[6, 3]
+            sheet["D18"] = meals
+            print(descrip[6] + " added.6")
+
+        elif descrip[6] == "40-CC RENTAL - 43100-545":
+            ccrental = df.iat[6, 3]
+            sheet["D15"] = ccrental
+            print(descrip[6] + " added.6")
+
+        elif descrip[6] == "40-CC SKI - 42000-543":
+            ccski = df.iat[6, 3]
+            sheet["D16"] = ccski
+            print(descrip[6] + " added.6")
+
+        elif descrip[6] == "40-CC BOARD - 42005-544":
+            ccsbd = df.iat[6, 3]
+            sheet["D14"] = ccsbd
+            print(descrip[6] + " added.6")
+
+        elif descrip[6] == "30-SS GRP BOARD - 42005-535":
+            sbd = df.iat[6, 3]
+            sheet["D11"] = sbd
+            print(descrip[6] + " added.6")
+
+        elif descrip[6] == "GRT":
+            grt = df.iat[6, 3]
+            sheet["D27"] = grt
+            print(descrip[6] + " added.6")
+
+        elif descrip[6] == "ACCOUNT PAYMENTS & CREDITS":
+            payments = df.iat[6, 3]
+            sheet["D24"] = payments
+            print(descrip[6] + " added.6")
+
+        elif descrip[6] == "ACCOUNT CHARGES":
+            charges = df.iat[6, 3]
+            sheet["D23"] = charges
+            print(descrip[6] + " added.6")
+
+        elif descrip[6] == "AMERICAN EXPRESS":
+            amx_siri = df.iat[6, 3]
+            print(descrip[6] + " added.6")
+            if amx != -amx_siri:
+                print("!!! AMX Fusebox does NOT match Siriusware !!!")
+                print("AMX is off by: $" + str(amx - -amx_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[6] == "DISCOVER":
+            di_siri = df.iat[6, 3]
+            print(descrip[6] + " added.6")
+            if discover != -di_siri:
+                print("!!! DI Fusebox does NOT match Siriusware !!!")
+                print("Discover is off by: $" + str(discover - -di_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[6] == "MASTERCARD":
+            mc_siri = df.iat[6, 3]
+            print(descrip[6] + " added.6")
+            if mastercard != -mc_siri:
+                print("!!! MC Fusebox does NOT match Siriusware !!!")
+                print("Mastercard is off by: $" + str(mastercard - -mc_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[6] == "VISA":
+            vi_siri = df.iat[6, 3]
+            print(descrip[6] + " added.6")
+            if visa != -vi_siri:
+                print("!!! VI Fusebox does NOT match Siriusware !!!")
+                print("Visa is off by: $" + str(
+                    visa - -vi_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[6] == "96-REVREC DEFER - 27175-000":
+            revrec_defer_siri = df.iat[6, 3]
+            sheet["D22"] = revrec_defer_siri
+            print(descrip[6] + " added.6")
+
+        elif descrip[6] == "CHECK REQUEST":
+            check_request_siri = df.iat[6, 3]
+            while True:
+                try:
+                    check_request_input = float(input("Siriusware say Check Request = " +
+                                                      str(check_request_siri) +
+                                                      " How much $ for Check Request?"))
+                    if check_request_siri != check_request_input:
+                        print("Siriusware Check Request - inputed Check Request = $"
+                              + str(-check_request_siri - check_request_input))
+                        print("$" + str(-check_request_siri) + " added for Check Request.6")
+                        sheet["D41"] = check_request_input
+                    else:
+                        print("$" + str(-check_request_siri) + " added for Check Request.6")
+                        sheet["D41"] = check_request_input
+                    break
+                except ValueError:
+                    print("Check Request deposit can only include numbers")
+                    continue
+
+        elif descrip[6] == "SNOWSPORT SQUARE":
+            square_siri = df.iat[6, 3]
+            sheet["D43"] = input("How much $ for Square Gross?: ")
+            sheet["D44"] = input("How much $ for Square Fee?: ")
+            print(descrip[6] + " added.6")
+
+        elif descrip[6] == "CHECK":
+            check_siri = df.iat[6, 3]
+            while True:
+                try:
+                    check_input = float(input("Siriusware says CHECK = $" +
+                                              str(-check_siri) +
+                                              " How much $ in checks?: "))
+                    if -check_siri != check_input:
+                        print("Siriusware CHECK - inputed CHECK = $" +
+                              str(-check_siri - check_input))
+                        print("$" + str(-check_siri) + " added for Check.6")
+                        sheet["D33"] = check_input
+                    else:
+                        print("$" + str(-check_siri) + " added for Check.6")
+                        sheet["D33"] = check_input
+                    break
+                except ValueError:
+                    print("CHECK deposit can only include numbers")
+                    continue
+
+        elif descrip[6] == "40-NT CC BOARD - 42006-544":
+            nt_ccsbd_siri = df.iat[6, 3]
+            sheet["J11"] = nt_ccsbd_siri
+            print(descrip[6] + " added.6")
+
+        elif descrip[6] == "40-NT CC RENTAL - 43101-545":
+            nt_ccrental_siri = df.iat[6, 3]
+            sheet["J13"] = nt_ccrental_siri
+            print(descrip[6] + " added.6")
+
+        elif descrip[6] == "41-NT CC MEALS - 44001-716":
+            nt_ccmeals_siri = df.iat[6, 3]
+            sheet["J14"] = nt_ccmeals_siri
+            print(descrip[6] + " added.6")
+
+        elif descrip[6] == "10-NT LIFT - 40001-300":
+            nt_lift_siri = df.iat[6, 3]
+            sheet["J7"] = nt_lift_siri
+            print(descrip[6] + " added.6")
+
+        elif descrip[6] == "40-NT CC SKI - 42001-543":
+            nt_ccski_siri = df.iat[6, 3]
+            sheet["J9"] = nt_ccski_siri
+            print(descrip[6] + " added.6")
+
+        elif descrip[6] == "CASH":
+            siri_cash = df.iat[6, 3]
+            while True:
+                try:
+                    input_cash = float(
+                        input(" Siriusware says CASH = $" +
+                              str(-siri_cash) +
+                              " How much is the CASH deposit?: "))
+                    if -siri_cash != input_cash:
+                        print("Siriusware CASH - actual CASH deposit = $" +
+                                str(-siri_cash - input_cash))
+                        print("$" + str(input_cash) + " added for CASH.6")
+                        sheet["D32"] = input_cash
+                    else:
+                        print("$" + str(input_cash) + " added for CASH.6")
+                        sheet["D32"] = input_cash
+                    break
+                except ValueError:
+                    print("Cash deposit can only include numbers")
+                    continue
+
+        else:
+            print("Error.6")
+            pass
+# Row 8
+    if i == 7:
+        if descrip[7] == "60-RETAIL - 43400-620":
+            retail = df.iat[7, 3]
+            sheet["D21"] = retail
+            print(descrip[7] + " added.7")
+
+        elif descrip[7] == "50-RENTAL - 43100-600":
+            rental = df.iat[7, 3]
+            sheet["D20"] = rental
+            print(descrip[7] + " added.7")
+
+        elif descrip[7] == "10-LIFT TICKETS - 40000-300":
+            tickets = df.iat[7, 3]
+            sheet["D6"] = tickets
+            print(descrip[7] + " added.7")
+
+        elif descrip[7] == "30-SS GRP SKI - 42000-533":
+            ski = df.iat[7, 3]
+            sheet["D12"] = ski
+            print(descrip[7] + " added.7")
+
+        elif descrip[7] == "40-CHILDCARE - 42300-546":
+            childcare = df.iat[7, 3]
+            sheet["D17"] = childcare
+            print(descrip[7] + " added.7")
+
+        elif descrip[7] == "41-CC MEALS - 44000-716":
+            meals = df.iat[7, 3]
+            sheet["D18"] = meals
+            print(descrip[7] + " added.7")
+
+        elif descrip[7] == "40-CC RENTAL - 43100-545":
+            ccrental = df.iat[7, 3]
+            sheet["D15"] = ccrental
+            print(descrip[7] + " added.7")
+
+        elif descrip[7] == "40-CC SKI - 42000-543":
+            ccski = df.iat[7, 3]
+            sheet["D16"] = ccski
+            print(descrip[7] + " added.7")
+
+        elif descrip[7] == "40-CC BOARD - 42005-544":
+            ccsbd = df.iat[7, 3]
+            sheet["D14"] = ccsbd
+            print(descrip[7] + " added.7")
+
+        elif descrip[7] == "30-SS GRP BOARD - 42005-535":
+            sbd = df.iat[7, 3]
+            sheet["D11"] = sbd
+            print(descrip[7] + " added.7")
+
+        elif descrip[7] == "GRT":
+            grt = df.iat[7, 3]
+            sheet["D27"] = grt
+            print(descrip[7] + " added.7")
+
+        elif descrip[7] == "ACCOUNT PAYMENTS & CREDITS":
+            payments = df.iat[7, 3]
+            sheet["D24"] = payments
+            print(descrip[7] + " added.7")
+
+        elif descrip[7] == "ACCOUNT CHARGES":
+            charges = df.iat[7, 3]
+            sheet["D23"] = charges
+            print(descrip[7] + " added.7")
+
+        elif descrip[7] == "AMERICAN EXPRESS":
+            amx_siri = df.iat[7, 3]
+            print(descrip[7] + " added.7")
+            if amx != -amx_siri:
+                print("!!! AMX Fusebox does NOT match Siriusware !!!")
+                print("AMX is off by: $" + str(amx - -amx_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[7] == "DISCOVER":
+            di_siri = df.iat[7, 3]
+            print(descrip[7] + " added.7")
+            if discover != -di_siri:
+                print("!!! DI Fusebox does NOT match Siriusware !!!")
+                print("Discover is off by: $" + str(discover - -di_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[7] == "MASTERCARD":
+            mc_siri = df.iat[7, 3]
+            print(descrip[7] + " added.7")
+            if mastercard != -mc_siri:
+                print("!!! MC Fusebox does NOT match Siriusware !!!")
+                print("Mastercard is off by: $" + str(mastercard - -mc_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[7] == "VISA":
+            vi_siri = df.iat[7, 3]
+            print(descrip[7] + " added.7")
+            if visa != -vi_siri:
+                print("!!! VI Fusebox does NOT match Siriusware !!!")
+                print("Visa is off by: $" + str(
+                    visa - -vi_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[7] == "96-REVREC DEFER - 27175-000":
+            revrec_defer_siri = df.iat[7, 3]
+            sheet["D22"] = revrec_defer_siri
+            print(descrip[7] + " added.7")
+
+        elif descrip[7] == "CHECK REQUEST":
+            check_request_siri = df.iat[7, 3]
+            while True:
+                try:
+                    check_request_input = float(input("Siriusware say Check Request = " +
+                                                      str(check_request_siri) +
+                                                      " How much $ for Check Request?"))
+                    if check_request_siri != check_request_input:
+                        print("Siriusware Check Request - inputed Check Request = $"
+                              + str(-check_request_siri - check_request_input))
+                        print("$" + str(-check_request_siri) + " added for Check Request.7")
+                        sheet["D41"] = check_request_input
+                    else:
+                        print("$" + str(-check_request_siri) + " added for Check Request.7")
+                        sheet["D41"] = check_request_input
+                    break
+                except ValueError:
+                    print("Check Request deposit can only include numbers")
+                    continue
+
+        elif descrip[7] == "SNOWSPORT SQUARE":
+            square_siri = df.iat[7, 3]
+            sheet["D43"] = input("How much $ for Square Gross?: ")
+            sheet["D44"] = input("How much $ for Square Fee?: ")
+            print(descrip[7] + " added.7")
+
+        elif descrip[7] == "CHECK":
+            check_siri = df.iat[7, 3]
+            while True:
+                try:
+                    check_input = float(input("Siriusware says CHECK = $" +
+                                              str(-check_siri) +
+                                              " How much $ in checks?: "))
+                    if -check_siri != check_input:
+                        print("Siriusware CHECK - inputed CHECK = $" +
+                              str(-check_siri - check_input))
+                        print("$" + str(-check_siri) + " added for Check.7")
+                        sheet["D33"] = check_input
+                    else:
+                        print("$" + str(-check_siri) + " added for Check.7")
+                        sheet["D33"] = check_input
+                    break
+                except ValueError:
+                    print("CHECK deposit can only include numbers")
+                    continue
+
+        elif descrip[7] == "40-NT CC BOARD - 42006-544":
+            nt_ccsbd_siri = df.iat[7, 3]
+            sheet["J11"] = nt_ccsbd_siri
+            print(descrip[7] + " added.7")
+
+        elif descrip[7] == "40-NT CC RENTAL - 43101-545":
+            nt_ccrental_siri = df.iat[7, 3]
+            sheet["J13"] = nt_ccrental_siri
+            print(descrip[7] + " added.7")
+
+        elif descrip[7] == "41-NT CC MEALS - 44001-716":
+            nt_ccmeals_siri = df.iat[7, 3]
+            sheet["J14"] = nt_ccmeals_siri
+            print(descrip[7] + " added.7")
+
+        elif descrip[7] == "10-NT LIFT - 40001-300":
+            nt_lift_siri = df.iat[7, 3]
+            sheet["J7"] = nt_lift_siri
+            print(descrip[7] + " added.7")
+
+        elif descrip[7] == "40-NT CC SKI - 42001-543":
+            nt_ccski_siri = df.iat[7, 3]
+            sheet["J9"] = nt_ccski_siri
+            print(descrip[7] + " added.7")
+
+        elif descrip[7] == "CASH":
+            siri_cash = df.iat[7, 3]
+            while True:
+                try:
+                    input_cash = float(
+                        input(" Siriusware says CASH = $" +
+                              str(-siri_cash) +
+                              " How much is the CASH deposit?: "))
+                    if -siri_cash != input_cash:
+                        print("Siriusware CASH - actual CASH deposit = $" +
+                                str(-siri_cash - input_cash))
+                        print("$" + str(input_cash) + " added for CASH.7")
+                        sheet["D32"] = input_cash
+                    else:
+                        print("$" + str(input_cash) + " added for CASH.7")
+                        sheet["D32"] = input_cash
+                    break
+                except ValueError:
+                    print("Cash deposit can only include numbers")
+                    continue
+
+        else:
+            print("Error.7")
+            pass
+# Row 9
+    if i == 8:
+        if descrip[8] == "60-RETAIL - 43400-620":
+            retail = df.iat[8, 3]
+            sheet["D21"] = retail
+            print(descrip[8] + " added.8")
+
+        elif descrip[8] == "50-RENTAL - 43100-600":
+            rental = df.iat[8, 3]
+            sheet["D20"] = rental
+            print(descrip[8] + " added.8")
+
+        elif descrip[8] == "10-LIFT TICKETS - 40000-300":
+            tickets = df.iat[8, 3]
+            sheet["D6"] = tickets
+            print(descrip[8] + " added.8")
+
+        elif descrip[8] == "30-SS GRP SKI - 42000-533":
+            ski = df.iat[8, 3]
+            sheet["D12"] = ski
+            print(descrip[8] + " added.8")
+
+        elif descrip[8] == "40-CHILDCARE - 42300-546":
+            childcare = df.iat[8, 3]
+            sheet["D17"] = childcare
+            print(descrip[8] + " added.8")
+
+        elif descrip[8] == "41-CC MEALS - 44000-716":
+            meals = df.iat[8, 3]
+            sheet["D18"] = meals
+            print(descrip[8] + " added.8")
+
+        elif descrip[8] == "40-CC RENTAL - 43100-545":
+            ccrental = df.iat[8, 3]
+            sheet["D15"] = ccrental
+            print(descrip[8] + " added.8")
+
+        elif descrip[8] == "40-CC SKI - 42000-543":
+            ccski = df.iat[8, 3]
+            sheet["D16"] = ccski
+            print(descrip[8] + " added.8")
+
+        elif descrip[8] == "40-CC BOARD - 42005-544":
+            ccsbd = df.iat[8, 3]
+            sheet["D14"] = ccsbd
+            print(descrip[8] + " added.8")
+
+        elif descrip[8] == "30-SS GRP BOARD - 42005-535":
+            sbd = df.iat[8, 3]
+            sheet["D11"] = sbd
+            print(descrip[8] + " added.8")
+
+        elif descrip[8] == "GRT":
+            grt = df.iat[8, 3]
+            sheet["D27"] = grt
+            print(descrip[8] + " added.8")
+
+        elif descrip[8] == "ACCOUNT PAYMENTS & CREDITS":
+            payments = df.iat[8, 3]
+            sheet["D24"] = payments
+            print(descrip[8] + " added.8")
+
+        elif descrip[8] == "ACCOUNT CHARGES":
+            charges = df.iat[8, 3]
+            sheet["D23"] = charges
+            print(descrip[8] + " added.8")
+
+        elif descrip[8] == "AMERICAN EXPRESS":
+            amx_siri = df.iat[8, 3]
+            print(descrip[8] + " added.8")
+            if amx != -amx_siri:
+                print("!!! AMX Fusebox does NOT match Siriusware !!!")
+                print("AMX is off by: $" + str(amx - -amx_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[8] == "DISCOVER":
+            di_siri = df.iat[8, 3]
+            print(descrip[8] + " added.8")
+            if discover != -di_siri:
+                print("!!! DI Fusebox does NOT match Siriusware !!!")
+                print("Discover is off by: $" + str(discover - -di_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[8] == "MASTERCARD":
+            mc_siri = df.iat[8, 3]
+            print(descrip[8] + " added.8")
+            if mastercard != -mc_siri:
+                print("!!! MC Fusebox does NOT match Siriusware !!!")
+                print("Mastercard is off by: $" + str(mastercard - -mc_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[8] == "VISA":
+            vi_siri = df.iat[8, 3]
+            print(descrip[8] + " added.8")
+            if visa != -vi_siri:
+                print("!!! VI Fusebox does NOT match Siriusware !!!")
+                print("Visa is off by: $" + str(
+                    visa - -vi_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[8] == "96-REVREC DEFER - 27175-000":
+            revrec_defer_siri = df.iat[8, 3]
+            sheet["D22"] = revrec_defer_siri
+            print(descrip[8] + " added.8")
+
+        elif descrip[8] == "CHECK REQUEST":
+            check_request_siri = df.iat[8, 3]
+            while True:
+                try:
+                    check_request_input = float(input("Siriusware say Check Request = " +
+                                                      str(check_request_siri) +
+                                                      " How much $ for Check Request?"))
+                    if check_request_siri != check_request_input:
+                        print("Siriusware Check Request - inputed Check Request = $"
+                              + str(-check_request_siri - check_request_input))
+                        print("$" + str(-check_request_siri) + " added for Check Request.8")
+                        sheet["D41"] = check_request_input
+                    else:
+                        print("$" + str(-check_request_siri) + " added for Check Request.8")
+                        sheet["D41"] = check_request_input
+                    break
+                except ValueError:
+                    print("Check Request deposit can only include numbers")
+                    continue
+
+        elif descrip[8] == "SNOWSPORT SQUARE":
+            square_siri = df.iat[8, 3]
+            sheet["D43"] = input("How much $ for Square Gross?: ")
+            sheet["D44"] = input("How much $ for Square Fee?: ")
+            print(descrip[8] + " added.8")
+
+        elif descrip[8] == "CHECK":
+            check_siri = df.iat[8, 3]
+            while True:
+                try:
+                    check_input = float(input("Siriusware says CHECK = $" +
+                                              str(-check_siri) +
+                                              " How much $ in checks?: "))
+                    if -check_siri != check_input:
+                        print("Siriusware CHECK - inputed CHECK = $" +
+                              str(-check_siri - check_input))
+                        print("$" + str(-check_siri) + " added for Check.8")
+                        sheet["D33"] = check_input
+                    else:
+                        print("$" + str(-check_siri) + " added for Check.8")
+                        sheet["D33"] = check_input
+                    break
+                except ValueError:
+                    print("CHECK deposit can only include numbers")
+                    continue
+
+        elif descrip[8] == "40-NT CC BOARD - 42006-544":
+            nt_ccsbd_siri = df.iat[8, 3]
+            sheet["J11"] = nt_ccsbd_siri
+            print(descrip[8] + " added.8")
+
+        elif descrip[8] == "40-NT CC RENTAL - 43101-545":
+            nt_ccrental_siri = df.iat[8, 3]
+            sheet["J13"] = nt_ccrental_siri
+            print(descrip[8] + " added.8")
+
+        elif descrip[8] == "41-NT CC MEALS - 44001-716":
+            nt_ccmeals_siri = df.iat[8, 3]
+            sheet["J14"] = nt_ccmeals_siri
+            print(descrip[8] + " added.8")
+
+        elif descrip[8] == "10-NT LIFT - 40001-300":
+            nt_lift_siri = df.iat[8, 3]
+            sheet["J7"] = nt_lift_siri
+            print(descrip[8] + " added.8")
+
+        elif descrip[8] == "40-NT CC SKI - 42001-543":
+            nt_ccski_siri = df.iat[8, 3]
+            sheet["J9"] = nt_ccski_siri
+            print(descrip[8] + " added.8")
+
+        elif descrip[8] == "CASH":
+            siri_cash = df.iat[8, 3]
+            while True:
+                try:
+                    input_cash = float(
+                        input(" Siriusware says CASH = $" +
+                              str(-siri_cash) +
+                              " How much is the CASH deposit?: "))
+                    if -siri_cash != input_cash:
+                        print("Siriusware CASH - actual CASH deposit = $" +
+                                str(-siri_cash - input_cash))
+                        print("$" + str(input_cash) + " added for CASH.8")
+                        sheet["D32"] = input_cash
+                    else:
+                        print("$" + str(input_cash) + " added for CASH.8")
+                        sheet["D32"] = input_cash
+                    break
+                except ValueError:
+                    print("Cash deposit can only include numbers")
+                    continue
+
+        else:
+            print("Error.8")
+            pass
+#Row 10
+    if i == 9:
+        if descrip[9] == "60-RETAIL - 43400-620":
+            retail = df.iat[9, 3]
+            sheet["D21"] = retail
+            print(descrip[9] + " added.9")
+
+        elif descrip[9] == "50-RENTAL - 43100-600":
+            rental = df.iat[9, 3]
+            sheet["D20"] = rental
+            print(descrip[9] + " added.9")
+
+        elif descrip[9] == "10-LIFT TICKETS - 40000-300":
+            tickets = df.iat[9, 3]
+            sheet["D6"] = tickets
+            print(descrip[9] + " added.9")
+
+        elif descrip[9] == "30-SS GRP SKI - 42000-533":
+            ski = df.iat[9, 3]
+            sheet["D12"] = ski
+            print(descrip[9] + " added.9")
+
+        elif descrip[9] == "40-CHILDCARE - 42300-546":
+            childcare = df.iat[9, 3]
+            sheet["D17"] = childcare
+            print(descrip[9] + " added.9")
+
+        elif descrip[9] == "41-CC MEALS - 44000-716":
+            meals = df.iat[9, 3]
+            sheet["D18"] = meals
+            print(descrip[9] + " added.9")
+
+        elif descrip[9] == "40-CC RENTAL - 43100-545":
+            ccrental = df.iat[9, 3]
+            sheet["D15"] = ccrental
+            print(descrip[9] + " added.9")
+
+        elif descrip[9] == "40-CC SKI - 42000-543":
+            ccski = df.iat[9, 3]
+            sheet["D16"] = ccski
+            print(descrip[9] + " added.9")
+
+        elif descrip[9] == "40-CC BOARD - 42005-544":
+            ccsbd = df.iat[9, 3]
+            sheet["D14"] = ccsbd
+            print(descrip[9] + " added.9")
+
+        elif descrip[9] == "30-SS GRP BOARD - 42005-535":
+            sbd = df.iat[9, 3]
+            sheet["D11"] = sbd
+            print(descrip[9] + " added.9")
+
+        elif descrip[9] == "GRT":
+            grt = df.iat[9, 3]
+            sheet["D27"] = grt
+            print(descrip[9] + " added.9")
+
+        elif descrip[9] == "ACCOUNT PAYMENTS & CREDITS":
+            payments = df.iat[9, 3]
+            sheet["D24"] = payments
+            print(descrip[9] + " added.9")
+
+        elif descrip[9] == "ACCOUNT CHARGES":
+            charges = df.iat[9, 3]
+            sheet["D23"] = charges
+            print(descrip[9] + " added.9")
+
+        elif descrip[9] == "AMERICAN EXPRESS":
+            amx_siri = df.iat[9, 3]
+            print(descrip[9] + " added.9")
+            if amx != -amx_siri:
+                print("!!! AMX Fusebox does NOT match Siriusware !!!")
+                print("AMX is off by: $" + str(amx - -amx_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[9] == "DISCOVER":
+            di_siri = df.iat[9, 3]
+            print(descrip[9] + " added.9")
+            if discover != -di_siri:
+                print("!!! DI Fusebox does NOT match Siriusware !!!")
+                print("Discover is off by: $" + str(discover - -di_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[9] == "MASTERCARD":
+            mc_siri = df.iat[9, 3]
+            print(descrip[9] + " added.9")
+            if mastercard != -mc_siri:
+                print("!!! MC Fusebox does NOT match Siriusware !!!")
+                print("Mastercard is off by: $" + str(mastercard - -mc_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[9] == "VISA":
+            vi_siri = df.iat[9, 3]
+            print(descrip[9] + " added.9")
+            if visa != -vi_siri:
+                print("!!! VI Fusebox does NOT match Siriusware !!!")
+                print("Visa is off by: $" + str(
+                    visa - -vi_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[9] == "96-REVREC DEFER - 27175-000":
+            revrec_defer_siri = df.iat[9, 3]
+            sheet["D22"] = revrec_defer_siri
+            print(descrip[9] + " added.9")
+
+        elif descrip[9] == "CHECK REQUEST":
+            check_request_siri = df.iat[9, 3]
+            while True:
+                try:
+                    check_request_input = float(input("Siriusware say Check Request = " +
+                                                      str(check_request_siri) +
+                                                      " How much $ for Check Request?"))
+                    if check_request_siri != check_request_input:
+                        print("Siriusware Check Request - inputed Check Request = $"
+                              + str(-check_request_siri - check_request_input))
+                        print("$" + str(-check_request_siri) + " added for Check Request.9")
+                        sheet["D41"] = check_request_input
+                    else:
+                        print("$" + str(-check_request_siri) + " added for Check Request.9")
+                        sheet["D41"] = check_request_input
+                    break
+                except ValueError:
+                    print("Check Request deposit can only include numbers")
+                    continue
+
+        elif descrip[9] == "SNOWSPORT SQUARE":
+            square_siri = df.iat[9, 3]
+            sheet["D43"] = input("How much $ for Square Gross?: ")
+            sheet["D44"] = input("How much $ for Square Fee?: ")
+            print(descrip[9] + " added.9")
+
+        elif descrip[9] == "CHECK":
+            check_siri = df.iat[9, 3]
+            while True:
+                try:
+                    check_input = float(input("Siriusware says CHECK = $" +
+                                              str(-check_siri) +
+                                              " How much $ in checks?: "))
+                    if -check_siri != check_input:
+                        print("Siriusware CHECK - inputed CHECK = $" +
+                              str(-check_siri - check_input))
+                        print("$" + str(-check_siri) + " added for Check.9")
+                        sheet["D33"] = check_input
+                    else:
+                        print("$" + str(-check_siri) + " added for Check.9")
+                        sheet["D33"] = check_input
+                    break
+                except ValueError:
+                    print("CHECK deposit can only include numbers")
+                    continue
+
+        elif descrip[9] == "40-NT CC BOARD - 42006-544":
+            nt_ccsbd_siri = df.iat[9, 3]
+            sheet["J11"] = nt_ccsbd_siri
+            print(descrip[9] + " added.9")
+
+        elif descrip[9] == "40-NT CC RENTAL - 43101-545":
+            nt_ccrental_siri = df.iat[9, 3]
+            sheet["J13"] = nt_ccrental_siri
+            print(descrip[9] + " added.9")
+
+        elif descrip[9] == "41-NT CC MEALS - 44001-716":
+            nt_ccmeals_siri = df.iat[9, 3]
+            sheet["J14"] = nt_ccmeals_siri
+            print(descrip[9] + " added.9")
+
+        elif descrip[9] == "10-NT LIFT - 40001-300":
+            nt_lift_siri = df.iat[9, 3]
+            sheet["J7"] = nt_lift_siri
+            print(descrip[9] + " added.9")
+
+        elif descrip[9] == "40-NT CC SKI - 42001-543":
+            nt_ccski_siri = df.iat[9, 3]
+            sheet["J9"] = nt_ccski_siri
+            print(descrip[9] + " added.9")
+
+        elif descrip[9] == "CASH":
+            siri_cash = df.iat[9, 3]
+            while True:
+                try:
+                    input_cash = float(
+                        input(" Siriusware says CASH = $" +
+                              str(-siri_cash) +
+                              " How much is the CASH deposit?: "))
+                    if -siri_cash != input_cash:
+                        print("Siriusware CASH - actual CASH deposit = $" +
+                                str(-siri_cash - input_cash))
+                        print("$" + str(input_cash) + " added for CASH.9")
+                        sheet["D32"] = input_cash
+                    else:
+                        print("$" + str(input_cash) + " added for CASH.9")
+                        sheet["D32"] = input_cash
+                    break
+                except ValueError:
+                    print("Cash deposit can only include numbers")
+                    continue
+
+        else:
+            print("Error.9")
+            pass
+# Row 11
+    if i == 10:
+        if descrip[10] == "60-RETAIL - 43400-620":
+            retail = df.iat[10, 3]
+            sheet["D21"] = retail
+            print(descrip[10] + " added.10")
+
+        elif descrip[10] == "50-RENTAL - 43100-600":
+            rental = df.iat[10, 3]
+            sheet["D20"] = rental
+            print(descrip[10] + " added.10")
+
+        elif descrip[10] == "10-LIFT TICKETS - 40000-300":
+            tickets = df.iat[10, 3]
+            sheet["D6"] = tickets
+            print(descrip[10] + " added.10")
+
+        elif descrip[10] == "30-SS GRP SKI - 42000-533":
+            ski = df.iat[10, 3]
+            sheet["D12"] = ski
+            print(descrip[10] + " added.10")
+
+        elif descrip[10] == "40-CHILDCARE - 42300-546":
+            childcare = df.iat[10, 3]
+            sheet["D17"] = childcare
+            print(descrip[10] + " added.10")
+
+        elif descrip[10] == "41-CC MEALS - 44000-716":
+            meals = df.iat[10, 3]
+            sheet["D18"] = meals
+            print(descrip[10] + " added.10")
+
+        elif descrip[10] == "40-CC RENTAL - 43100-545":
+            ccrental = df.iat[10, 3]
+            sheet["D15"] = ccrental
+            print(descrip[10] + " added.10")
+
+        elif descrip[10] == "40-CC SKI - 42000-543":
+            ccski = df.iat[10, 3]
+            sheet["D16"] = ccski
+            print(descrip[10] + " added.10")
+
+        elif descrip[10] == "40-CC BOARD - 42005-544":
+            ccsbd = df.iat[10, 3]
+            sheet["D14"] = ccsbd
+            print(descrip[10] + " added.10")
+
+        elif descrip[10] == "30-SS GRP BOARD - 42005-535":
+            sbd = df.iat[10, 3]
+            sheet["D11"] = sbd
+            print(descrip[10] + " added.10")
+
+        elif descrip[10] == "GRT":
+            grt = df.iat[10, 3]
+            sheet["D27"] = grt
+            print(descrip[10] + " added.10")
+
+        elif descrip[10] == "ACCOUNT PAYMENTS & CREDITS":
+            payments = df.iat[10, 3]
+            sheet["D24"] = payments
+            print(descrip[10] + " added.10")
+
+        elif descrip[10] == "ACCOUNT CHARGES":
+            charges = df.iat[10, 3]
+            sheet["D23"] = charges
+            print(descrip[10] + " added.10")
+
+        elif descrip[10] == "AMERICAN EXPRESS":
+            amx_siri = df.iat[10, 3]
+            print(descrip[10] + " added.10")
+            if amx != -amx_siri:
+                print("!!! AMX Fusebox does NOT match Siriusware !!!")
+                print("AMX is off by: $" + str(amx - -amx_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[10] == "DISCOVER":
+            di_siri = df.iat[10, 3]
+            print(descrip[10] + " added.10")
+            if discover != -di_siri:
+                print("!!! DI Fusebox does NOT match Siriusware !!!")
+                print("Discover is off by: $" + str(discover - -di_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[10] == "MASTERCARD":
+            mc_siri = df.iat[10, 3]
+            print(descrip[10] + " added.10")
+            if mastercard != -mc_siri:
+                print("!!! MC Fusebox does NOT match Siriusware !!!")
+                print("Mastercard is off by: $" + str(mastercard - -mc_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[10] == "VISA":
+            vi_siri = df.iat[10, 3]
+            print(descrip[10] + " added.10")
+            if visa != -vi_siri:
+                print("!!! VI Fusebox does NOT match Siriusware !!!")
+                print("Visa is off by: $" + str(
+                    visa - -vi_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[10] == "96-REVREC DEFER - 27175-000":
+            revrec_defer_siri = df.iat[10, 3]
+            sheet["D22"] = revrec_defer_siri
+            print(descrip[10] + " added.10")
+
+        elif descrip[10] == "CHECK REQUEST":
+            check_request_siri = df.iat[10, 3]
+            while True:
+                try:
+                    check_request_input = float(input("Siriusware say Check Request = " +
+                                                      str(check_request_siri) +
+                                                      " How much $ for Check Request?"))
+                    if check_request_siri != check_request_input:
+                        print("Siriusware Check Request - inputed Check Request = $"
+                              + str(-check_request_siri - check_request_input))
+                        print("$" + str(-check_request_siri) + " added for Check Request.10")
+                        sheet["D41"] = check_request_input
+                    else:
+                        print("$" + str(-check_request_siri) + " added for Check Request.10")
+                        sheet["D41"] = check_request_input
+                    break
+                except ValueError:
+                    print("Check Request deposit can only include numbers")
+                    continue
+
+        elif descrip[10] == "SNOWSPORT SQUARE":
+            square_siri = df.iat[10, 3]
+            sheet["D43"] = input("How much $ for Square Gross?: ")
+            sheet["D44"] = input("How much $ for Square Fee?: ")
+            print(descrip[10] + " added.10")
+
+        elif descrip[10] == "CHECK":
+            check_siri = df.iat[10, 3]
+            while True:
+                try:
+                    check_input = float(input("Siriusware says CHECK = $" +
+                                              str(-check_siri) +
+                                              " How much $ in checks?: "))
+                    if -check_siri != check_input:
+                        print("Siriusware CHECK - inputed CHECK = $" +
+                              str(-check_siri - check_input))
+                        print("$" + str(-check_siri) + " added for Check.10")
+                        sheet["D33"] = check_input
+                    else:
+                        print("$" + str(-check_siri) + " added for Check.10")
+                        sheet["D33"] = check_input
+                    break
+                except ValueError:
+                    print("CHECK deposit can only include numbers")
+                    continue
+
+        elif descrip[10] == "40-NT CC BOARD - 42006-544":
+            nt_ccsbd_siri = df.iat[10, 3]
+            sheet["J11"] = nt_ccsbd_siri
+            print(descrip[10] + " added.10")
+
+        elif descrip[10] == "40-NT CC RENTAL - 43101-545":
+            nt_ccrental_siri = df.iat[10, 3]
+            sheet["J13"] = nt_ccrental_siri
+            print(descrip[10] + " added.10")
+
+        elif descrip[10] == "41-NT CC MEALS - 44001-716":
+            nt_ccmeals_siri = df.iat[10, 3]
+            sheet["J14"] = nt_ccmeals_siri
+            print(descrip[10] + " added.10")
+
+        elif descrip[10] == "10-NT LIFT - 40001-300":
+            nt_lift_siri = df.iat[10, 3]
+            sheet["J7"] = nt_lift_siri
+            print(descrip[10] + " added.10")
+
+        elif descrip[10] == "40-NT CC SKI - 42001-543":
+            nt_ccski_siri = df.iat[10, 3]
+            sheet["J9"] = nt_ccski_siri
+            print(descrip[10] + " added.10")
+
+        elif descrip[10] == "CASH":
+            siri_cash = df.iat[10, 3]
+            while True:
+                try:
+                    input_cash = float(
+                        input(" Siriusware says CASH = $" +
+                              str(-siri_cash) +
+                              " How much is the CASH deposit?: "))
+                    if -siri_cash != input_cash:
+                        print("Siriusware CASH - actual CASH deposit = $" +
+                                str(-siri_cash - input_cash))
+                        print("$" + str(input_cash) + " added for CASH.10")
+                        sheet["D32"] = input_cash
+                    else:
+                        print("$" + str(input_cash) + " added for CASH.10")
+                        sheet["D32"] = input_cash
+                    break
+                except ValueError:
+                    print("Cash deposit can only include numbers")
+                    continue
+
+        else:
+            print("Error.10")
+            pass
+# Row 12
+    if i == 11:
+        if descrip[11] == "60-RETAIL - 43400-620":
+            retail = df.iat[11, 3]
+            sheet["D21"] = retail
+            print(descrip[11] + " added.11")
+
+        elif descrip[11] == "50-RENTAL - 43100-600":
+            rental = df.iat[11, 3]
+            sheet["D20"] = rental
+            print(descrip[11] + " added.11")
+
+        elif descrip[11] == "10-LIFT TICKETS - 40000-300":
+            tickets = df.iat[11, 3]
+            sheet["D6"] = tickets
+            print(descrip[11] + " added.11")
+
+        elif descrip[11] == "30-SS GRP SKI - 42000-533":
+            ski = df.iat[11, 3]
+            sheet["D12"] = ski
+            print(descrip[11] + " added.11")
+
+        elif descrip[11] == "40-CHILDCARE - 42300-546":
+            childcare = df.iat[11, 3]
+            sheet["D17"] = childcare
+            print(descrip[11] + " added.11")
+
+        elif descrip[11] == "41-CC MEALS - 44000-716":
+            meals = df.iat[11, 3]
+            sheet["D18"] = meals
+            print(descrip[11] + " added.11")
+
+        elif descrip[11] == "40-CC RENTAL - 43100-545":
+            ccrental = df.iat[11, 3]
+            sheet["D15"] = ccrental
+            print(descrip[11] + " added.11")
+
+        elif descrip[11] == "40-CC SKI - 42000-543":
+            ccski = df.iat[11, 3]
+            sheet["D16"] = ccski
+            print(descrip[11] + " added.11")
+
+        elif descrip[11] == "40-CC BOARD - 42005-544":
+            ccsbd = df.iat[11, 3]
+            sheet["D14"] = ccsbd
+            print(descrip[11] + " added.11")
+
+        elif descrip[11] == "30-SS GRP BOARD - 42005-535":
+            sbd = df.iat[11, 3]
+            sheet["D11"] = sbd
+            print(descrip[11] + " added.11")
+
+        elif descrip[11] == "GRT":
+            grt = df.iat[11, 3]
+            sheet["D27"] = grt
+            print(descrip[11] + " added.11")
+
+        elif descrip[11] == "ACCOUNT PAYMENTS & CREDITS":
+            payments = df.iat[11, 3]
+            sheet["D24"] = payments
+            print(descrip[11] + " added.11")
+
+        elif descrip[11] == "ACCOUNT CHARGES":
+            charges = df.iat[11, 3]
+            sheet["D23"] = charges
+            print(descrip[11] + " added.11")
+
+        elif descrip[11] == "AMERICAN EXPRESS":
+            amx_siri = df.iat[11, 3]
+            print(descrip[11] + " added.11")
+            if amx != -amx_siri:
+                print("!!! AMX Fusebox does NOT match Siriusware !!!")
+                print("AMX is off by: $" + str(amx - -amx_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[11] == "DISCOVER":
+            di_siri = df.iat[11, 3]
+            print(descrip[11] + " added.11")
+            if discover != -di_siri:
+                print("!!! DI Fusebox does NOT match Siriusware !!!")
+                print("Discover is off by: $" + str(discover - -di_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[11] == "MASTERCARD":
+            mc_siri = df.iat[11, 3]
+            print(descrip[11] + " added.11")
+            if mastercard != -mc_siri:
+                print("!!! MC Fusebox does NOT match Siriusware !!!")
+                print("Mastercard is off by: $" + str(mastercard - -mc_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[11] == "VISA":
+            vi_siri = df.iat[11, 3]
+            print(descrip[11] + " added.11")
+            if visa != -vi_siri:
+                print("!!! VI Fusebox does NOT match Siriusware !!!")
+                print("Visa is off by: $" + str(
+                    visa - -vi_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[11] == "96-REVREC DEFER - 27175-000":
+            revrec_defer_siri = df.iat[11, 3]
+            sheet["D22"] = revrec_defer_siri
+            print(descrip[11] + " added.11")
+
+        elif descrip[11] == "CHECK REQUEST":
+            check_request_siri = df.iat[11, 3]
+            while True:
+                try:
+                    check_request_input = float(input("Siriusware say Check Request = " +
+                                                      str(check_request_siri) +
+                                                      " How much $ for Check Request?"))
+                    if check_request_siri != check_request_input:
+                        print("Siriusware Check Request - inputed Check Request = $"
+                              + str(-check_request_siri - check_request_input))
+                        print("$" + str(-check_request_siri) + " added for Check Request.11")
+                        sheet["D41"] = check_request_input
+                    else:
+                        print("$" + str(-check_request_siri) + " added for Check Request.11")
+                        sheet["D41"] = check_request_input
+                    break
+                except ValueError:
+                    print("Check Request deposit can only include numbers")
+                    continue
+
+        elif descrip[11] == "SNOWSPORT SQUARE":
+            square_siri = df.iat[11, 3]
+            sheet["D43"] = input("How much $ for Square Gross?: ")
+            sheet["D44"] = input("How much $ for Square Fee?: ")
+            print(descrip[11] + " added.11")
+
+        elif descrip[11] == "CHECK":
+            check_siri = df.iat[11, 3]
+            while True:
+                try:
+                    check_input = float(input("Siriusware says CHECK = $" +
+                                              str(-check_siri) +
+                                              " How much $ in checks?: "))
+                    if -check_siri != check_input:
+                        print("Siriusware CHECK - inputed CHECK = $" +
+                              str(-check_siri - check_input))
+                        print("$" + str(-check_siri) + " added for Check.11")
+                        sheet["D33"] = check_input
+                    else:
+                        print("$" + str(-check_siri) + " added for Check.11")
+                        sheet["D33"] = check_input
+                    break
+                except ValueError:
+                    print("CHECK deposit can only include numbers")
+                    continue
+
+        elif descrip[11] == "40-NT CC BOARD - 42006-544":
+            nt_ccsbd_siri = df.iat[11, 3]
+            sheet["J11"] = nt_ccsbd_siri
+            print(descrip[11] + " added.11")
+
+        elif descrip[11] == "40-NT CC RENTAL - 43101-545":
+            nt_ccrental_siri = df.iat[11, 3]
+            sheet["J13"] = nt_ccrental_siri
+            print(descrip[11] + " added.11")
+
+        elif descrip[11] == "41-NT CC MEALS - 44001-716":
+            nt_ccmeals_siri = df.iat[11, 3]
+            sheet["J14"] = nt_ccmeals_siri
+            print(descrip[11] + " added.11")
+
+        elif descrip[11] == "10-NT LIFT - 40001-300":
+            nt_lift_siri = df.iat[11, 3]
+            sheet["J7"] = nt_lift_siri
+            print(descrip[11] + " added.11")
+
+        elif descrip[11] == "40-NT CC SKI - 42001-543":
+            nt_ccski_siri = df.iat[11, 3]
+            sheet["J9"] = nt_ccski_siri
+            print(descrip[11] + " added.11")
+
+        elif descrip[11] == "CASH":
+            siri_cash = df.iat[11, 3]
+            while True:
+                try:
+                    input_cash = float(
+                        input(" Siriusware says CASH = $" +
+                              str(-siri_cash) +
+                              " How much is the CASH deposit?: "))
+                    if -siri_cash != input_cash:
+                        print("Siriusware CASH - actual CASH deposit = $" +
+                                str(-siri_cash - input_cash))
+                        print("$" + str(input_cash) + " added for CASH.11")
+                        sheet["D32"] = input_cash
+                    else:
+                        print("$" + str(input_cash) + " added for CASH.11")
+                        sheet["D32"] = input_cash
+                    break
+                except ValueError:
+                    print("Cash deposit can only include numbers")
+                    continue
+
+        else:
+            print("Error.11")
+            pass
+# Row 13
+    if i == 12:
+        if descrip[12] == "60-RETAIL - 43400-620":
+            retail = df.iat[12, 3]
+            sheet["D21"] = retail
+            print(descrip[12] + " added.12")
+
+        elif descrip[12] == "50-RENTAL - 43100-600":
+            rental = df.iat[12, 3]
+            sheet["D20"] = rental
+            print(descrip[12] + " added.12")
+
+        elif descrip[12] == "10-LIFT TICKETS - 40000-300":
+            tickets = df.iat[12, 3]
+            sheet["D6"] = tickets
+            print(descrip[12] + " added.12")
+
+        elif descrip[12] == "30-SS GRP SKI - 42000-533":
+            ski = df.iat[12, 3]
+            sheet["D12"] = ski
+            print(descrip[12] + " added.12")
+
+        elif descrip[12] == "40-CHILDCARE - 42300-546":
+            childcare = df.iat[12, 3]
+            sheet["D17"] = childcare
+            print(descrip[12] + " added.12")
+
+        elif descrip[12] == "41-CC MEALS - 44000-716":
+            meals = df.iat[12, 3]
+            sheet["D18"] = meals
+            print(descrip[12] + " added.12")
+
+        elif descrip[12] == "40-CC RENTAL - 43100-545":
+            ccrental = df.iat[12, 3]
+            sheet["D15"] = ccrental
+            print(descrip[12] + " added.12")
+
+        elif descrip[12] == "40-CC SKI - 42000-543":
+            ccski = df.iat[12, 3]
+            sheet["D16"] = ccski
+            print(descrip[12] + " added.12")
+
+        elif descrip[12] == "40-CC BOARD - 42005-544":
+            ccsbd = df.iat[12, 3]
+            sheet["D14"] = ccsbd
+            print(descrip[12] + " added.12")
+
+        elif descrip[12] == "30-SS GRP BOARD - 42005-535":
+            sbd = df.iat[12, 3]
+            sheet["D11"] = sbd
+            print(descrip[12] + " added.12")
+
+        elif descrip[12] == "GRT":
+            grt = df.iat[12, 3]
+            sheet["D27"] = grt
+            print(descrip[12] + " added.12")
+
+        elif descrip[12] == "ACCOUNT PAYMENTS & CREDITS":
+            payments = df.iat[12, 3]
+            sheet["D24"] = payments
+            print(descrip[12] + " added.12")
+
+        elif descrip[12] == "ACCOUNT CHARGES":
+            charges = df.iat[12, 3]
+            sheet["D23"] = charges
+            print(descrip[12] + " added.12")
+
+        elif descrip[12] == "AMERICAN EXPRESS":
+            amx_siri = df.iat[12, 3]
+            print(descrip[12] + " added.12")
+            if amx != -amx_siri:
+                print("!!! AMX Fusebox does NOT match Siriusware !!!")
+                print("AMX is off by: $" + str(amx - -amx_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[12] == "DISCOVER":
+            di_siri = df.iat[12, 3]
+            print(descrip[12] + " added.12")
+            if discover != -di_siri:
+                print("!!! DI Fusebox does NOT match Siriusware !!!")
+                print("Discover is off by: $" + str(discover - -di_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[12] == "MASTERCARD":
+            mc_siri = df.iat[12, 3]
+            print(descrip[12] + " added.12")
+            if mastercard != -mc_siri:
+                print("!!! MC Fusebox does NOT match Siriusware !!!")
+                print("Mastercard is off by: $" + str(mastercard - -mc_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[12] == "VISA":
+            vi_siri = df.iat[12, 3]
+            print(descrip[12] + " added.12")
+            if visa != -vi_siri:
+                print("!!! VI Fusebox does NOT match Siriusware !!!")
+                print("Visa is off by: $" + str(
+                    visa - -vi_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[12] == "96-REVREC DEFER - 27175-000":
+            revrec_defer_siri = df.iat[12, 3]
+            sheet["D22"] = revrec_defer_siri
+            print(descrip[12] + " added.12")
+
+        elif descrip[12] == "CHECK REQUEST":
+            check_request_siri = df.iat[12, 3]
+            while True:
+                try:
+                    check_request_input = float(input("Siriusware say Check Request = " +
+                                                      str(check_request_siri) +
+                                                      " How much $ for Check Request?"))
+                    if check_request_siri != check_request_input:
+                        print("Siriusware Check Request - inputed Check Request = $"
+                              + str(-check_request_siri - check_request_input))
+                        print("$" + str(-check_request_siri) + " added for Check Request.12")
+                        sheet["D41"] = check_request_input
+                    else:
+                        print("$" + str(-check_request_siri) + " added for Check Request.12")
+                        sheet["D41"] = check_request_input
+                    break
+                except ValueError:
+                    print("Check Request deposit can only include numbers")
+                    continue
+
+        elif descrip[12] == "SNOWSPORT SQUARE":
+            square_siri = df.iat[12, 3]
+            sheet["D43"] = input("How much $ for Square Gross?: ")
+            sheet["D44"] = input("How much $ for Square Fee?: ")
+            print(descrip[12] + " added.12")
+
+        elif descrip[12] == "CHECK":
+            check_siri = df.iat[12, 3]
+            while True:
+                try:
+                    check_input = float(input("Siriusware says CHECK = $" +
+                                              str(-check_siri) +
+                                              " How much $ in checks?: "))
+                    if -check_siri != check_input:
+                        print("Siriusware CHECK - inputed CHECK = $" +
+                              str(-check_siri - check_input))
+                        print("$" + str(-check_siri) + " added for Check.12")
+                        sheet["D33"] = check_input
+                    else:
+                        print("$" + str(-check_siri) + " added for Check.12")
+                        sheet["D33"] = check_input
+                    break
+                except ValueError:
+                    print("CHECK deposit can only include numbers")
+                    continue
+
+        elif descrip[12] == "40-NT CC BOARD - 42006-544":
+            nt_ccsbd_siri = df.iat[12, 3]
+            sheet["J11"] = nt_ccsbd_siri
+            print(descrip[12] + " added.12")
+
+        elif descrip[12] == "40-NT CC RENTAL - 43101-545":
+            nt_ccrental_siri = df.iat[12, 3]
+            sheet["J13"] = nt_ccrental_siri
+            print(descrip[12] + " added.12")
+
+        elif descrip[12] == "41-NT CC MEALS - 44001-716":
+            nt_ccmeals_siri = df.iat[12, 3]
+            sheet["J14"] = nt_ccmeals_siri
+            print(descrip[12] + " added.12")
+
+        elif descrip[12] == "10-NT LIFT - 40001-300":
+            nt_lift_siri = df.iat[12, 3]
+            sheet["J7"] = nt_lift_siri
+            print(descrip[12] + " added.12")
+
+        elif descrip[12] == "40-NT CC SKI - 42001-543":
+            nt_ccski_siri = df.iat[12, 3]
+            sheet["J9"] = nt_ccski_siri
+            print(descrip[12] + " added.12")
+
+        elif descrip[12] == "CASH":
+            cash_siri = df.iat[12, 3]
+            while True:
+                try:
+                    cash_input = float(input(" Siriusware says CASH = $" +
+                              str(-cash_siri) +
+                              " How much is the CASH deposit?: "))
+                    if -cash_siri != cash_input:
+                        print("Siriusware CASH - actual CASH deposit = $" +
+                                str(-cash_siri - cash_input))
+                        print("$" + str(cash_input) + " added for CASH.12")
+                        sheet["D32"] = cash_input
+                    else:
+                        print("$" + str(cash_input) + " added for CASH.12")
+                        sheet["D32"] = cash_input
+                    break
+                except ValueError:
+                    print("Cash deposit can only include numbers")
+                    continue
+
+        else:
+            print("Error.12")
+            pass
+# Row 14
+    if i == 13:
+        if descrip[13] == "60-RETAIL - 43400-620":
+            retail = df.iat[13, 3]
+            sheet["D21"] = retail
+            print(descrip[13] + " added.13")
+
+        elif descrip[13] == "50-RENTAL - 43100-600":
+            rental = df.iat[13, 3]
+            sheet["D20"] = rental
+            print(descrip[13] + " added.13")
+
+        elif descrip[13] == "10-LIFT TICKETS - 40000-300":
+            tickets = df.iat[13, 3]
+            sheet["D6"] = tickets
+            print(descrip[13] + " added.13")
+
+        elif descrip[13] == "30-SS GRP SKI - 42000-533":
+            ski = df.iat[13, 3]
+            sheet["D12"] = ski
+            print(descrip[13] + " added.13")
+
+        elif descrip[13] == "40-CHILDCARE - 42300-546":
+            childcare = df.iat[13, 3]
+            sheet["D17"] = childcare
+            print(descrip[13] + " added.13")
+
+        elif descrip[13] == "41-CC MEALS - 44000-716":
+            meals = df.iat[13, 3]
+            sheet["D18"] = meals
+            print(descrip[13] + " added.13")
+
+        elif descrip[13] == "40-CC RENTAL - 43100-545":
+            ccrental = df.iat[13, 3]
+            sheet["D15"] = ccrental
+            print(descrip[13] + " added.13")
+
+        elif descrip[13] == "40-CC SKI - 42000-543":
+            ccski = df.iat[13, 3]
+            sheet["D16"] = ccski
+            print(descrip[13] + " added.13")
+
+        elif descrip[13] == "40-CC BOARD - 42005-544":
+            ccsbd = df.iat[13, 3]
+            sheet["D14"] = ccsbd
+            print(descrip[13] + " added.13")
+
+        elif descrip[13] == "30-SS GRP BOARD - 42005-535":
+            sbd = df.iat[13, 3]
+            sheet["D11"] = sbd
+            print(descrip[13] + " added.13")
+
+        elif descrip[13] == "GRT":
+            grt = df.iat[13, 3]
+            sheet["D27"] = grt
+            print(descrip[13] + " added.13")
+
+        elif descrip[13] == "ACCOUNT PAYMENTS & CREDITS":
+            payments = df.iat[13, 3]
+            sheet["D24"] = payments
+            print(descrip[13] + " added.13")
+
+        elif descrip[13] == "ACCOUNT CHARGES":
+            charges = df.iat[13, 3]
+            sheet["D23"] = charges
+            print(descrip[13] + " added.13")
+
+        elif descrip[13] == "AMERICAN EXPRESS":
+            amx_siri = df.iat[13, 3]
+            print(descrip[13] + " added.13")
+            if amx != -amx_siri:
+                print("!!! AMX Fusebox does NOT match Siriusware !!!")
+                print("AMX is off by: $" + str(amx - -amx_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[13] == "DISCOVER":
+            di_siri = df.iat[13, 3]
+            print(descrip[13] + " added.13")
+            if discover != -di_siri:
+                print("!!! DI Fusebox does NOT match Siriusware !!!")
+                print("Discover is off by: $" + str(discover - -di_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[13] == "MASTERCARD":
+            mc_siri = df.iat[13, 3]
+            print(descrip[13] + " added.13")
+            if mastercard != -mc_siri:
+                print("!!! MC Fusebox does NOT match Siriusware !!!")
+                print("Mastercard is off by: $" + str(mastercard - -mc_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[13] == "VISA":
+            vi_siri = df.iat[13, 3]
+            print(descrip[13] + " added.13")
+            if visa != -vi_siri:
+                print("!!! VI Fusebox does NOT match Siriusware !!!")
+                print("Visa is off by: $" + str(
+                    visa - -vi_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[13] == "96-REVREC DEFER - 27175-000":
+            revrec_defer_siri = df.iat[13, 3]
+            sheet["D22"] = revrec_defer_siri
+            print(descrip[13] + " added.13")
+
+        elif descrip[13] == "CHECK REQUEST":
+            check_request_siri = df.iat[13, 3]
+            while True:
+                try:
+                    check_request_input = float(input("Siriusware say Check Request = " +
+                                                      str(check_request_siri) +
+                                                      " How much $ for Check Request?"))
+                    if check_request_siri != check_request_input:
+                        print("Siriusware Check Request - inputed Check Request = $"
+                              + str(-check_request_siri - check_request_input))
+                        print("$" + str(-check_request_siri) + " added for Check Request.13")
+                        sheet["D41"] = check_request_input
+                    else:
+                        print("$" + str(-check_request_siri) + " added for Check Request.13")
+                        sheet["D41"] = check_request_input
+                    break
+                except ValueError:
+                    print("Check Request deposit can only include numbers")
+                    continue
+
+        elif descrip[13] == "SNOWSPORT SQUARE":
+            square_siri = df.iat[13, 3]
+            sheet["D43"] = input("How much $ for Square Gross?: ")
+            sheet["D44"] = input("How much $ for Square Fee?: ")
+            print(descrip[13] + " added.13")
+
+        elif descrip[13] == "CHECK":
+            check_siri = df.iat[13, 3]
+            while True:
+                try:
+                    check_input = float(input("Siriusware says CHECK = $" +
+                                              str(-check_siri) +
+                                              " How much $ in checks?: "))
+                    if -check_siri != check_input:
+                        print("Siriusware CHECK - inputed CHECK = $" +
+                              str(-check_siri - check_input))
+                        print("$" + str(-check_siri) + " added for Check.13")
+                        sheet["D33"] = check_input
+                    else:
+                        print("$" + str(-check_siri) + " added for Check.13")
+                        sheet["D33"] = check_input
+                    break
+                except ValueError:
+                    print("CHECK deposit can only include numbers")
+                    continue
+
+        elif descrip[13] == "40-NT CC BOARD - 42006-544":
+            nt_ccsbd_siri = df.iat[13, 3]
+            sheet["J11"] = nt_ccsbd_siri
+            print(descrip[13] + " added.13")
+
+        elif descrip[13] == "40-NT CC RENTAL - 43101-545":
+            nt_ccrental_siri = df.iat[13, 3]
+            sheet["J13"] = nt_ccrental_siri
+            print(descrip[13] + " added.13")
+
+        elif descrip[13] == "41-NT CC MEALS - 44001-716":
+            nt_ccmeals_siri = df.iat[13, 3]
+            sheet["J14"] = nt_ccmeals_siri
+            print(descrip[13] + " added.13")
+
+        elif descrip[13] == "10-NT LIFT - 40001-300":
+            nt_lift_siri = df.iat[13, 3]
+            sheet["J7"] = nt_lift_siri
+            print(descrip[13] + " added.13")
+
+        elif descrip[13] == "40-NT CC SKI - 42001-543":
+            nt_ccski_siri = df.iat[13, 3]
+            sheet["J9"] = nt_ccski_siri
+            print(descrip[13] + " added.13")
+
+        elif descrip[13] == "CASH":
+            siri_cash = df.iat[13, 3]
+            while True:
+                try:
+                    input_cash = float(
+                        input(" Siriusware says CASH = $" +
+                              str(-siri_cash) +
+                              " How much is the CASH deposit?: "))
+                    if -siri_cash != input_cash:
+                        print("Siriusware CASH - actual CASH deposit = $" +
+                                str(-siri_cash - input_cash))
+                        print("$" + str(input_cash) + " added for CASH.13")
+                        sheet["D32"] = input_cash
+                    else:
+                        print("$" + str(input_cash) + " added for CASH.13")
+                        sheet["D32"] = input_cash
+                    break
+                except ValueError:
+                    print("Cash deposit can only include numbers")
+                    continue
+
+        else:
+            print("Error.13")
+            pass
+# Row 15
+    if i == 14:
+        if descrip[14] == "60-RETAIL - 43400-620":
+            retail = df.iat[14, 3]
+            sheet["D21"] = retail
+            print(descrip[14] + " added.14")
+
+        elif descrip[14] == "50-RENTAL - 43100-600":
+            rental = df.iat[14, 3]
+            sheet["D20"] = rental
+            print(descrip[14] + " added.14")
+
+        elif descrip[14] == "10-LIFT TICKETS - 40000-300":
+            tickets = df.iat[14, 3]
+            sheet["D6"] = tickets
+            print(descrip[14] + " added.14")
+
+        elif descrip[14] == "30-SS GRP SKI - 42000-533":
+            ski = df.iat[14, 3]
+            sheet["D12"] = ski
+            print(descrip[14] + " added.14")
+
+        elif descrip[14] == "40-CHILDCARE - 42300-546":
+            childcare = df.iat[14, 3]
+            sheet["D17"] = childcare
+            print(descrip[14] + " added.14")
+
+        elif descrip[14] == "41-CC MEALS - 44000-716":
+            meals = df.iat[14, 3]
+            sheet["D18"] = meals
+            print(descrip[14] + " added.14")
+
+        elif descrip[14] == "40-CC RENTAL - 43100-545":
+            ccrental = df.iat[14, 3]
+            sheet["D15"] = ccrental
+            print(descrip[14] + " added.14")
+
+        elif descrip[14] == "40-CC SKI - 42000-543":
+            ccski = df.iat[14, 3]
+            sheet["D16"] = ccski
+            print(descrip[14] + " added.14")
+
+        elif descrip[14] == "40-CC BOARD - 42005-544":
+            ccsbd = df.iat[14, 3]
+            sheet["D14"] = ccsbd
+            print(descrip[14] + " added.14")
+
+        elif descrip[14] == "30-SS GRP BOARD - 42005-535":
+            sbd = df.iat[14, 3]
+            sheet["D11"] = sbd
+            print(descrip[14] + " added.14")
+
+        elif descrip[14] == "GRT":
+            grt = df.iat[14, 3]
+            sheet["D27"] = grt
+            print(descrip[14] + " added.14")
+
+        elif descrip[14] == "ACCOUNT PAYMENTS & CREDITS":
+            payments = df.iat[14, 3]
+            sheet["D24"] = payments
+            print(descrip[14] + " added.14")
+
+        elif descrip[14] == "ACCOUNT CHARGES":
+            charges = df.iat[14, 3]
+            sheet["D23"] = charges
+            print(descrip[14] + " added.14")
+
+        elif descrip[14] == "AMERICAN EXPRESS":
+            amx_siri = df.iat[14, 3]
+            print(descrip[14] + " added.14")
+            if amx != -amx_siri:
+                print("!!! AMX Fusebox does NOT match Siriusware !!!")
+                print("AMX is off by: $" + str(amx - -amx_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[14] == "DISCOVER":
+            di_siri = df.iat[14, 3]
+            print(descrip[14] + " added.14")
+            if discover != -di_siri:
+                print("!!! DI Fusebox does NOT match Siriusware !!!")
+                print("Discover is off by: $" + str(discover - -di_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[14] == "MASTERCARD":
+            mc_siri = df.iat[14, 3]
+            print(descrip[14] + " added.14")
+            if mastercard != -mc_siri:
+                print("!!! MC Fusebox does NOT match Siriusware !!!")
+                print("Mastercard is off by: $" + str(mastercard - -mc_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[14] == "VISA":
+            vi_siri = df.iat[14, 3]
+            print(descrip[14] + " added.14")
+            if visa != -vi_siri:
+                print("!!! VI Fusebox does NOT match Siriusware !!!")
+                print("Visa is off by: $" + str(
+                    visa - -vi_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[14] == "96-REVREC DEFER - 27175-000":
+            revrec_defer_siri = df.iat[14, 3]
+            sheet["D22"] = revrec_defer_siri
+            print(descrip[14] + " added.14")
+
+        elif descrip[14] == "CHECK REQUEST":
+            check_request_siri = df.iat[14, 3]
+            while True:
+                try:
+                    check_request_input = float(input("Siriusware say Check Request = " +
+                                                      str(check_request_siri) +
+                                                      " How much $ for Check Request?"))
+                    if check_request_siri != check_request_input:
+                        print("Siriusware Check Request - inputed Check Request = $"
+                              + str(-check_request_siri - check_request_input))
+                        print("$" + str(-check_request_siri) + " added for Check Request.14")
+                        sheet["D41"] = check_request_input
+                    else:
+                        print("$" + str(-check_request_siri) + " added for Check Request.14")
+                        sheet["D41"] = check_request_input
+                    break
+                except ValueError:
+                    print("Check Request deposit can only include numbers")
+                    continue
+
+        elif descrip[14] == "SNOWSPORT SQUARE":
+            square_siri = df.iat[14, 3]
+            sheet["D43"] = input("How much $ for Square Gross?: ")
+            sheet["D44"] = input("How much $ for Square Fee?: ")
+            print(descrip[14] + " added.14")
+
+        elif descrip[14] == "CHECK":
+            check_siri = df.iat[14, 3]
+            while True:
+                try:
+                    check_input = float(input("Siriusware says CHECK = $" +
+                                              str(-check_siri) +
+                                              " How much $ in checks?: "))
+                    if -check_siri != check_input:
+                        print("Siriusware CHECK - inputed CHECK = $" +
+                              str(-check_siri - check_input))
+                        print("$" + str(-check_siri) + " added for Check.14")
+                        sheet["D33"] = check_input
+                    else:
+                        print("$" + str(-check_siri) + " added for Check.14")
+                        sheet["D33"] = check_input
+                    break
+                except ValueError:
+                    print("CHECK deposit can only include numbers")
+                    continue
+
+        elif descrip[14] == "40-NT CC BOARD - 42006-544":
+            nt_ccsbd_siri = df.iat[14, 3]
+            sheet["J11"] = nt_ccsbd_siri
+            print(descrip[14] + " added.14")
+
+        elif descrip[14] == "40-NT CC RENTAL - 43101-545":
+            nt_ccrental_siri = df.iat[14, 3]
+            sheet["J13"] = nt_ccrental_siri
+            print(descrip[14] + " added.14")
+
+        elif descrip[14] == "41-NT CC MEALS - 44001-716":
+            nt_ccmeals_siri = df.iat[14, 3]
+            sheet["J14"] = nt_ccmeals_siri
+            print(descrip[14] + " added.14")
+
+        elif descrip[14] == "10-NT LIFT - 40001-300":
+            nt_lift_siri = df.iat[14, 3]
+            sheet["J7"] = nt_lift_siri
+            print(descrip[14] + " added.14")
+
+        elif descrip[14] == "40-NT CC SKI - 42001-543":
+            nt_ccski_siri = df.iat[14, 3]
+            sheet["J9"] = nt_ccski_siri
+            print(descrip[14] + " added.14")
+
+        elif descrip[14] == "CASH":
+            siri_cash = df.iat[14, 3]
+            while True:
+                try:
+                    input_cash = float(
+                        input(" Siriusware says CASH = $" +
+                              str(-siri_cash) +
+                              " How much is the CASH deposit?: "))
+                    if -siri_cash != input_cash:
+                        print("Siriusware CASH - actual CASH deposit = $" +
+                                str(-siri_cash - input_cash))
+                        print("$" + str(input_cash) + " added for CASH.14")
+                        sheet["D32"] = input_cash
+                    else:
+                        print("$" + str(input_cash) + " added for CASH.14")
+                        sheet["D32"] = input_cash
+                    break
+                except ValueError:
+                    print("Cash deposit can only include numbers")
+                    continue
+
+        else:
+            print("Error.14")
+            pass
+# Row 16
+    if i == 15:
+        if descrip[15] == "60-RETAIL - 43400-620":
+            retail = df.iat[15, 3]
+            sheet["D21"] = retail
+            print(descrip[15] + " added.15")
+
+        elif descrip[15] == "50-RENTAL - 43100-600":
+            rental = df.iat[15, 3]
+            sheet["D20"] = rental
+            print(descrip[15] + " added.15")
+
+        elif descrip[15] == "10-LIFT TICKETS - 40000-300":
+            tickets = df.iat[15, 3]
+            sheet["D6"] = tickets
+            print(descrip[15] + " added.15")
+
+        elif descrip[15] == "30-SS GRP SKI - 42000-533":
+            ski = df.iat[15, 3]
+            sheet["D12"] = ski
+            print(descrip[15] + " added.15")
+
+        elif descrip[15] == "40-CHILDCARE - 42300-546":
+            childcare = df.iat[15, 3]
+            sheet["D17"] = childcare
+            print(descrip[15] + " added.15")
+
+        elif descrip[15] == "41-CC MEALS - 44000-716":
+            meals = df.iat[15, 3]
+            sheet["D18"] = meals
+            print(descrip[15] + " added.15")
+
+        elif descrip[15] == "40-CC RENTAL - 43100-545":
+            ccrental = df.iat[15, 3]
+            sheet["D15"] = ccrental
+            print(descrip[15] + " added.15")
+
+        elif descrip[15] == "40-CC SKI - 42000-543":
+            ccski = df.iat[15, 3]
+            sheet["D16"] = ccski
+            print(descrip[15] + " added.15")
+
+        elif descrip[15] == "40-CC BOARD - 42005-544":
+            ccsbd = df.iat[15, 3]
+            sheet["D14"] = ccsbd
+            print(descrip[15] + " added.15")
+
+        elif descrip[15] == "30-SS GRP BOARD - 42005-535":
+            sbd = df.iat[15, 3]
+            sheet["D11"] = sbd
+            print(descrip[15] + " added.15")
+
+        elif descrip[15] == "GRT":
+            grt = df.iat[15, 3]
+            sheet["D27"] = grt
+            print(descrip[15] + " added.15")
+
+        elif descrip[15] == "ACCOUNT PAYMENTS & CREDITS":
+            payments = df.iat[15, 3]
+            sheet["D24"] = payments
+            print(descrip[15] + " added.15")
+
+        elif descrip[15] == "ACCOUNT CHARGES":
+            charges = df.iat[15, 3]
+            sheet["D23"] = charges
+            print(descrip[15] + " added.15")
+
+        elif descrip[15] == "AMERICAN EXPRESS":
+            amx_siri = df.iat[15, 3]
+            print(descrip[15] + " added.15")
+            if amx != -amx_siri:
+                print("!!! AMX Fusebox does NOT match Siriusware !!!")
+                print("AMX is off by: $" + str(amx - -amx_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[15] == "DISCOVER":
+            di_siri = df.iat[15, 3]
+            print(descrip[15] + " added.15")
+            if discover != -di_siri:
+                print("!!! DI Fusebox does NOT match Siriusware !!!")
+                print("Discover is off by: $" + str(discover - -di_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[15] == "MASTERCARD":
+            mc_siri = df.iat[15, 3]
+            print(descrip[15] + " added.15")
+            if mastercard != -mc_siri:
+                print("!!! MC Fusebox does NOT match Siriusware !!!")
+                print("Mastercard is off by: $" + str(mastercard - -mc_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[15] == "VISA":
+            vi_siri = df.iat[15, 3]
+            print(descrip[15] + " added.15")
+            if visa != -vi_siri:
+                print("!!! VI Fusebox does NOT match Siriusware !!!")
+                print("Visa is off by: $" + str(
+                    visa - -vi_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[15] == "96-REVREC DEFER - 27175-000":
+            revrec_defer_siri = df.iat[15, 3]
+            sheet["D22"] = revrec_defer_siri
+            print(descrip[15] + " added.15")
+
+        elif descrip[15] == "CHECK REQUEST":
+            check_request_siri = df.iat[15, 3]
+            while True:
+                try:
+                    check_request_input = float(input("Siriusware say Check Request = " +
+                                                      str(check_request_siri) +
+                                                      " How much $ for Check Request?"))
+                    if check_request_siri != check_request_input:
+                        print("Siriusware Check Request - inputed Check Request = $"
+                              + str(-check_request_siri - check_request_input))
+                        print("$" + str(-check_request_siri) + " added for Check Request.15")
+                        sheet["D41"] = check_request_input
+                    else:
+                        print("$" + str(-check_request_siri) + " added for Check Request.15")
+                        sheet["D41"] = check_request_input
+                    break
+                except ValueError:
+                    print("Check Request deposit can only include numbers")
+                    continue
+
+        elif descrip[15] == "SNOWSPORT SQUARE":
+            square_siri = df.iat[15, 3]
+            sheet["D43"] = input("How much $ for Square Gross?: ")
+            sheet["D44"] = input("How much $ for Square Fee?: ")
+            print(descrip[15] + " added.15")
+
+        elif descrip[15] == "CHECK":
+            check_siri = df.iat[15, 3]
+            while True:
+                try:
+                    check_input = float(input("Siriusware says CHECK = $" +
+                                              str(-check_siri) +
+                                              " How much $ in checks?: "))
+                    if -check_siri != check_input:
+                        print("Siriusware CHECK - inputed CHECK = $" +
+                              str(-check_siri - check_input))
+                        print("$" + str(-check_siri) + " added for Check.15")
+                        sheet["D33"] = check_input
+                    else:
+                        print("$" + str(-check_siri) + " added for Check.15")
+                        sheet["D33"] = check_input
+                    break
+                except ValueError:
+                    print("CHECK deposit can only include numbers")
+                    continue
+
+        elif descrip[15] == "40-NT CC BOARD - 42006-544":
+            nt_ccsbd_siri = df.iat[15, 3]
+            sheet["J11"] = nt_ccsbd_siri
+            print(descrip[15] + " added.15")
+
+        elif descrip[15] == "40-NT CC RENTAL - 43101-545":
+            nt_ccrental_siri = df.iat[15, 3]
+            sheet["J13"] = nt_ccrental_siri
+            print(descrip[15] + " added.15")
+
+        elif descrip[15] == "41-NT CC MEALS - 44001-716":
+            nt_ccmeals_siri = df.iat[15, 3]
+            sheet["J14"] = nt_ccmeals_siri
+            print(descrip[15] + " added.15")
+
+        elif descrip[15] == "10-NT LIFT - 40001-300":
+            nt_lift_siri = df.iat[15, 3]
+            sheet["J7"] = nt_lift_siri
+            print(descrip[15] + " added.15")
+
+        elif descrip[15] == "40-NT CC SKI - 42001-543":
+            nt_ccski_siri = df.iat[15, 3]
+            sheet["J9"] = nt_ccski_siri
+            print(descrip[15] + " added.15")
+
+        elif descrip[15] == "CASH":
+            siri_cash = df.iat[15, 3]
+            while True:
+                try:
+                    input_cash = float(
+                        input(" Siriusware says CASH = $" +
+                              str(-siri_cash) +
+                              " How much is the CASH deposit?: "))
+                    if -siri_cash != input_cash:
+                        print("Siriusware CASH - actual CASH deposit = $" +
+                                str(-siri_cash - input_cash))
+                        print("$" + str(input_cash) + " added for CASH.15")
+                        sheet["D32"] = input_cash
+                    else:
+                        print("$" + str(input_cash) + " added for CASH.15")
+                        sheet["D32"] = input_cash
+                    break
+                except ValueError:
+                    print("Cash deposit can only include numbers")
+                    continue
+
+        else:
+            print("Error.15")
+            pass
+# Row 17
+    if i == 16:
+        if descrip[16] == "60-RETAIL - 43400-620":
+            retail = df.iat[16, 3]
+            sheet["D21"] = retail
+            print(descrip[16] + " added.16")
+
+        elif descrip[16] == "50-RENTAL - 43100-600":
+            rental = df.iat[16, 3]
+            sheet["D20"] = rental
+            print(descrip[16] + " added.16")
+
+        elif descrip[16] == "10-LIFT TICKETS - 40000-300":
+            tickets = df.iat[16, 3]
+            sheet["D6"] = tickets
+            print(descrip[16] + " added.16")
+
+        elif descrip[16] == "30-SS GRP SKI - 42000-533":
+            ski = df.iat[16, 3]
+            sheet["D12"] = ski
+            print(descrip[16] + " added.16")
+
+        elif descrip[16] == "40-CHILDCARE - 42300-546":
+            childcare = df.iat[16, 3]
+            sheet["D17"] = childcare
+            print(descrip[16] + " added.16")
+
+        elif descrip[16] == "41-CC MEALS - 44000-716":
+            meals = df.iat[16, 3]
+            sheet["D18"] = meals
+            print(descrip[16] + " added.16")
+
+        elif descrip[16] == "40-CC RENTAL - 43100-545":
+            ccrental = df.iat[16, 3]
+            sheet["D15"] = ccrental
+            print(descrip[16] + " added.16")
+
+        elif descrip[16] == "40-CC SKI - 42000-543":
+            ccski = df.iat[16, 3]
+            sheet["D16"] = ccski
+            print(descrip[16] + " added.16")
+
+        elif descrip[16] == "40-CC BOARD - 42005-544":
+            ccsbd = df.iat[16, 3]
+            sheet["D14"] = ccsbd
+            print(descrip[16] + " added.16")
+
+        elif descrip[16] == "30-SS GRP BOARD - 42005-535":
+            sbd = df.iat[16, 3]
+            sheet["D11"] = sbd
+            print(descrip[16] + " added.16")
+
+        elif descrip[16] == "GRT":
+            grt = df.iat[16, 3]
+            sheet["D27"] = grt
+            print(descrip[16] + " added.16")
+
+        elif descrip[16] == "ACCOUNT PAYMENTS & CREDITS":
+            payments = df.iat[16, 3]
+            sheet["D24"] = payments
+            print(descrip[16] + " added.16")
+
+        elif descrip[16] == "ACCOUNT CHARGES":
+            charges = df.iat[16, 3]
+            sheet["D23"] = charges
+            print(descrip[16] + " added.16")
+
+        elif descrip[16] == "AMERICAN EXPRESS":
+            amx_siri = df.iat[16, 3]
+            print(descrip[16] + " added.16")
+            if amx != -amx_siri:
+                print("!!! AMX Fusebox does NOT match Siriusware !!!")
+                print("AMX is off by: $" + str(amx - -amx_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[16] == "DISCOVER":
+            di_siri = df.iat[16, 3]
+            print(descrip[16] + " added.16")
+            if discover != -di_siri:
+                print("!!! DI Fusebox does NOT match Siriusware !!!")
+                print("Discover is off by: $" + str(discover - -di_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[16] == "MASTERCARD":
+            mc_siri = df.iat[16, 3]
+            print(descrip[16] + " added.16")
+            if mastercard != -mc_siri:
+                print("!!! MC Fusebox does NOT match Siriusware !!!")
+                print("Mastercard is off by: $" + str(mastercard - -mc_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[16] == "VISA":
+            vi_siri = df.iat[16, 3]
+            print(descrip[16] + " added.16")
+            if visa != -vi_siri:
+                print("!!! VI Fusebox does NOT match Siriusware !!!")
+                print("Visa is off by: $" + str(
+                    visa - -vi_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[16] == "96-REVREC DEFER - 27175-000":
+            revrec_defer_siri = df.iat[16, 3]
+            sheet["D22"] = revrec_defer_siri
+            print(descrip[16] + " added.16")
+
+        elif descrip[16] == "CHECK REQUEST":
+            check_request_siri = df.iat[16, 3]
+            while True:
+                try:
+                    check_request_input = float(input("Siriusware say Check Request = " +
+                                                      str(check_request_siri) +
+                                                      " How much $ for Check Request?"))
+                    if check_request_siri != check_request_input:
+                        print("Siriusware Check Request - inputed Check Request = $"
+                              + str(-check_request_siri - check_request_input))
+                        print("$" + str(-check_request_siri) + " added for Check Request.16")
+                        sheet["D41"] = check_request_input
+                    else:
+                        print("$" + str(-check_request_siri) + " added for Check Request.16")
+                        sheet["D41"] = check_request_input
+                    break
+                except ValueError:
+                    print("Check Request deposit can only include numbers")
+                    continue
+
+        elif descrip[16] == "SNOWSPORT SQUARE":
+            square_siri = df.iat[16, 3]
+            sheet["D43"] = input("How much $ for Square Gross?: ")
+            sheet["D44"] = input("How much $ for Square Fee?: ")
+            print(descrip[16] + " added.16")
+
+        elif descrip[16] == "CHECK":
+            check_siri = df.iat[16, 3]
+            while True:
+                try:
+                    check_input = float(input("Siriusware says CHECK = $" +
+                                              str(-check_siri) +
+                                              " How much $ in checks?: "))
+                    if -check_siri != check_input:
+                        print("Siriusware CHECK - inputed CHECK = $" +
+                              str(-check_siri - check_input))
+                        print("$" + str(-check_siri) + " added for Check.16")
+                        sheet["D33"] = check_input
+                    else:
+                        print("$" + str(-check_siri) + " added for Check.16")
+                        sheet["D33"] = check_input
+                    break
+                except ValueError:
+                    print("CHECK deposit can only include numbers")
+                    continue
+
+        elif descrip[16] == "40-NT CC BOARD - 42006-544":
+            nt_ccsbd_siri = df.iat[16, 3]
+            sheet["J11"] = nt_ccsbd_siri
+            print(descrip[16] + " added.16")
+
+        elif descrip[16] == "40-NT CC RENTAL - 43101-545":
+            nt_ccrental_siri = df.iat[16, 3]
+            sheet["J13"] = nt_ccrental_siri
+            print(descrip[16] + " added.16")
+
+        elif descrip[16] == "41-NT CC MEALS - 44001-716":
+            nt_ccmeals_siri = df.iat[16, 3]
+            sheet["J14"] = nt_ccmeals_siri
+            print(descrip[16] + " added.16")
+
+        elif descrip[16] == "10-NT LIFT - 40001-300":
+            nt_lift_siri = df.iat[16, 3]
+            sheet["J7"] = nt_lift_siri
+            print(descrip[16] + " added.16")
+
+        elif descrip[16] == "40-NT CC SKI - 42001-543":
+            nt_ccski_siri = df.iat[16, 3]
+            sheet["J9"] = nt_ccski_siri
+            print(descrip[16] + " added.16")
+
+        elif descrip[16] == "CASH":
+            siri_cash = df.iat[16, 3]
+            while True:
+                try:
+                    input_cash = float(
+                        input(" Siriusware says CASH = $" +
+                              str(-siri_cash) +
+                              " How much is the CASH deposit?: "))
+                    if -siri_cash != input_cash:
+                        print("Siriusware CASH - actual CASH deposit = $" +
+                                str(-siri_cash - input_cash))
+                        print("$" + str(input_cash) + " added for CASH.16")
+                        sheet["D32"] = input_cash
+                    else:
+                        print("$" + str(input_cash) + " added for CASH.16")
+                        sheet["D32"] = input_cash
+                    break
+                except ValueError:
+                    print("Cash deposit can only include numbers")
+                    continue
+
+        else:
+            print("Error.16")
+            pass
+# Row 18
+    if i == 17:
+        if descrip[17] == "60-RETAIL - 43400-620":
+            retail = df.iat[17, 3]
+            sheet["D21"] = retail
+            print(descrip[17] + " added.17")
+
+        elif descrip[17] == "50-RENTAL - 43100-600":
+            rental = df.iat[17, 3]
+            sheet["D20"] = rental
+            print(descrip[17] + " added.17")
+
+        elif descrip[17] == "10-LIFT TICKETS - 40000-300":
+            tickets = df.iat[17, 3]
+            sheet["D6"] = tickets
+            print(descrip[17] + " added.17")
+
+        elif descrip[17] == "30-SS GRP SKI - 42000-533":
+            ski = df.iat[17, 3]
+            sheet["D12"] = ski
+            print(descrip[17] + " added.17")
+
+        elif descrip[17] == "40-CHILDCARE - 42300-546":
+            childcare = df.iat[17, 3]
+            sheet["D17"] = childcare
+            print(descrip[17] + " added.17")
+
+        elif descrip[17] == "41-CC MEALS - 44000-716":
+            meals = df.iat[17, 3]
+            sheet["D18"] = meals
+            print(descrip[17] + " added.17")
+
+        elif descrip[17] == "40-CC RENTAL - 43100-545":
+            ccrental = df.iat[17, 3]
+            sheet["D15"] = ccrental
+            print(descrip[17] + " added.17")
+
+        elif descrip[17] == "40-CC SKI - 42000-543":
+            ccski = df.iat[17, 3]
+            sheet["D16"] = ccski
+            print(descrip[17] + " added.17")
+
+        elif descrip[17] == "40-CC BOARD - 42005-544":
+            ccsbd = df.iat[17, 3]
+            sheet["D14"] = ccsbd
+            print(descrip[17] + " added.17")
+
+        elif descrip[17] == "30-SS GRP BOARD - 42005-535":
+            sbd = df.iat[17, 3]
+            sheet["D11"] = sbd
+            print(descrip[17] + " added.17")
+
+        elif descrip[17] == "GRT":
+            grt = df.iat[17, 3]
+            sheet["D27"] = grt
+            print(descrip[17] + " added.17")
+
+        elif descrip[17] == "ACCOUNT PAYMENTS & CREDITS":
+            payments = df.iat[17, 3]
+            sheet["D24"] = payments
+            print(descrip[17] + " added.17")
+
+        elif descrip[17] == "ACCOUNT CHARGES":
+            charges = df.iat[17, 3]
+            sheet["D23"] = charges
+            print(descrip[17] + " added.17")
+
+        elif descrip[17] == "AMERICAN EXPRESS":
+            amx_siri = df.iat[17, 3]
+            print(descrip[17] + " added.17")
+            if amx != -amx_siri:
+                print("!!! AMX Fusebox does NOT match Siriusware !!!")
+                print("AMX is off by: $" + str(amx - -amx_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[17] == "DISCOVER":
+            di_siri = df.iat[17, 3]
+            print(descrip[17] + " added.17")
+            if discover != -di_siri:
+                print("!!! DI Fusebox does NOT match Siriusware !!!")
+                print("Discover is off by: $" + str(discover - -di_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[17] == "MASTERCARD":
+            mc_siri = df.iat[17, 3]
+            print(descrip[17] + " added.17")
+            if mastercard != -mc_siri:
+                print("!!! MC Fusebox does NOT match Siriusware !!!")
+                print("Mastercard is off by: $" + str(mastercard - -mc_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[17] == "VISA":
+            vi_siri = df.iat[17, 3]
+            print(descrip[17] + " added.17")
+            if visa != -vi_siri:
+                print("!!! VI Fusebox does NOT match Siriusware !!!")
+                print("Visa is off by: $" + str(
+                    visa - -vi_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[17] == "96-REVREC DEFER - 27175-000":
+            revrec_defer_siri = df.iat[17, 3]
+            sheet["D22"] = revrec_defer_siri
+            print(descrip[17] + " added.17")
+
+        elif descrip[17] == "CHECK REQUEST":
+            check_request_siri = df.iat[17, 3]
+            while True:
+                try:
+                    check_request_input = float(input("Siriusware say Check Request = " +
+                                                      str(check_request_siri) +
+                                                      " How much $ for Check Request?"))
+                    if check_request_siri != check_request_input:
+                        print("Siriusware Check Request - inputed Check Request = $"
+                              + str(-check_request_siri - check_request_input))
+                        print("$" + str(-check_request_siri) + " added for Check Request.17")
+                        sheet["D41"] = check_request_input
+                    else:
+                        print("$" + str(-check_request_siri) + " added for Check Request.17")
+                        sheet["D41"] = check_request_input
+                    break
+                except ValueError:
+                    print("Check Request deposit can only include numbers")
+                    continue
+
+        elif descrip[17] == "SNOWSPORT SQUARE":
+            square_siri = df.iat[17, 3]
+            sheet["D43"] = input("How much $ for Square Gross?: ")
+            sheet["D44"] = input("How much $ for Square Fee?: ")
+            print(descrip[17] + " added.17")
+
+        elif descrip[17] == "CHECK":
+            check_siri = df.iat[17, 3]
+            while True:
+                try:
+                    check_input = float(input("Siriusware says CHECK = $" +
+                                              str(-check_siri) +
+                                              " How much $ in checks?: "))
+                    if -check_siri != check_input:
+                        print("Siriusware CHECK - inputed CHECK = $" +
+                              str(-check_siri - check_input))
+                        print("$" + str(-check_siri) + " added for Check.17")
+                        sheet["D33"] = check_input
+                    else:
+                        print("$" + str(-check_siri) + " added for Check.17")
+                        sheet["D33"] = check_input
+                    break
+                except ValueError:
+                    print("CHECK deposit can only include numbers")
+                    continue
+
+        elif descrip[17] == "40-NT CC BOARD - 42006-544":
+            nt_ccsbd_siri = df.iat[17, 3]
+            sheet["J11"] = nt_ccsbd_siri
+            print(descrip[17] + " added.17")
+
+        elif descrip[17] == "40-NT CC RENTAL - 43101-545":
+            nt_ccrental_siri = df.iat[17, 3]
+            sheet["J13"] = nt_ccrental_siri
+            print(descrip[17] + " added.17")
+
+        elif descrip[17] == "41-NT CC MEALS - 44001-716":
+            nt_ccmeals_siri = df.iat[17, 3]
+            sheet["J14"] = nt_ccmeals_siri
+            print(descrip[17] + " added.17")
+
+        elif descrip[17] == "10-NT LIFT - 40001-300":
+            nt_lift_siri = df.iat[17, 3]
+            sheet["J7"] = nt_lift_siri
+            print(descrip[17] + " added.17")
+
+        elif descrip[17] == "40-NT CC SKI - 42001-543":
+            nt_ccski_siri = df.iat[17, 3]
+            sheet["J9"] = nt_ccski_siri
+            print(descrip[17] + " added.17")
+
+        elif descrip[17] == "CASH":
+            siri_cash = df.iat[17, 3]
+            while True:
+                try:
+                    input_cash = float(
+                        input(" Siriusware says CASH = $" +
+                              str(-siri_cash) +
+                              " How much is the CASH deposit?: "))
+                    if -siri_cash != input_cash:
+                        print("Siriusware CASH - actual CASH deposit = $" +
+                                str(-siri_cash - input_cash))
+                        print("$" + str(input_cash) + " added for CASH.17")
+                        sheet["D32"] = input_cash
+                    else:
+                        print("$" + str(input_cash) + " added for CASH.17")
+                        sheet["D32"] = input_cash
+                    break
+                except ValueError:
+                    print("Cash deposit can only include numbers")
+                    continue
+
+        else:
+            print("Error.17")
+            pass
+# Row 19
+    if i == 18:
+        if descrip[18] == "60-RETAIL - 43400-620":
+            retail = df.iat[18, 3]
+            sheet["D21"] = retail
+            print(descrip[18] + " added.18")
+
+        elif descrip[18] == "50-RENTAL - 43100-600":
+            rental = df.iat[18, 3]
+            sheet["D20"] = rental
+            print(descrip[18] + " added.18")
+
+        elif descrip[18] == "10-LIFT TICKETS - 40000-300":
+            tickets = df.iat[18, 3]
+            sheet["D6"] = tickets
+            print(descrip[18] + " added.18")
+
+        elif descrip[18] == "30-SS GRP SKI - 42000-533":
+            ski = df.iat[18, 3]
+            sheet["D12"] = ski
+            print(descrip[18] + " added.18")
+
+        elif descrip[18] == "40-CHILDCARE - 42300-546":
+            childcare = df.iat[18, 3]
+            sheet["D17"] = childcare
+            print(descrip[18] + " added.18")
+
+        elif descrip[18] == "41-CC MEALS - 44000-716":
+            meals = df.iat[18, 3]
+            sheet["D18"] = meals
+            print(descrip[18] + " added.18")
+
+        elif descrip[18] == "40-CC RENTAL - 43100-545":
+            ccrental = df.iat[18, 3]
+            sheet["D15"] = ccrental
+            print(descrip[18] + " added.18")
+
+        elif descrip[18] == "40-CC SKI - 42000-543":
+            ccski = df.iat[18, 3]
+            sheet["D16"] = ccski
+            print(descrip[18] + " added.18")
+
+        elif descrip[18] == "40-CC BOARD - 42005-544":
+            ccsbd = df.iat[18, 3]
+            sheet["D14"] = ccsbd
+            print(descrip[18] + " added.18")
+
+        elif descrip[18] == "30-SS GRP BOARD - 42005-535":
+            sbd = df.iat[18, 3]
+            sheet["D11"] = sbd
+            print(descrip[18] + " added.18")
+
+        elif descrip[18] == "GRT":
+            grt = df.iat[18, 3]
+            sheet["D27"] = grt
+            print(descrip[18] + " added.18")
+
+        elif descrip[18] == "ACCOUNT PAYMENTS & CREDITS":
+            payments = df.iat[18, 3]
+            sheet["D24"] = payments
+            print(descrip[18] + " added.18")
+
+        elif descrip[18] == "ACCOUNT CHARGES":
+            charges = df.iat[18, 3]
+            sheet["D23"] = charges
+            print(descrip[18] + " added.18")
+
+        elif descrip[18] == "AMERICAN EXPRESS":
+            amx_siri = df.iat[18, 3]
+            print(descrip[18] + " added.18")
+            if amx != -amx_siri:
+                print("!!! AMX Fusebox does NOT match Siriusware !!!")
+                print("AMX is off by: $" + str(amx - -amx_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[18] == "DISCOVER":
+            di_siri = df.iat[18, 3]
+            print(descrip[18] + " added.18")
+            if discover != -di_siri:
+                print("!!! DI Fusebox does NOT match Siriusware !!!")
+                print("Discover is off by: $" + str(discover - -di_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[18] == "MASTERCARD":
+            mc_siri = df.iat[18, 3]
+            print(descrip[18] + " added.18")
+            if mastercard != -mc_siri:
+                print("!!! MC Fusebox does NOT match Siriusware !!!")
+                print("Mastercard is off by: $" + str(mastercard - -mc_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[18] == "VISA":
+            vi_siri = df.iat[18, 3]
+            print(descrip[18] + " added.18")
+            if visa != -vi_siri:
+                print("!!! VI Fusebox does NOT match Siriusware !!!")
+                print("Visa is off by: $" + str(
+                    visa - -vi_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[18] == "96-REVREC DEFER - 27175-000":
+            revrec_defer_siri = df.iat[18, 3]
+            sheet["D22"] = revrec_defer_siri
+            print(descrip[18] + " added.18")
+
+        elif descrip[18] == "CHECK REQUEST":
+            check_request_siri = df.iat[18, 3]
+            while True:
+                try:
+                    check_request_input = float(input("Siriusware say Check Request = " +
+                                                      str(check_request_siri) +
+                                                      " How much $ for Check Request?"))
+                    if check_request_siri != check_request_input:
+                        print("Siriusware Check Request - inputed Check Request = $"
+                              + str(-check_request_siri - check_request_input))
+                        print("$" + str(-check_request_siri) + " added for Check Request.18")
+                        sheet["D41"] = check_request_input
+                    else:
+                        print("$" + str(-check_request_siri) + " added for Check Request.18")
+                        sheet["D41"] = check_request_input
+                    break
+                except ValueError:
+                    print("Check Request deposit can only include numbers")
+                    continue
+
+        elif descrip[18] == "SNOWSPORT SQUARE":
+            square_siri = df.iat[18, 3]
+            sheet["D43"] = input("How much $ for Square Gross?: ")
+            sheet["D44"] = input("How much $ for Square Fee?: ")
+            print(descrip[18] + " added.18")
+
+        elif descrip[18] == "CHECK":
+            check_siri = df.iat[18, 3]
+            while True:
+                try:
+                    check_input = float(input("Siriusware says CHECK = $" +
+                                              str(-check_siri) +
+                                              " How much $ in checks?: "))
+                    if -check_siri != check_input:
+                        print("Siriusware CHECK - inputed CHECK = $" +
+                              str(-check_siri - check_input))
+                        print("$" + str(-check_siri) + " added for Check.18")
+                        sheet["D33"] = check_input
+                    else:
+                        print("$" + str(-check_siri) + " added for Check.18")
+                        sheet["D33"] = check_input
+                    break
+                except ValueError:
+                    print("CHECK deposit can only include numbers")
+                    continue
+
+        elif descrip[18] == "40-NT CC BOARD - 42006-544":
+            nt_ccsbd_siri = df.iat[18, 3]
+            sheet["J11"] = nt_ccsbd_siri
+            print(descrip[18] + " added.18")
+
+        elif descrip[18] == "40-NT CC RENTAL - 43101-545":
+            nt_ccrental_siri = df.iat[18, 3]
+            sheet["J13"] = nt_ccrental_siri
+            print(descrip[18] + " added.18")
+
+        elif descrip[18] == "41-NT CC MEALS - 44001-716":
+            nt_ccmeals_siri = df.iat[18, 3]
+            sheet["J14"] = nt_ccmeals_siri
+            print(descrip[18] + " added.18")
+
+        elif descrip[18] == "10-NT LIFT - 40001-300":
+            nt_lift_siri = df.iat[18, 3]
+            sheet["J7"] = nt_lift_siri
+            print(descrip[18] + " added.18")
+
+        elif descrip[18] == "40-NT CC SKI - 42001-543":
+            nt_ccski_siri = df.iat[18, 3]
+            sheet["J9"] = nt_ccski_siri
+            print(descrip[18] + " added.18")
+
+        elif descrip[18] == "CASH":
+            siri_cash = df.iat[18, 3]
+            while True:
+                try:
+                    input_cash = float(
+                        input(" Siriusware says CASH = $" +
+                              str(-siri_cash) +
+                              " How much is the CASH deposit?: "))
+                    if -siri_cash != input_cash:
+                        print("Siriusware CASH - actual CASH deposit = $" +
+                                str(-siri_cash - input_cash))
+                        print("$" + str(input_cash) + " added for CASH.18")
+                        sheet["D32"] = input_cash
+                    else:
+                        print("$" + str(input_cash) + " added for CASH.18")
+                        sheet["D32"] = input_cash
+                    break
+                except ValueError:
+                    print("Cash deposit can only include numbers")
+                    continue
+
+        else:
+            print("Error.18")
+            pass
+# Row 20
+    if i == 19:
+        if descrip[19] == "60-RETAIL - 43400-620":
+            retail = df.iat[19, 3]
+            sheet["D21"] = retail
+            print(descrip[19] + " added.19")
+
+        elif descrip[19] == "50-RENTAL - 43100-600":
+            rental = df.iat[19, 3]
+            sheet["D20"] = rental
+            print(descrip[19] + " added.19")
+
+        elif descrip[19] == "10-LIFT TICKETS - 40000-300":
+            tickets = df.iat[19, 3]
+            sheet["D6"] = tickets
+            print(descrip[19] + " added.19")
+
+        elif descrip[19] == "30-SS GRP SKI - 42000-533":
+            ski = df.iat[19, 3]
+            sheet["D12"] = ski
+            print(descrip[19] + " added.19")
+
+        elif descrip[19] == "40-CHILDCARE - 42300-546":
+            childcare = df.iat[19, 3]
+            sheet["D17"] = childcare
+            print(descrip[19] + " added.19")
+
+        elif descrip[19] == "41-CC MEALS - 44000-716":
+            meals = df.iat[19, 3]
+            sheet["D18"] = meals
+            print(descrip[19] + " added.19")
+
+        elif descrip[19] == "40-CC RENTAL - 43100-545":
+            ccrental = df.iat[19, 3]
+            sheet["D15"] = ccrental
+            print(descrip[19] + " added.19")
+
+        elif descrip[19] == "40-CC SKI - 42000-543":
+            ccski = df.iat[19, 3]
+            sheet["D16"] = ccski
+            print(descrip[19] + " added.19")
+
+        elif descrip[19] == "40-CC BOARD - 42005-544":
+            ccsbd = df.iat[19, 3]
+            sheet["D14"] = ccsbd
+            print(descrip[19] + " added.19")
+
+        elif descrip[19] == "30-SS GRP BOARD - 42005-535":
+            sbd = df.iat[19, 3]
+            sheet["D11"] = sbd
+            print(descrip[19] + " added.19")
+
+        elif descrip[19] == "GRT":
+            grt = df.iat[19, 3]
+            sheet["D27"] = grt
+            print(descrip[19] + " added.19")
+
+        elif descrip[19] == "ACCOUNT PAYMENTS & CREDITS":
+            payments = df.iat[19, 3]
+            sheet["D24"] = payments
+            print(descrip[19] + " added.19")
+
+        elif descrip[19] == "ACCOUNT CHARGES":
+            charges = df.iat[19, 3]
+            sheet["D23"] = charges
+            print(descrip[19] + " added.19")
+
+        elif descrip[19] == "AMERICAN EXPRESS":
+            amx_siri = df.iat[19, 3]
+            print(descrip[19] + " added.19")
+            if amx != -amx_siri:
+                print("!!! AMX Fusebox does NOT match Siriusware !!!")
+                print("AMX is off by: $" + str(amx - -amx_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[19] == "DISCOVER":
+            di_siri = df.iat[19, 3]
+            print(descrip[19] + " added.19")
+            if discover != -di_siri:
+                print("!!! DI Fusebox does NOT match Siriusware !!!")
+                print("Discover is off by: $" + str(discover - -di_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[19] == "MASTERCARD":
+            mc_siri = df.iat[19, 3]
+            print(descrip[19] + " added.19")
+            if mastercard != -mc_siri:
+                print("!!! MC Fusebox does NOT match Siriusware !!!")
+                print("Mastercard is off by: $" + str(mastercard - -mc_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[19] == "VISA":
+            vi_siri = df.iat[19, 3]
+            print(descrip[19] + " added.19")
+            if visa != -vi_siri:
+                print("!!! VI Fusebox does NOT match Siriusware !!!")
+                print("Visa is off by: $" + str(
+                    visa - -vi_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[19] == "96-REVREC DEFER - 27175-000":
+            revrec_defer_siri = df.iat[19, 3]
+            sheet["D22"] = revrec_defer_siri
+            print(descrip[19] + " added.19")
+
+        elif descrip[19] == "CHECK REQUEST":
+            check_request_siri = df.iat[19, 3]
+            while True:
+                try:
+                    check_request_input = float(input("Siriusware say Check Request = " +
+                                                      str(check_request_siri) +
+                                                      " How much $ for Check Request?"))
+                    if check_request_siri != check_request_input:
+                        print("Siriusware Check Request - inputed Check Request = $"
+                              + str(-check_request_siri - check_request_input))
+                        print("$" + str(-check_request_siri) + " added for Check Request.19")
+                        sheet["D41"] = check_request_input
+                    else:
+                        print("$" + str(-check_request_siri) + " added for Check Request.19")
+                        sheet["D41"] = check_request_input
+                    break
+                except ValueError:
+                    print("Check Request deposit can only include numbers")
+                    continue
+
+        elif descrip[19] == "SNOWSPORT SQUARE":
+            square_siri = df.iat[19, 3]
+            sheet["D43"] = input("How much $ for Square Gross?: ")
+            sheet["D44"] = input("How much $ for Square Fee?: ")
+            print(descrip[19] + " added.19")
+
+        elif descrip[19] == "CHECK":
+            check_siri = df.iat[19, 3]
+            while True:
+                try:
+                    check_input = float(input("Siriusware says CHECK = $" +
+                                              str(-check_siri) +
+                                              " How much $ in checks?: "))
+                    if -check_siri != check_input:
+                        print("Siriusware CHECK - inputed CHECK = $" +
+                              str(-check_siri - check_input))
+                        print("$" + str(-check_siri) + " added for Check.19")
+                        sheet["D33"] = check_input
+                    else:
+                        print("$" + str(-check_siri) + " added for Check.19")
+                        sheet["D33"] = check_input
+                    break
+                except ValueError:
+                    print("CHECK deposit can only include numbers")
+                    continue
+
+        elif descrip[19] == "40-NT CC BOARD - 42006-544":
+            nt_ccsbd_siri = df.iat[19, 3]
+            sheet["J11"] = nt_ccsbd_siri
+            print(descrip[19] + " added.19")
+
+        elif descrip[19] == "40-NT CC RENTAL - 43101-545":
+            nt_ccrental_siri = df.iat[19, 3]
+            sheet["J13"] = nt_ccrental_siri
+            print(descrip[19] + " added.19")
+
+        elif descrip[19] == "41-NT CC MEALS - 44001-716":
+            nt_ccmeals_siri = df.iat[19, 3]
+            sheet["J14"] = nt_ccmeals_siri
+            print(descrip[19] + " added.19")
+
+        elif descrip[19] == "10-NT LIFT - 40001-300":
+            nt_lift_siri = df.iat[19, 3]
+            sheet["J7"] = nt_lift_siri
+            print(descrip[19] + " added.19")
+
+        elif descrip[19] == "40-NT CC SKI - 42001-543":
+            nt_ccski_siri = df.iat[19, 3]
+            sheet["J9"] = nt_ccski_siri
+            print(descrip[19] + " added.19")
+
+        elif descrip[19] == "CASH":
+            siri_cash = df.iat[19, 3]
+            while True:
+                try:
+                    input_cash = float(
+                        input(" Siriusware says CASH = $" +
+                              str(-siri_cash) +
+                              " How much is the CASH deposit?: "))
+                    if -siri_cash != input_cash:
+                        print("Siriusware CASH - actual CASH deposit = $" +
+                                str(-siri_cash - input_cash))
+                        print("$" + str(input_cash) + " added for CASH.19")
+                        sheet["D32"] = input_cash
+                    else:
+                        print("$" + str(input_cash) + " added for CASH.19")
+                        sheet["D32"] = input_cash
+                    break
+                except ValueError:
+                    print("Cash deposit can only include numbers")
+                    continue
+
+        else:
+            print("Error.19")
+            pass
+# Row 21
+    if i == 20:
+        if descrip[20] == "60-RETAIL - 43400-620":
+            retail = df.iat[20, 3]
+            sheet["D21"] = retail
+            print(descrip[20] + " added.20")
+
+        elif descrip[20] == "50-RENTAL - 43100-600":
+            rental = df.iat[20, 3]
+            sheet["D20"] = rental
+            print(descrip[20] + " added.20")
+
+        elif descrip[20] == "10-LIFT TICKETS - 40000-300":
+            tickets = df.iat[20, 3]
+            sheet["D6"] = tickets
+            print(descrip[20] + " added.20")
+
+        elif descrip[20] == "30-SS GRP SKI - 42000-533":
+            ski = df.iat[20, 3]
+            sheet["D12"] = ski
+            print(descrip[20] + " added.20")
+
+        elif descrip[20] == "40-CHILDCARE - 42300-546":
+            childcare = df.iat[20, 3]
+            sheet["D17"] = childcare
+            print(descrip[20] + " added.20")
+
+        elif descrip[20] == "41-CC MEALS - 44000-716":
+            meals = df.iat[20, 3]
+            sheet["D18"] = meals
+            print(descrip[20] + " added.20")
+
+        elif descrip[20] == "40-CC RENTAL - 43100-545":
+            ccrental = df.iat[20, 3]
+            sheet["D15"] = ccrental
+            print(descrip[20] + " added.20")
+
+        elif descrip[20] == "40-CC SKI - 42000-543":
+            ccski = df.iat[20, 3]
+            sheet["D16"] = ccski
+            print(descrip[20] + " added.20")
+
+        elif descrip[20] == "40-CC BOARD - 42005-544":
+            ccsbd = df.iat[20, 3]
+            sheet["D14"] = ccsbd
+            print(descrip[20] + " added.20")
+
+        elif descrip[20] == "30-SS GRP BOARD - 42005-535":
+            sbd = df.iat[20, 3]
+            sheet["D11"] = sbd
+            print(descrip[20] + " added.20")
+
+        elif descrip[20] == "GRT":
+            grt = df.iat[20, 3]
+            sheet["D27"] = grt
+            print(descrip[20] + " added.20")
+
+        elif descrip[20] == "ACCOUNT PAYMENTS & CREDITS":
+            payments = df.iat[20, 3]
+            sheet["D24"] = payments
+            print(descrip[20] + " added.20")
+
+        elif descrip[20] == "ACCOUNT CHARGES":
+            charges = df.iat[20, 3]
+            sheet["D23"] = charges
+            print(descrip[20] + " added.20")
+
+        elif descrip[20] == "AMERICAN EXPRESS":
+            amx_siri = df.iat[20, 3]
+            print(descrip[20] + " added.20")
+            if amx != -amx_siri:
+                print("!!! AMX Fusebox does NOT match Siriusware !!!")
+                print("AMX is off by: $" + str(amx - -amx_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[20] == "DISCOVER":
+            di_siri = df.iat[20, 3]
+            print(descrip[20] + " added.20")
+            if discover != -di_siri:
+                print("!!! DI Fusebox does NOT match Siriusware !!!")
+                print("Discover is off by: $" + str(discover - -di_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[20] == "MASTERCARD":
+            mc_siri = df.iat[20, 3]
+            print(descrip[20] + " added.20")
+            if mastercard != -mc_siri:
+                print("!!! MC Fusebox does NOT match Siriusware !!!")
+                print("Mastercard is off by: $" + str(mastercard - -mc_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[20] == "VISA":
+            vi_siri = df.iat[20, 3]
+            print(descrip[20] + " added.20")
+            if visa != -vi_siri:
+                print("!!! VI Fusebox does NOT match Siriusware !!!")
+                print("Visa is off by: $" + str(
+                    visa - -vi_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[20] == "96-REVREC DEFER - 27175-000":
+            revrec_defer_siri = df.iat[20, 3]
+            sheet["D22"] = revrec_defer_siri
+            print(descrip[20] + " added.20")
+
+        elif descrip[20] == "CHECK REQUEST":
+            check_request_siri = df.iat[20, 3]
+            while True:
+                try:
+                    check_request_input = float(input("Siriusware say Check Request = " +
+                                                      str(check_request_siri) +
+                                                      " How much $ for Check Request?"))
+                    if check_request_siri != check_request_input:
+                        print("Siriusware Check Request - inputed Check Request = $"
+                              + str(-check_request_siri - check_request_input))
+                        print("$" + str(-check_request_siri) + " added for Check Request.20")
+                        sheet["D41"] = check_request_input
+                    else:
+                        print("$" + str(-check_request_siri) + " added for Check Request.20")
+                        sheet["D41"] = check_request_input
+                    break
+                except ValueError:
+                    print("Check Request deposit can only include numbers")
+                    continue
+
+        elif descrip[20] == "SNOWSPORT SQUARE":
+            square_siri = df.iat[20, 3]
+            sheet["D43"] = input("How much $ for Square Gross?: ")
+            sheet["D44"] = input("How much $ for Square Fee?: ")
+            print(descrip[20] + " added.20")
+
+        elif descrip[20] == "CHECK":
+            check_siri = df.iat[20, 3]
+            while True:
+                try:
+                    check_input = float(input("Siriusware says CHECK = $" +
+                                              str(-check_siri) +
+                                              " How much $ in checks?: "))
+                    if -check_siri != check_input:
+                        print("Siriusware CHECK - inputed CHECK = $" +
+                              str(-check_siri - check_input))
+                        print("$" + str(-check_siri) + " added for Check.20")
+                        sheet["D33"] = check_input
+                    else:
+                        print("$" + str(-check_siri) + " added for Check.20")
+                        sheet["D33"] = check_input
+                    break
+                except ValueError:
+                    print("CHECK deposit can only include numbers")
+                    continue
+
+        elif descrip[20] == "40-NT CC BOARD - 42006-544":
+            nt_ccsbd_siri = df.iat[20, 3]
+            sheet["J11"] = nt_ccsbd_siri
+            print(descrip[20] + " added.20")
+
+        elif descrip[20] == "40-NT CC RENTAL - 43101-545":
+            nt_ccrental_siri = df.iat[20, 3]
+            sheet["J13"] = nt_ccrental_siri
+            print(descrip[20] + " added.20")
+
+        elif descrip[20] == "41-NT CC MEALS - 44001-716":
+            nt_ccmeals_siri = df.iat[20, 3]
+            sheet["J14"] = nt_ccmeals_siri
+            print(descrip[20] + " added.20")
+
+        elif descrip[20] == "10-NT LIFT - 40001-300":
+            nt_lift_siri = df.iat[20, 3]
+            sheet["J7"] = nt_lift_siri
+            print(descrip[20] + " added.20")
+
+        elif descrip[20] == "40-NT CC SKI - 42001-543":
+            nt_ccski_siri = df.iat[20, 3]
+            sheet["J9"] = nt_ccski_siri
+            print(descrip[20] + " added.20")
+
+        elif descrip[20] == "CASH":
+            siri_cash = df.iat[20, 3]
+            while True:
+                try:
+                    input_cash = float(
+                        input(" Siriusware says CASH = $" +
+                              str(-siri_cash) +
+                              " How much is the CASH deposit?: "))
+                    if -siri_cash != input_cash:
+                        print("Siriusware CASH - actual CASH deposit = $" +
+                                str(-siri_cash - input_cash))
+                        print("$" + str(input_cash) + " added for CASH.20")
+                        sheet["D32"] = input_cash
+                    else:
+                        print("$" + str(input_cash) + " added for CASH.20")
+                        sheet["D32"] = input_cash
+                    break
+                except ValueError:
+                    print("Cash deposit can only include numbers")
+                    continue
+
+        else:
+            print("Error.20")
+            pass
+# Row 22
+    if i == 21:
+        if descrip[21] == "60-RETAIL - 43400-620":
+            retail = df.iat[21, 3]
+            sheet["D21"] = retail
+            print(descrip[21] + " added.21")
+
+        elif descrip[21] == "50-RENTAL - 43100-600":
+            rental = df.iat[21, 3]
+            sheet["D20"] = rental
+            print(descrip[21] + " added.21")
+
+        elif descrip[21] == "10-LIFT TICKETS - 40000-300":
+            tickets = df.iat[21, 3]
+            sheet["D6"] = tickets
+            print(descrip[21] + " added.21")
+
+        elif descrip[21] == "30-SS GRP SKI - 42000-533":
+            ski = df.iat[21, 3]
+            sheet["D12"] = ski
+            print(descrip[21] + " added.21")
+
+        elif descrip[21] == "40-CHILDCARE - 42300-546":
+            childcare = df.iat[21, 3]
+            sheet["D17"] = childcare
+            print(descrip[21] + " added.21")
+
+        elif descrip[21] == "41-CC MEALS - 44000-716":
+            meals = df.iat[21, 3]
+            sheet["D18"] = meals
+            print(descrip[21] + " added.21")
+
+        elif descrip[21] == "40-CC RENTAL - 43100-545":
+            ccrental = df.iat[21, 3]
+            sheet["D15"] = ccrental
+            print(descrip[21] + " added.21")
+
+        elif descrip[21] == "40-CC SKI - 42000-543":
+            ccski = df.iat[21, 3]
+            sheet["D16"] = ccski
+            print(descrip[21] + " added.21")
+
+        elif descrip[21] == "40-CC BOARD - 42005-544":
+            ccsbd = df.iat[21, 3]
+            sheet["D14"] = ccsbd
+            print(descrip[21] + " added.21")
+
+        elif descrip[21] == "30-SS GRP BOARD - 42005-535":
+            sbd = df.iat[21, 3]
+            sheet["D11"] = sbd
+            print(descrip[21] + " added.21")
+
+        elif descrip[21] == "GRT":
+            grt = df.iat[21, 3]
+            sheet["D27"] = grt
+            print(descrip[21] + " added.21")
+
+        elif descrip[21] == "ACCOUNT PAYMENTS & CREDITS":
+            payments = df.iat[21, 3]
+            sheet["D24"] = payments
+            print(descrip[21] + " added.21")
+
+        elif descrip[21] == "ACCOUNT CHARGES":
+            charges = df.iat[21, 3]
+            sheet["D23"] = charges
+            print(descrip[21] + " added.21")
+
+        elif descrip[21] == "AMERICAN EXPRESS":
+            amx_siri = df.iat[21, 3]
+            print(descrip[21] + " added.21")
+            if amx != -amx_siri:
+                print("!!! AMX Fusebox does NOT match Siriusware !!!")
+                print("AMX is off by: $" + str(amx - -amx_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[21] == "DISCOVER":
+            di_siri = df.iat[21, 3]
+            print(descrip[21] + " added.21")
+            if discover != -di_siri:
+                print("!!! DI Fusebox does NOT match Siriusware !!!")
+                print("Discover is off by: $" + str(discover - -di_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[21] == "MASTERCARD":
+            mc_siri = df.iat[21, 3]
+            print(descrip[21] + " added.21")
+            if mastercard != -mc_siri:
+                print("!!! MC Fusebox does NOT match Siriusware !!!")
+                print("Mastercard is off by: $" + str(mastercard - -mc_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[21] == "VISA":
+            vi_siri = df.iat[21, 3]
+            print(descrip[21] + " added.21")
+            if visa != -vi_siri:
+                print("!!! VI Fusebox does NOT match Siriusware !!!")
+                print("Visa is off by: $" + str(
+                    visa - -vi_siri))
+                input("Enter any key to continue:")
+
+        elif descrip[21] == "96-REVREC DEFER - 27175-000":
+            revrec_defer_siri = df.iat[21, 3]
+            sheet["D22"] = revrec_defer_siri
+            print(descrip[21] + " added.21")
+
+        elif descrip[21] == "CHECK REQUEST":
+            check_request_siri = df.iat[21, 3]
+            while True:
+                try:
+                    check_request_input = float(input("Siriusware say Check Request = " +
+                                                      str(-check_request_siri) +
+                                                      " How much $ for Check Request?"))
+                    if -check_request_siri != check_request_input:
+                        print("Siriusware Check Request - inputed Check Request = $"
+                              + str(-check_request_siri - check_request_input))
+                        print("$" + str(check_request_input) + " added for Check Request.21")
+                        sheet["D41"] = check_request_input
+                    else:
+                        print("$" + str(check_request_input) + " added for Check Request.21")
+                        sheet["D41"] = check_request_input
+                    break
+                except ValueError:
+                    print("Check Request deposit can only include numbers")
+                    continue
+
+        elif descrip[21] == "SNOWSPORT SQUARE":
+            square_siri = df.iat[21, 3]
+            sheet["D43"] = input("How much $ for Square Gross?: ")
+            sheet["D44"] = input("How much $ for Square Fee?: ")
+            print(descrip[21] + " added.21")
+
+        elif descrip[21] == "CHECK":
+            check_siri = df.iat[21, 3]
+            while True:
+                try:
+                    check_input = float(input("Siriusware says CHECK = $" +
+                                              str(-check_siri) +
+                                              " How much $ in checks?: "))
+                    if -check_siri != check_input:
+                        print("Siriusware CHECK - inputed CHECK = $" +
+                              str(-check_siri - check_input))
+                        print("$" + str(-check_siri) + " added for Check.21")
+                        sheet["D33"] = check_input
+                    else:
+                        print("$" + str(-check_siri) + " added for Check.21")
+                        sheet["D33"] = check_input
+                    break
+                except ValueError:
+                    print("CHECK deposit can only include numbers")
+                    continue
+
+        elif descrip[21] == "40-NT CC BOARD - 42006-544":
+            nt_ccsbd_siri = df.iat[21, 3]
+            sheet["J11"] = nt_ccsbd_siri
+            print(descrip[21] + " added.21")
+
+        elif descrip[21] == "40-NT CC RENTAL - 43101-545":
+            nt_ccrental_siri = df.iat[21, 3]
+            sheet["J13"] = nt_ccrental_siri
+            print(descrip[21] + " added.21")
+
+        elif descrip[21] == "41-NT CC MEALS - 44001-716":
+            nt_ccmeals_siri = df.iat[21, 3]
+            sheet["J14"] = nt_ccmeals_siri
+            print(descrip[21] + " added.21")
+
+        elif descrip[21] == "10-NT LIFT - 40001-300":
+            nt_lift_siri = df.iat[21, 3]
+            sheet["J7"] = nt_lift_siri
+            print(descrip[21] + " added.21")
+
+        elif descrip[21] == "40-NT CC SKI - 42001-543":
+            nt_ccski_siri = df.iat[21, 3]
+            sheet["J9"] = nt_ccski_siri
+            print(descrip[21] + " added.21")
+
+        elif descrip[21] == "CASH":
+            siri_cash = df.iat[21, 3]
+            while True:
+                try:
+                    input_cash = float(
+                        input(" Siriusware says CASH = $" +
+                              str(-siri_cash) +
+                              " How much is the CASH deposit?: "))
+                    if -siri_cash != input_cash:
+                        print("Siriusware CASH - actual CASH deposit = $" +
+                                str(-siri_cash - input_cash))
+                        print("$" + str(input_cash) + " added for CASH.21")
+                        sheet["D32"] = input_cash
+                    else:
+                        print("$" + str(input_cash) + " added for CASH.21")
+                        sheet["D32"] = input_cash
+                    break
+                except ValueError:
+                    print("Cash deposit can only include numbers")
+                    continue
+
+        else:
+            print("Error.21")
+            pass
+# Next Row?
+print("\n")
+
+sheet["I3"] = today
+sheet["C3"] = input("Enter your name: ")
+
+print("\n")
+
+print("Finished")
+
+wb.save(filename="/Users/DCB/Google Drive/Python/" + str(today) + "TestCVS CHS Blank.xlsx")
+print("File Saved")
